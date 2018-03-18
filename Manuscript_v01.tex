@@ -1,0 +1,954 @@
+
+%% bare_jrnl.tex
+%% V1.4b
+%% 2015/08/26
+%% by Michael Shell
+%% see http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.8b or later) with an IEEE
+%% journal paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/pkg/ieeetran
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall the IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%*************************************************************************
+
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. The IEEE's font choices and paper sizes can   ***
+% *** trigger bugs that do not appear when using other class files.       ***                          ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
+\documentclass[journal]{IEEEtran}
+
+%\input{packages}
+%\input{definitions}
+
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[journal]{../sty/IEEEtran}
+
+
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/pkg/ifpdf
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of the IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off
+% such as if a citation ever needs to be enclosed in parenthesis.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 5.0 (2009-03-20) and later if using hyperref.sty.
+% The latest version can be obtained at:
+% http://www.ctan.org/pkg/cite
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+   \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+   \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+   \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+   \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+   \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+   \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation
+% can be obtained at: 
+% http://www.ctan.org/pkg/graphicx
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found at:
+% http://www.ctan.org/pkg/epslatex
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+\usepackage{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics.
+%
+% Note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/amsmath
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/pkg/algorithms
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/pkg/algorithmicx
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/array
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\ifCLASSOPTIONcompsoc
+%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+%\else
+%  \usepackage[caption=false,font=footnotesize]{subfig}
+%\fi
+% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
+% for subfigure.sty, the latter of which is no longer maintained and is
+% incompatible with some LaTeX packages including fixltx2e. However,
+% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
+% which will override IEEEtran.cls' handling of captions and this will result
+% in non-IEEE style figure/table captions. To prevent this problem, be sure
+% and invoke subfig.sty's "caption=false" package option (available since
+% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
+% handling of captions.
+% Note that the Computer Society format requires a larger sans serif font
+% than the serif footnote size font used in traditional IEEE formatting
+% and thus the need to invoke different subfig.sty package options depending
+% on whether compsoc mode has been enabled.
+%
+% The latest version and documentation of subfig.sty can be obtained at:
+% http://www.ctan.org/pkg/subfig
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure.
+% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
+% corrections already built into the system in which case a warning will
+% be issued if an attempt is made to load fixltx2e.sty as it is no longer
+% needed.
+% The latest version and documentation can be found at:
+% http://www.ctan.org/pkg/fixltx2e
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/stfloats
+% Do not use the stfloats baselinefloat ability as the IEEE does not allow
+% \baselineskip to stretch. Authors submitting work to the IEEE should note
+% that the IEEE rarely uses double column equations and that authors should try
+% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
+% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
+% such ways.
+% Do not attempt to use stfloats with fixltx2e as they are incompatible.
+% Instead, use Morten Hogholm'a dblfloatfix which combines the features
+% of both fixltx2e and stfloats:
+%
+% \usepackage{dblfloatfix}
+% The latest version can be found at:
+% http://www.ctan.org/pkg/dblfloatfix
+
+
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley, Jeff Goldberg and 
+% Axel Sommerfeldt. This package may be useful when used in conjunction with 
+% IEEEtran.cls'  captionsoff option. Some IEEE journals/societies require that
+% submissions have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.4.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/pkg/endfloat
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a 
+% page by themselves.
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/url
+% Basically, \url{my_url_here}.
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+% Zelf toegevoegd
+%\usepackage{lscape} %tabellen plat zetten
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{amsmath,amssymb}
+
+
+\usepackage{tikz} %%% 
+\usepackage{circuitikz} %%%
+\usepackage{pgfplots}
+
+\usepackage{siunitx}
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[finalnew]{trackchanges} 
+\addeditor{Franco}
+\addeditor{Mauro}
+
+% finalold 		Ignore all of the edits.  The document will look as if the edits had not been added.
+% finalnew 	Accept all of the edits. Notes will not be shown in the final output.
+% footnotes 	Added text will be shown inline. Removed text and notes will be shown as footnotes. This is the default option.
+% margins 	Added text will be shown inline. Removed text and notes will be shown in the margin. Margin notes will be aligned with the edits when possible.
+% inline 		All changes and notes will be shown inline.
+
+%  \note[editor]{The note} 
+% \annote[editor]{Text to annotate}{The note} 
+%  \add[editor]{Text to add} 
+% \remove[editor]{Text to remove} 
+% \change[editor]{Text to remove}{Text to add}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}	
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}	
+
+
+\begin{document}
+%
+% paper title
+% Titles are generally capitalized except for words such as a, an, and, as,
+% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+% not capitalized unless they are the first or last word of the title.
+% Linebreaks \\ can be used within to get better formatting as desired.
+% Do not put math or special symbols in the title.
+\title{Sensitivity Analysis of \\  Inductive Wireless Power Transfer Links\\ Using the Bilinear Theorem}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+	
+\author{
+%Ben~Minnaert,~\IEEEmembership{Member,~IEEE,}
+        Franco~Mastri,
+%        Nobby~Stevens,~\IEEEmembership{Member,~IEEE,}\\
+%        Alessandra~Costanzo,~\IEEEmembership{Senior~Member,~IEEE}
+        Mauro~Mongiardo,~\IEEEmembership{Fellow,~IEEE},
+        and~Giuseppina~Monti,~\IEEEmembership{Member,~IEEE},
+        % <-this % stops a space
+%\thanks{B.~Minnaert and N.~Stevens are with the KU Leuven, DRAMCO, Department of Electrical Engineering (ESAT), Technology Campus Ghent, 9000 Ghent, Belgium (e-mail: ben.minnaert@kuleuven.be; nobby.stevens@kuleuven.be).}% <-this % stops a space
+\thanks{ F. Mastri is with the Department of Electrical, Electronic and Information Engineering Guglielmo Marconi, University of Bologna, 40136 Bologna, Italy (e-mail: 
+%alessandra.costanzo@unibo.it; 
+franco.mastri@unibo.it).}
+\thanks{M. Mongiardo is with the Department of \remove[Mauro]{Electronic and Information}Engineering, University of Perugia, 06123 Perugia, Italy (e-mail: mauro.mongiardo@unipg.it).}
+% <-this % stops a space
+\thanks{Manuscript received XX-XX 2018.}}
+
+% note the % following the last \IEEEmembership and also \thanks - 
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+% 
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+%\markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2015}%
+%{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for IEEE Journals}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2015 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract or keywords.
+\begin{abstract}
+
+\end{abstract}
+
+% Note that keywords are not normally used for peerreview papers.
+\begin{IEEEkeywords}
+inductive wireless power transfer, coupling factor, resonance, network sensitivity, bilinear theorem.
+\end{IEEEkeywords}
+
+
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+\section{Introduction}
+
+
+
+\section{Effect of components' variations}
+The considered network function is denoted by $H$ and it is assumed that it is a transfer function in terms of voltages or currents or immittances. The component value which is subject to variations is denoted by $F$. 
+The sensitivity is defined as:
+%
+\begin{equation}
+S_{F}^H = \frac
+{\frac{\partial H}{H}}
+{\frac{\partial F}{F}}
+= \frac{\partial \ln{H}}{\partial \ln{F}} \, .
+\label{sensitivity_def}
+\end{equation}
+
+%
+Alternatively, from (\ref{sensitivity_def}), the variation of the network function with respect to a variation of a component  can be obtained as
+%
+\begin{equation}
+\frac{\partial {H}}{\partial {F}} 
+= 
+S_{F}^H \,
+\frac{H}{F} \, .
+\label{VIII.1.2}
+\end{equation}
+%
+In general, for each change in the component value $F$, a new evaluation of the network function is required, i.e. one has to perform a new analysis of the network.
+However, by applying the bilinear theorem, it is possible to evaluate the network function $H$ without making any further analysis.
+
+\subsection{The bilinear theorem}
+The bilinear theorem is reported in the following, while its demonstration is provided in the appendix.
+Any network function $H$ of a linear and permanent network can be expressed, in terms of the impedance of one of its bipolar component, by the following bilinear expression
+%
+\begin{equation}
+H = \frac{Z_{th} \, H_0 + Z \, H_{\infty}}{Z_{th}+Z} \, ,
+\label{VIII.1.3}
+\end{equation}
+%
+where
+\begin{itemize}
+\item $Z$ is the impedance of the $F$ component;
+\item $Z_{th}$ is the Thevenin impedance at the ends of the component of interest;
+\item $H_0$ is the network function evaluated when the component is short--circuited (i.e. when $Z=0$);
+\item $H_\infty$ is the network function evaluated when the component is left open circuited (i.e. when $Z=\infty$).
+\end{itemize}
+
+The application of the bilinear theorem provides a simple method for evaluating the sensitivity. By deriving (\ref{VIII.1.3}) and using (\ref{VIII.1.2}), we obtain for the sensitivity:
+%
+\begin{equation}
+S_{F}^H = 
+\frac{Z\,Z_{th}}{\left( Z_{th}+Z\right) }\, 
+\frac{\left( H_{\infty}-H_0\right) }{\left( H_0\,Z_{th}+H_{\infty}\,Z\right) } \, .
+% \frac{\left( H_{\infty}-H_0\right) \,Z\,Z_{th}}{\left( Z_{th}+Z\right) \,\left( H_0\,Z_{th}+H_{\infty}\,Z\right) }
+\label{VIII.1.11}
+\end{equation}
+%
+Alternatively, explicit evaluation of (\ref{VIII.1.2}) provides
+%
+\begin{equation}
+\frac{\partial {H}}{\partial {Z}} 
+= 
+\frac{\left( H_{\infty}-H_0\right) \,Z_{th}}{{\left( Z_{th}+Z\right) }^{2}}
+\label{dHdZ}
+\end{equation}
+%
+In order to apply the bilinear to an inductive wireless power transfer network we consider next the case of a ladder network.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FIGURA 1
+\begin{figure}
+\centering
+\ctikzset {bipoles/length =0.7 cm}
+\ctikzset{resistor = european}
+\begin{circuitikz}  [scale =0.4]
+
+\draw (-4,-1) to [V=$V_{g}$ ] (-4,1) -- (-2,1) to[R=$Z_1$ ] (0,1) -- (1,1) to   [R, l_=$Z_2$ ] (1,-1) -- (-4,-1) 
+;
+\draw (1,1) -- (2,1) to  [R=$Z_3$ ]  (4,1) -- (5,1) to   [R, l_=$Z_4$ ] (5,-1)
+%to [R=$r_{2}$ ] (8,3) to  [C=$C_2$ ] (10,3)--(12,3)  to  [generic=$Z_{L2}$ ] (12,1) -- (6,1)
+;
+
+\draw [dashed] (5,1)--(8,1)  ;
+\draw (8,1) to  [R=$Z_{2N+1}$ ]  (10,1)  --(11,1 )to   [R, l_=$Z_L$ ] (11,-1) -- (1,-1)
+;
+
+\draw [->] (11.75,-1)-- (11.75,1) node[right] {$V_{L}$};
+%\draw (6,1) to  [L, l_=$L_2$ ]  (6,3) to [R=$r_{2}$ ] (8,3) to  [C=$C_2$ ] (10,3)--(12,3)  to  [generic=$Z_{L2}$ ] (12,1) -- (6,1)
+%;
+%\draw (6,-3) to  [L, l_=$L_3$ ]  (6,-1) to [R=$r_{3}$ ] (8,-1) to  [C=$C_3$ ] (10,-1)--(12,-1) to   [generic=$Z_{L3}$ ] (12,-3) -- (6,-3)
+%;
+%\draw[<->] plot [smooth,tension=0.6] coordinates{(2.5,0.1) (4,1.7) (5.5,2.1)};
+% \draw (3.8,1.7) node[above] {$k_{12}$}	 ;
+%
+%\draw[<->] plot [smooth,tension=0.6] coordinates{(2.5,-0.1) (4,-1.7) (5.5,-2.1)};
+% \draw (3.8,-1.5) node[below] {$k_{13}$}	 ;
+%
+%\draw[<->] plot [smooth,tension=0.6] coordinates{(5.5,1.9) (4.9,0) (5.5,-1.9)};
+% \draw (4.2,0) node {$k_{23}$}	 ;
+
+ \draw [->](-4,1)--(-3,1) node[above] {$I_{1}$}	 ;
+ %\draw [<-](10.5,3)--(11.0,3) node[above] {$I_{2}$}	 ;
+% \draw [<-](10.5,-1)--(11.0,-1) node[above] {$I_{3}$}	 ;
+
+%\draw [dashed] (-2,-4)--(-2,5)--(10.,5)--(10.,-4)--(-2,-4)  ;
+\end{circuitikz}
+%
+\caption{General ladder network.}
+\label{Ladder network}
+\end{figure}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\section{Sensitivity analysis for a ladder network}
+The case of a ladder network occurs frequently in inductive power transfer. It is therefore advantageous to consider an example of application for this case.
+Let us consider, with reference to Fig. \ref{Ladder network}, as network function $H=V_L / V_g$.
+It is possible to analyze two different cases, corresponding to $Z_i$ being a series ($i=2k+1$) or a shunt ($i=2k$) component.
+\subsection{Series component sensitivity}
+It is noted that in this case when an element impedance is an open circuit we have $V_L=0$  and therefore $H_\infty=0$. Accordingly, from (\ref{VIII.1.11}), we get
+%
+\begin{equation}
+S^H_{Z_{2k+1}} = - \frac{Z_{2k+1}}{Z_{2k+1}+Z_{th}}\, .
+\label{series_sensitivity}
+\end{equation}
+
+\subsection{Shunt component sensitivity}
+In this case when we consider a short circuit ($Z=0$), we have that $H_0=0$ and therefore the sensitivity becomes
+\begin{equation}
+S^H_{Z_{2k}} =  \frac{Z_{th}}{Z_{2k}+Z_{th}}\, .
+\label{shunt_sensitivity}
+\end{equation}
+
+We are now in a position to specialize the theory to a simple inductive wireless power transfer link.
+
+\subsection{Series--series mutually coupled inductors}
+A series--series mutually coupled inductors is related to the ladder network by
+%
+\begin{eqnarray}
+Z_1  & = & j\omega (L_1-M) + \frac{1}{j \omega C_1} + R_1 \nonumber \\
+Z_2  & = & j\omega M \nonumber \\
+Z_3  & = & j\omega (L_2-M) + \frac{1}{j \omega C_2} + R_2 \nonumber \\
+Z_4  & = & Z_L \, .
+\end{eqnarray}
+%
+\subsubsection{Analytical development}
+In this simple case the sensitivities can also be obtained directly by circuit analysis and by taking the derivatives. Naturally, the results coincide with the proposed approach. By solving the relevant equations the voltage gain is obtained as:
+\bea
+H & = & \frac{V_L}{V_g} =
+\frac{{Z}_{2}\,{Z}_{4}}{{Z}_{2}\,{Z}_{4}+{Z}_{1}\,{Z}_{4}+{Z}_{2}\,{Z}_{3}+{Z}_{1}\,{Z}_{3}+{Z}_{1}\,{Z}_{2}} \nonumber \\
+& = & 
+\frac{{Z}_{2}\,{Z}_{4}}{\Delta}
+%\,.
+\label{voltage_gain}
+\eea
+%
+where use has been made of the quantity $\Delta$ which is the denominator of the voltage gain appearing in (\ref{voltage_gain})
+%
+\bea
+\Delta & = & {{Z}_{2}\,{Z}_{4}+{Z}_{1}\,{Z}_{4}+{Z}_{2}\,{Z}_{3}+{Z}_{1}\,{Z}_{3}+{Z}_{1}\,{Z}_{2}} \nonumber \\
+ & = & \left(Z_1+Z_2\right) \left(Z_3 + Z_4 + \frac{Z_1 Z_2}{Z_1+Z_2}  \right)\, .
+\eea
+%
+Evaluation of the derivatives gives
+%
+\bea
+\frac{\partial H}{\partial Z_1}  & = &
+-\frac{{Z}_{2}\,{Z}_{4}\,\left( {Z}_{4}+{Z}_{3}+{Z}_{2}\right) }{\Delta^{2}}
+ \nonumber \\
+ \frac{\partial H}{\partial Z_3}  & = &
+-\frac{{Z}_{2}\,{Z}_{4}\,\left( {Z}_{2}+{Z}_{1}\right) }{\Delta^{2}}
+\eea
+%
+By using (\ref{VIII.1.2}) the sensitivities can be recovered.
+
+\subsubsection{Application of the bilinear theorem}
+In this case we can use directly equations (\ref{series_sensitivity}) and (\ref{shunt_sensitivity}) without the need to perform the derivatives.
+In particular, for the series elements we have:
+%
+\begin{eqnarray}
+S_{Z_1}^H  & = & 
+-\frac{{Z}_{1}\,\left( {Z}_{4}+{Z}_{3}+{Z}_{2}\right) }{\Delta}
+\nonumber \\
+S_{Z_3}^H  & = & 
+\frac{\left( {Z}_{2}+{Z}_{1}\right) \,{Z}_{3}}{\Delta}
+\end{eqnarray}
+%
+which shows a different dependence of the sensitivities.
+
+It is noted that with the bilinear theorem it is not possible to evaluate the sensitivity w.r.t. to the coupling $M$, since it appears in $Z_1,Z_2, Z_3$.
+
+By applying the equation for the shunt case it is instead possible to evaluate the sensitivity with respect a variation of the load as
+%
+\begin{equation}
+S^H_{Z_{4}} =  
+\frac{{Z}_{2}\,{Z}_{3}+{Z}_{1}\,{Z}_{3}+{Z}_{1}\,{Z}_{2}}{\Delta}
+\end{equation}
+
+\section{Conclusion}
+
+
+% if have a single appendix:
+\section{Appendix: Relation between the response of a linear circuit and the impedance of one of its branches}
+Let us consider a linear circuit driven by an arbitrary set of voltage and current generators. The voltages and currents imposed by these generators will be referred as the \emph{circuit inputs}.
+
+Let us also assume that we are interested in a particular voltage or current in the circuit, which will be denoted by $x$ and will be referred as the \emph{circuit response}.
+
+Finally, let us consider an arbitrary chosen bipole of impedance $Z$ contained in the circuit.
+
+We want to determine the relation between $x$ and $Z$.
+
+To this end, we first determine the parameters $V_{th}$ and $Z_{th}$ of the Th\'evenin equivalent circuit of the bipole obtained by eliminating  the impedance $Z$ (i.e. by replacing $Z$ by an open circuit). Making use of this equivalent circuit, the voltage $V$ at the terminals of the impedance $Z$ can be expressed as
+\begin{equation}
+V = V_{th}\frac{Z}{Z_{th}+Z}
+\label{eq:VZ}
+\end{equation}
+
+According to the substitution theorem, $x$ does not change if the bipole $Z$ is replaced by a voltage generator $V$.
+Since the circuit obtained in this way is linear, by applying the superposition principle, we can express its response as the sum of two contributions
+\begin{equation}
+x = x_{0} + cV = x_{0} + c V_{th}\frac{Z}{Z_{th}+Z}
+\label{eq:x1}
+\end{equation}
+where $x_{0}$ is the response for $V = 0$, i.e. the response due to the circuit inputs when $Z$ is replaced by a short circuit, and the second addend is the response due to the generator $V$ when the circuit inputs are set to zero. In this term $c$ is a proportionality constant depending on the circuit characteristics.
+
+In order to determine this constant, we can consider the particular case when $Z$ tends to infinite (i.e. when $Z$ is replaced by an open circuit) and consequently $V$ tends to $V_{th}$. If we denote by $x_{\infty}$ the circuit response in this condition, from (\ref{eq:x1}) we get
+\begin{equation}
+x_{\infty} = x_{0} + c V_{th}
+\label{eq:xinf}
+\end{equation}
+and, consequenty
+\begin{equation}
+c = \frac{x_{\infty}-x_{0}}{V_{th}}
+\label{eq:c}
+\end{equation}
+Finally, by replacing (\ref{eq:c}) into (\ref{eq:x1}) we obtain
+\begin{equation}
+x = \frac{Z_{th}x_{0}+Zx_{\infty}}{Z_{th}+Z}
+\label{eq:x2}
+\end{equation}
+
+Let us now consider the special case of a circuit with a single input, i.e. with a single generator, whose voltage or current will be denoted by $u$.
+If we denote by $H(Z)$ the network function
+\begin{equation}
+H(Z) = \frac{x}{u}
+\label{eq:Hdef}
+\end{equation} 
+from (\ref{eq:x2}) we get
+\begin{equation}
+H(Z) = \frac{Z_{th}H(0)+ZH(\infty)}{Z_{th}+Z}
+\label{eq:H}
+\end{equation}
+which corresponds to equation VIII.1.3 of Martinelli-Salerno.
+In particular, for $Z = Z_{th}$ (\ref{eq:H}) yields
+\begin{equation}
+H(Z_{th}) = \frac{H(0)+H(\infty)}{2}
+\end{equation}
+
+As an alternative, this relation can be obtained by noting that for $Z = Z_{th}$ equation (\ref{eq:x1}) provides
+\begin{equation}
+x_{th} = x_{0}+c\frac{V_{th}}{2}
+\label{eq:xth}
+\end{equation}
+which, taking (\ref{eq:xinf}) into account, can be rewritten as
+\begin{equation}
+x_{th} = \frac{x_{0}+x_{\infty}}{2}
+\end{equation}
+
+
+% or
+%\appendix  % for no appendix heading
+% do not use \section anymore after \appendix, only \section*
+% is possibly needed
+
+% use appendices with more than one appendix
+% then use \section to start each appendix
+% you must declare a \section before using any
+% \subsection or using \label (\appendices by itself
+% starts a section numbered zero.)
+%
+
+
+%\appendices
+%\section{Proof of the First Zonklar Equation}
+%Appendix one text goes here.
+
+% you can choose not to have a title for an appendix
+% if you want by leaving the argument blank
+%\section{}
+%Appendix two text goes here.
+
+
+% use section* for acknowledgment
+%\section*{Acknowledgment}
+
+
+
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+\ifCLASSOPTIONcaptionsoff
+\newpage
+\fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,mybibfile}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+% Generated by IEEEtran.bst, version: 1.13 (2008/09/30)
+
+\begin{thebibliography}{1}
+
+
+\bibitem{Lu-wireless}
+Lu, X., Wang, P., Niyato, D., Kim, D.I. and Han, Z., 2016. Wireless charging technologies: Fundamentals, standards, and network applications. IEEE Communications Surveys \& Tutorials, 18(2), pp.1413-1452.
+
+\bibitem{Jawad-Review}
+Jawad AM, Nordin R, Gharghan SK, Jawad HM, Ismail M. Opportunities and Challenges for Near-Field Wireless Power Transfer: A Review. Energies. 2017; 10(7):1022.
+
+\bibitem{Barman}	
+Barman, S.D., Reza, A.W., Kumar, N., Karim, M.E. and Munir, A.B., 2015. Wireless powering by magnetic resonant coupling: Recent trends in wireless power transfer system and its applications. Renewable and Sustainable Energy Reviews, 51, pp.1525-1552.
+
+\bibitem{Xue-High}
+Xue, R.F., Cheng, K.W. and Je, M., 2013. High-efficiency wireless power transfer for biomedical implants by optimal resonant load transformation. IEEE Transactions on Circuits and Systems I: Regular Papers, 60(4), pp.867-874.
+
+\bibitem{Lu-Review}
+Lu F, Zhang H, Mi C. A Review on the Recent Development of Capacitive Wireless Power Transfer Technology. Energies. 2017; 10(11):1752.
+
+\bibitem{Minnaert-conjugate}
+Minnaert, B. and Stevens, N., 2017. Conjugate Image Theory Applied on Capacitive Wireless Power Transfer. Energies, 10(1), p.46.
+
+\bibitem{Liu-Modelling}
+Liu, C., Hu, A.P. and Nair, N.K., 2011. Modelling and analysis of a capacitively coupled contactless power transfer system. IET power electronics, 4(7), pp.808-815.	
+
+%\bibitem{Dionigi-Rigorous}
+%Dionigi, M.; Mongiardo, M; Perfetti, R. Rigorous network and full-wave electromagnetic modeling of wireless power transfer links. IEEE Trans. Microw. Theory Tech. 2015, 63, pp.65–75.
+
+\bibitem{Minnaert-Single}
+Minnaert B., Stevens N. (2016). Single variable expressions for the efficiency of a reciprocal power transfer system. International Journal of Circuit Theory and Applications, 45, pp.1418-1430.
+
+
+\bibitem{Halpern-Optimal}
+Halpern, M.E. and Ng, D.C., 2015. Optimal tuning of inductive wireless power links: Limits of performance. IEEE Transactions on Circuits and Systems I: Regular Papers, 62(3), pp.725-732.
+
+\bibitem{Costanzo-BasicCell}
+Costanzo, A., Dionigi, M., Mastri, F., Mongiardo, M., Monti, G., Russer, J.A. and Russer, P., 2016, May. The basic cell operating regimes for wireless power transfer of electric vehicles. In Wireless Power Transfer Conference (WPTC), pp. 1-4.
+
+%\bibitem{DeAngelis-Resonant}
+%De Angelis, A., Dionigi, M., Carbone, P., Mongiardo, M., Wang, Q., Che, W., Mastri, F. and Monti, G., 2017, May. Resonant inductive wireless power transfer links operating in a coupling-independent regime: Theory and experiments. In IEEE International Instrumentation and Measurement Technology Conference (I2MTC), pp. 1-6.
+
+\bibitem{Mastri-coupling-independent}	
+Mastri, F., Costanzo, A. and Mongiardo, M., 2016. Coupling-independent wireless power transfer. IEEE Microwave and Wireless Components Letters, 26(3), pp.222-224.
+
+\bibitem{Costanzo-conditions}		
+Costanzo, A., Dionigi, M., Mastri, F., Mongiardo, M., Monti, G., Russer, J.A., Russer, P. and Tarricone, L., 2017. Conditions for a Load-Independent Operating Regime in Resonant Inductive WPT. IEEE Transactions on Microwave Theory and Techniques, 65(4), pp.1066-1076.
+
+\bibitem{Zhang-analysis}
+Zhang, W., Wong, S.C., Chi, K.T. and Chen, Q., 2014. Analysis and comparison of secondary series-and parallel-compensated inductive power transfer systems operating for optimal efficiency and load-independent voltage-transfer ratio. IEEE Transactions on Power Electronics, 29(6), pp.2979-2990.
+
+\bibitem{Huang}
+Huang, L., Hu, A.P., 2015. Defining the mutual coupling of capacitive power transfer for wireless power transfer. Electronics Letters, 51(22), pp.1806-1807.
+
+\bibitem{Mastri-gain}
+Mastri, F., Mongiardo, M., Monti, G., Dionigi, M. and Tarricone, L., 2017. Gain expressions for resonant inductive wireless power transfer links with one relay element. Wireless Power Transfer, pp.1-15.
+
+%\bibitem{Mastri-invariants}
+%Mastri, F., Mongiardo, M., Monti, G. and Tarricone, L., 2017, September. Characterization of wireless power transfer links by network invariants. In IEEE International Conference on Electromagnetics in Advanced Applications (ICEAA), pp. 590-593.
+
+\bibitem{Kiani}	
+Kiani, M., Jow, U.M. and Ghovanloo, M., 2011. Design and optimization of a 3-coil inductive link for efficient wireless power transmission. IEEE transactions on biomedical circuits and systems, 5(6), pp.579-591.	
+
+\bibitem{Montgomery}
+Montgomery, C.G.; Dicke, R.H.; Purcell, E.M. Principles of Microwave Circuits; McGraw-Hill Book Company: New York, NY, USA, 1948.
+
+
+
+\end{thebibliography}
+
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+%\begin{IEEEbiography}{Michael Shell}
+%Biography text here.
+%\end{IEEEbiography}
+
+% if you will not have a photo at all:
+%\begin{IEEEbiographynophoto}{John Doe}
+%Biography text here.
+%\end{IEEEbiographynophoto}
+
+% insert where needed to balance the two columns on the last page with
+% biographies
+%\newpage
+
+%\begin{IEEEbiographynophoto}{Jane Doe}
+%Biography text here.
+%\end{IEEEbiographynophoto}
+
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+%\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+
+
+
+% that's all folks
+\end{document}
+
+
