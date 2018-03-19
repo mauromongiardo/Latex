@@ -1,0 +1,66 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+fpprintprec :4$
+
+/* express the position of a charge */
+
+%mu : 4.0 * float(%pi) * 10^(-7)$
+print('%mu," = ",%mu)$
+
+clight : 299792458.0 $ /* m/s */
+print('clight," = ",clight)$
+
+%epsilon[0] : 1 / (%mu * clight^2)$
+print('%epsilon[0]," = ",%epsilon[0])$
+
+print("fact")$
+fact : 1.0 / ( 4 * float(%pi) * %epsilon[0]);
+
+print("Charge positions")$
+P[1] : matrix([0.0,0.0,0.0]);
+P[2] : matrix([3.0,1.0,4.0]);
+
+print("charges values")$
+q[1] : 3.0 * 10^(-6);
+q[2] : 1.0 * 10^(-6);
+
+print("observation point")$
+P[0] : matrix([1,1,1]);
+
+print("distances")$
+R[1] : sqrt((P[1][1,1] - P[0][1,1])^2 + (P[1][1,2] - P[0][1,2])^2 + (P[1][1,3] - P[0][1,3])^2);
+
+R[2] : sqrt((P[2][1,1] - P[0][1,1])^2 + (P[2][1,2] - P[0][1,2])^2 + (P[2][1,3] - P[0][1,3])^2);
+
+print("Electric fields")$
+E[1] : q[1]/R[1]^2 * fact;
+E[2] : q[2]/R[2]^2 * fact;
+
+
+print("versor 1")$
+Rc0[1] : P[1] - P[0];
+absRc[1] : sqrt(Rc0[1][1,1]^2 + Rc0[1][1,2]^2 + Rc0[1][1,3]^2);
+versorRc[1] : Rc0[1] / absRc[1];
+print("Electric field vector 1")$
+Evect[1] : E[1] * versorRc[1] ;
+
+/*
+print("versor 2")$
+Rc0[2] : P[2] - P[0];
+absRc[2] : sqrt(Rc0[2][1,1]^2 + Rc0[2][1,2]^2 + Rc0[2][1,3]^2);
+versorRc[2] : Rc0[2] / absRc[2];
+
+print("Electric field vector 2")$
+Evect[2] : E[2] * versorRc[2] ;
+
+print("Total Electric field vector")$
+Etot : Evect[1]+Evect[2];
+/* */
+print("Bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

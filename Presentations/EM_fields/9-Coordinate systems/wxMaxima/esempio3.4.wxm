@@ -1,0 +1,23 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+
+/* example 3.4 */
+print("________________________________")$
+
+print("________________________________")$
+fpprintprec : 6$
+r : 5.0; 
+int1 : integrate(1, x, %pi/6, %pi/3);
+int2 : integrate(1, x, 0, 3);
+int : r * int1*int2;
+
+print("aerea  ",int)$
+print("ovvero",float(int))$
+
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

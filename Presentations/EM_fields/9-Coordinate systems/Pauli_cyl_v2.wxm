@@ -1,0 +1,180 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+/* Pauli_cyl_v2 */
+print("_________________________________________________________")$
+print("Pauli Matrices Definition")$
+print("_________________________________________________________")$
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+print('%sigma[0]," = ",%sigma[0])$
+print('%sigma[1]," = ",%sigma[1])$
+print('%sigma[2]," = ",%sigma[2])$
+print('%sigma[3]," = ",%sigma[3])$
+
+print("_________________________________________________________")$
+print("Obtaining Pauli matrices in cylindrical coordinates")$
+print("_________________________________________________________")$
+print("Representation of the unit vector rho as")$
+print(cos(phi)* '%sigma[1] + sin(phi)* '%sigma[2])$
+rho : cos(phi)* %sigma[1] + sin(phi)* %sigma[2]$
+rho : ratsimp(exponentialize(rho));
+
+print("Representation of the unit vector \phi as")$
+print(- sin(phi)* '%sigma[1] + cos(phi)* '%sigma[2])$
+uphi : - sin(phi)* %sigma[1] + cos(phi)* %sigma[2]$
+uphi : ratsimp(exponentialize(uphi));
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition Cylindrical")$
+print("_________________________________________________________")$
+
+%sigma[%rho] : matrix([0,%e^(-%i * phi)],[%e^(%i * phi),0])$
+%sigma[phi] : matrix([0,-%i * %e^(-%i * phi)],[%i * %e^(%i * phi),0])$
+%sigma[z] : matrix([1,0],[0,-1])$
+
+print('%sigma[%rho]," = ",%sigma[%rho])$
+print('%sigma[phi]," = ",%sigma[phi])$
+print('%sigma[z]," = ",%sigma[z])$
+
+print("Squared matrices")$
+%sigma[%rho] . %sigma[%rho];
+%sigma[phi] . %sigma[phi];
+%sigma[z] . %sigma[z];
+
+print("Alternating rules")$
+%sigma[%rho] . %sigma[phi] - %i * %sigma[z];
+%sigma[phi] . %sigma[z] - %i * %sigma[%rho];
+%sigma[z] . %sigma[%rho] - %i * %sigma[phi];
+
+print("Determinants")$
+determinant(%sigma[%rho]);
+determinant(%sigma[phi]);
+determinant(%sigma[z]);
+
+print("vector in cylindrical coordinate")$
+Acyl : factor(A[%rho]*%sigma[%rho]+A[phi]*%sigma[phi]+A[z]*%sigma[3]);
+
+print("vector decompositions")$
+print("obtaining A[rho] components")$
+
+print("Dot multiplication with %sigma[%rho] allows to retrieve the rho component")$
+sr1 :A[x] * trigsimp(%sigma[%rho] . %sigma[1]) 
+   + A[y] * trigsimp(%sigma[%rho] . %sigma[2]) 
+   + A[z] * trigsimp(%sigma[%rho] . %sigma[3])  ;
+Arho : factor(realpart(1/2 * (sr1[1,1]+sr1[2,2])));
+
+print("Dot multiplication with %sigma[%phi] allows to retrieve the phi component")$
+sr1 : A[x] * trigsimp(%sigma[phi] . %sigma[1]) 
+    + A[y] * trigsimp(%sigma[phi] . %sigma[2]) 
+    + A[z] * trigsimp(%sigma[phi] . %sigma[3])  ;
+Aphi : ratsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))));
+
+sr1 : A[x] * trigsimp(%sigma[3] . %sigma[1]) 
+    + A[y] * trigsimp(%sigma[3] . %sigma[2]) 
+    + A[z] * trigsimp(%sigma[3] . %sigma[3])  ;
+Az : ratsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))));
+
+print("_________________________________________________________")$
+print("Numerical example (see example 3.7)")$
+print("_________________________________________________________")$
+
+fpprintprec :5$
+ratprint : false$ 
+print("For a given point P1")$
+P1[x] : 3.0$
+P1[y] : -4.0$
+P1[z] : 3.0$
+
+print("and a given vector A defined in cartesian coordinates")$
+A[x] : 2.0$
+A[y] : -3.0$
+A[z] : 4.0$
+
+print("_________________________________________________________")$
+print("Transformation of coordinates !!!")$
+print("_________________________________________________________")$
+
+print("phi value for P1")$
+phi : float(atan2(P1[y],P1[x]));
+
+print("point P1 as column vector")$
+P1xyz : matrix([P1[x]],[P1[y]],[P1[z]]);
+
+print("vector A as column vector")$
+Axyz : matrix([A[x]],[A[y]],[A[z]]);
+
+print("From rectangular to cylindrical ...")$
+print("Point P1 expressed in rectangular is transformed in point P1 in cylindrical")$
+
+P1rho : sqrt(P1[x]^2+P1[y]^2);
+P1phi : float(atan2(P1[y],P1[x]));
+P1z : P1[z];
+
+print("the phi component in degrees is",phi*180.0/float(%pi))$
+print(" or equivalently ", 360.0 + phi*180.0/float(%pi))$
+
+print("_________________________________________________________")$
+print("Transformation of vector components !!!")$
+print("_________________________________________________________")$
+
+print("A is considered as a vector")$
+print("transformation matrix from rect to cyl")$
+r2c : matrix([cos(phi),sin(phi),0],[-sin(phi),cos(phi),0],[0,0,1]);
+
+print("Vector in cylindrical coordinates")$
+Arpz : r2c . Axyz;
+
+print("_________________________________________________________")$
+print("Using Pauli matrices")$
+print("_________________________________________________________")$
+
+print("Pauli vector in rectangular coordinates")$
+/* Avect : matrix([A[x], A[y], A[z]]); */
+Aprect : ratsimp(A[x] * %sigma[1] + A[y] * %sigma[2]+ A[z] * %sigma[3]);
+
+
+print("Pauli matrices for the cylindrical coordinate system")$
+print("They are dependent on the phi value!")$
+%sigma[%rho] : matrix([0,%e^(-%i * phi)],[%e^(%i * phi),0]);
+%sigma[phi] : matrix([0,-%i * %e^(-%i * phi)],[%i * %e^(%i * phi),0]);
+%sigma[z] : matrix([1,0],[0,-1]);
+
+print("write the A[%rho] , A[phi] , A[z] components from conventional analysis")$
+Aarho : Arpz[1][1]$
+Aaphi : Arpz[2][1]$
+Aaz :   Arpz[3][1]$
+
+print("Pauli vector in cylindrical coordinates")$
+Apcyl : rectform(Aarho * %sigma[%rho] + Aaphi * %sigma[phi] + Aaz * %sigma[3]);
+print("and the difference between Pauli matrix in cylindrical and in rectangular coordinates")$
+
+(Aprect-Apcyl);
+
+print("THEY ARE THE SAME !!!")$
+
+print("How to derive the cylindrical components from the Pauli matrix?")$
+print("In order to obtain A[rho] just multiply the Pauli matrix ")$
+print("with %sigma[%rho] and take half of the trace")$
+Apsr : rectform(Aprect . %sigma[%rho]);
+Aprho : 1.0/2.0 *(Apsr[1,1]+Apsr[2,2]);
+
+print("proceed similarly for the components along phi")$
+Apsp : rectform(Aprect . %sigma[phi]);
+App : 1.0/2.0 *(Apsp[1,1]+Apsp[2,2]);
+
+print("and finally")$
+Apsz : rectform(Aprect . %sigma[3]);
+Apz : 1.0/2.0 *(Apsz[1,1]+Apsz[2,2]);
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

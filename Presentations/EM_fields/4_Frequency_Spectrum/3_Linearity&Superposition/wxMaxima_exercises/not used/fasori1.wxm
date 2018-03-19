@@ -1,0 +1,39 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+
+/* esempio fasori */
+print("step 1 : put the excitation in the form of cosine")$
+
+print("present form")$
+V[1] : V[0] * sin(%omega * t + %phi[0]);
+
+print(" note that cos(%pi/2 -x) =")$
+ratsimp(cos( %pi/2 - x));
+
+V[1] : V[0] * cos(%pi/2 - %omega * t - %phi[0]);
+
+V[1] : V[0] * cos(-%pi/2 + %omega * t + %phi[0]);
+
+
+ V[1] : realpart( V[0] * (%e)^(%i * (%phi[0] - %pi/2 )) * (%e)^( %i * %omega * t)); 
+
+Vf : V[0] * (%e)^(%i * (%phi[0] - %pi/2 ));
+print("solve the circuit for the excitation Vf; e.g.")$
+Ip :  polarform(1/(R + 1 /(%i * %omega * C)));
+I : Vf * polarform(ratsimp(Ip));
+
+iot : I *  (%e)^( %i * %omega * t); 
+Ip : polarform(iot);
+
+print("Bye")$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+apropos("atan2");
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

@@ -1,0 +1,107 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+
+depends([a11,a12,a21,a22],[x,y,z]);
+Ap : matrix([a11,a12],[a21,a22]); 
+
+/* 
+The block Nablarect perform the nabla operation
+in rectangular coordinates on a Pauli matrix Ap
+*/
+
+Nablarect(Ap) := 
+block([],
+
+print("_______________________________________"),
+print("_______________________________________"),
+print("Nabla is"),
+
+NAp11 : diff(Ap[1,1],z)+diff(Ap[2,1],x)-%i*diff(Ap[2,1],y),
+NAp12 : diff(Ap[1,2],z)+diff(Ap[2,2],x)-%i*diff(Ap[2,2],y),
+NAp21 :-diff(Ap[2,1],z)+diff(Ap[1,1],x)+%i*diff(Ap[1,1],y),
+NAp22 :-diff(Ap[2,2],z)+diff(Ap[1,2],x)+%i*diff(Ap[1,2],y),
+
+NAp : factor(matrix([NAp11, NAp12],[NAp21, NAp22]))
+)$
+
+print("_______________________________________")$
+print("Consider a vector E with components Ex, Ey, Ez")$
+depends([Ex,Ey,Ez],[x,y,z]);
+/* 
+print("Consider an Electric Field of the form")$
+Ex :  %e^(-j * k * z) $   
+Ey : 0$
+Ez : 0$
+*/
+[Ex, Ey, Ez];
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+print("Nabla as Pauli matrix in rectangular coordinates")$
+Np : dx * %sigma[1] + dy * %sigma[2] + dz * %sigma[3];
+
+print("vector E as Pauli matrix")$
+Ep : Ex * %sigma[1] + Ey * %sigma[2] + Ez * %sigma[3];
+
+print("nabla E is")$
+NEp  : Nablarect(Ep);
+
+print("nabla nabla E is")$
+NNEp : Nablarect(NEp);
+
+Gradesep(M) := 
+block([],
+
+print("_______________________________________"),
+print("separate the components"),
+print("_______________________________________"),
+Mr : realpart(M),
+Mi : imagpart(M),
+/*
+print("real part",Mr),
+print("imaginary part",Mi),
+*/
+print("Grade 0"),
+a0r : ratsimp(1/2*(Mr[1,1]+Mr[2,2])),
+print('a0r," = ",a0r),
+print("Grade 1"),
+a1r : ratsimp(1/2*(Mr[1,2]+Mr[2,1])),
+print('a1r," = ",a1r),
+a2r : ratsimp(1/2*(Mi[2,1]-Mi[1,2])),
+print('a2r," = ",a2r),
+a3r : ratsimp(1/2*(Mr[1,1]-Mr[2,2])),
+print('a3r," = ",a3r),
+
+print("Grade 2"),
+B1r : ratsimp(1/2*(Mi[1,2]+Mi[2,1])),
+print('B1r," = ",B1r),
+B2r : ratsimp(1/2*(-Mr[2,1]+Mr[1,2])),
+print('B2r," = ",B2r),
+B3r : ratsimp(1/2*(Mi[1,1]-Mi[2,2])),
+print('B3r," = ",B3r),
+t0r : ratsimp(1/2*(Mi[1,1]+Mi[2,2])),
+print("Grade 3"),
+print('t0r," = ",t0r)
+)$
+
+print("Finding the grade elements of the following Pauli matrix")$
+M : NEp;
+print("By calling Gradsep(M) we have")$
+Gradesep(M)$
+
+print("Finding the grade elements of the following Pauli matrix")$
+M : NNEp;
+print("By calling Gradsep(M) we have")$
+Gradesep(M)$
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

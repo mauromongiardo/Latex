@@ -1,0 +1,91 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+assume(r>0);    /* Arghh */
+assume(%rho>0); /* Arghh */
+
+print("the package vect allows to perform vector operations")$
+load(vect);
+
+print("select the coordinate system by using the appropriate scalefactors")$
+
+scalefactors(cartesian3d);
+/* 
+scalefactors(polar);
+scalefactors(spherical);
+*/
+
+/* give either the w expression or its dependence */
+
+w  : 1/sqrt(x^2  + y^2 + z^2);   /*  example of function in rectangular coordinates */
+   /* depends(w,[x,y,z]); */ 
+
+/*  specific function 
+F[x] : x/sqrt(x^2+y^2+z^2);   
+F[y] : y/sqrt(x^2+y^2+z^2);
+F[z] : z/sqrt(x^2+y^2+z^2);
+*/
+
+/* another example 
+F[x] : x*z;   
+F[y] : - y*z^2;
+F[z] : -x * y;
+*/
+
+depends([Fx, Fy, Fz],[x,y,z]);
+
+Fvect: matrix([F[x], F[y], F[z]]); 
+
+print(" RECTANGULAR COORDINATES")$
+print("Gradient of w")$
+g : grad (w);
+express (g);
+gradw : ev (%, diff);
+print(gradw)$
+
+print("Divergence")$
+/*d : div ([F[x], F[y], F[z]]);  */
+d : div ([Fx, Fy, Fz]); 
+express (d);
+ev (%, diff);
+
+print("Curl")$
+/* curl ([F[x], F[y], F[z]]); */
+curl ([Fx, Fy, Fz]); 
+express (%);
+ev (%, diff);
+/*
+print("second order operators")$
+print("Expression of the Laplacian in rectangular coordinates")$
+aa:laplacian w;
+/* scalefactors(cartesian3d); */
+express(aa);
+ev (%, diff);
+
+print("laplacian is div(grad(w))")$
+
+g : grad (w);
+express (g);
+gradw : ev (%, diff);
+
+d : div (gradw); 
+express (d);
+ev (%, diff);
+
+print("Now evaluate curl curl of a vector")$
+print("Curl")$
+curl ([F[x], F[y], F[z]]);
+express (%);
+curlF : ev (%, diff);
+
+curl(curlF);
+express (%);
+curlcurlF : ev (%, diff);
+*/
+print("Bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

@@ -1,0 +1,71 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+
+print("Define the Pauli matrices")$
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+print("Define the Dirac matrices according to Arfken pag. 213")$
+
+nd : 3 $/* number of dimensions */
+
+print("g creation")$
+for i: 0 thru nd do
+ (         
+    for j: 0 thru nd do(
+        g(i,j) := kronecker_product (%sigma[i],%sigma[j])
+        /*print(i,j,g(i,j))*/ ))$
+
+
+print("The %alpha are a Clifford algebra basis")$
+print("labeling the %alpha matrices as in the table ")$
+%alpha[1]:g(1,1)$
+%alpha[2]:g(1,2)$
+%alpha[3]:g(1,3)$
+%alpha[4]:g(3,0)$
+%alpha[5]:g(2,0)$
+
+for i: 1 thru 5 do
+ (
+        print(" %alpha(",i,") = ",%alpha[i])
+                )$
+
+print("Anticommutativity verification")$
+for i: 1 thru 5 do
+ (         
+    for j: 1 thru 5 do
+        (sum : 1/2 * (%alpha[i].%alpha[j] + %alpha[j].%alpha[i]),
+        print(i,j,sum)))$
+
+print("Defining the gammas and verify that they are a Clifford  basis")$
+
+%gamma[1]:g(2,1)$
+%gamma[2]:g(2,2)$
+%gamma[3]:g(2,3)$
+%gamma[4]:g(3,0)$
+%gamma[5]:-g(1,0)$
+
+for i: 1 thru 5 do
+ (
+        print(" %gamma(",i,") = ",%gamma[i])
+                )$
+
+print("Anticommutativity verification")$
+for i: 1 thru 5 do
+ (         
+    for j: 1 thru 5 do
+        (sum : 1/2 * (%gamma[i].%gamma[j] + %gamma[j].%gamma[i]),
+        print(i,j,sum)))$
+
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

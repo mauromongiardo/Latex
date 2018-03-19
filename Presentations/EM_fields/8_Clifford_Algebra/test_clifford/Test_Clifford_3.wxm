@@ -1,0 +1,46 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+pathmaxima:file_search_maxima$
+pathmaxima[2];
+
+
+load("/Users/mauromongiardo/dropbox/2017/Maxwell-Pauli/wxmaxima/test_clifford/clifford.mac");
+
+if get('clifford,'version)=false then load("clifford");
+
+clifford(e, 3);
+
+print("initialize variables")$
+ 
+/*	
+a1:cvect(a),
+b1:cvect(b), 
+c1:cvect(c);
+ */
+
+ 
+a1:cvect(a);	
+b1:cvect(b);	
+c1:cvect(c);
+
+
+a1b1 : ratsimp(a1 * b1), cliffsimpall;
+grade(a1b1);
+
+print("try")$
+a1 | b1;
+a1 & b1;
+a1b1gp : a1 | b1 + a1 & b1;
+diff : ratsimp(a1b1gp - a1b1), cliffsimpall;
+
+
+
+mv : cvect(m);
+
+M : m[0] + mv;
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

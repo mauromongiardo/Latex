@@ -1,0 +1,186 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition")$
+print("_________________________________________________________")$
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+print('%sigma[0]," = ",%sigma[0])$
+print('%sigma[1]," = ",%sigma[1])$
+print('%sigma[2]," = ",%sigma[2])$
+print('%sigma[3]," = ",%sigma[3])$
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition Cylindrical")$
+print("_________________________________________________________")$
+
+%sigma[%rho] : matrix([0,%e^(-%i * phi)],[%e^(%i * phi),0])$
+%sigma[phi] : matrix([0,-%i * %e^(-%i * phi)],[%i * %e^(%i * phi),0])$
+%sigma[z] : matrix([1,0],[0,-1])$
+
+print('%sigma[%rho]," = ",%sigma[%rho])$
+print('%sigma[phi]," = ",%sigma[phi])$
+print('%sigma[z]," = ",%sigma[z])$
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition Spherical")$
+print("_________________________________________________________")$
+
+ct : cos(%theta)$
+st : sin(%theta)$
+
+%sigma[r] : matrix([ct,st * %e^(-%i * phi)],[st * %e^(%i * phi),-ct])$
+%sigma[%theta] : matrix([-st,ct  * %e^(-%i * phi)],[ct * %e^(%i * phi),st])$
+%sigma[phi] : matrix([0,-%i * %e^(-%i * phi)],[%i * %e^(%i * phi),0])$
+
+print('%sigma[r]," = ",%sigma[r])$
+print('%sigma[%theta]," = ",%sigma[%theta])$
+print('%sigma[phi]," = ",%sigma[phi])$
+
+print("_________________________________________________________")$
+print("vector in rectangular coordinates")$
+Axyz : ratsimp(factor(A[x]*%sigma[1]+A[y]*%sigma[2]+A[z]*%sigma[3]));
+print("_________________________________________________________")$
+print("vector in cylindrical coordinates")$
+Arpz : ratsimp(factor(A[%rho]*%sigma[%rho]+A[z]*%sigma[3]+A[phi]*%sigma[phi]));
+print("_________________________________________________________")$
+print("vector in spherical coordinates")$
+Artp : ratsimp(factor(A[r]*%sigma[r]+A[%theta]*%sigma[%theta]+A[phi]*%sigma[phi]));
+print("_________________________________________________________")$
+
+coordtransf(Ap,ss) := 
+block([],
+
+Apss : Ap . ss,
+res : trigsimp(1/2*(Apss[1,1]+Apss[2,2]))
+/* print('res," = ",res)*/
+)$
+
+print("_________________________________________________________")$
+print("Rectangular to cylindrical")$
+print("_________________________________________________________")$
+Ap :Axyz;
+ss : rectform(%sigma[%rho])$
+coordtransf(Ap,ss)$
+Arhoxyz : res$
+print('Arhoxyz," = ",Arhoxyz)$
+
+ss : rectform(%sigma[phi])$
+coordtransf(Ap,ss)$
+Apxyz : res$
+print('Apxyz," = ",Apxyz)$
+
+ss : rectform(%sigma[3])$
+coordtransf(Ap,ss)$
+Azxyz : res$
+print('Azxyz," = ",Azxyz)$
+
+print("_________________________________________________________")$
+print("Rectangular to spherical")$
+print("_________________________________________________________")$
+Ap :Axyz;
+ss : rectform(%sigma[r])$
+coordtransf(Ap,ss)$
+Arxyz : res$
+print('Arxyz," = ",Arxyz)$
+
+ss : rectform(%sigma[%theta])$
+coordtransf(Ap,ss)$
+Atxyz : res$
+print('Atxyz," = ",Atxyz)$
+
+ss : rectform(%sigma[phi])$
+coordtransf(Ap,ss)$
+Apxyz : res$
+print('Apxyz," = ",Apxyz)$
+
+print("_________________________________________________________")$
+print("Cylindrical to rectangular")$
+print("_________________________________________________________")$
+Ap :demoivre(Arpz);
+ss : rectform(%sigma[1])$
+coordtransf(Ap,ss)$
+Axrpz : res$
+print('Axrpz," = ",Axrpz)$
+
+ss : rectform(%sigma[2])$
+coordtransf(Ap,ss)$
+Ayrpz : res$
+print('Ayrpz," = ",Ayrpz)$
+
+ss : rectform(%sigma[3])$
+coordtransf(Ap,ss)$
+Azrpz : res$
+print('Azrpz," = ",Azrpz)$
+
+print("_________________________________________________________")$
+print("Cylindrical to spherical")$
+print("_________________________________________________________")$
+Ap :demoivre(Arpz);
+ss : rectform(%sigma[r])$
+coordtransf(Ap,ss)$
+Arrpz : res$
+print('Arrpz," = ",Arrpz)$
+
+ss : rectform(%sigma[%theta])$
+coordtransf(Ap,ss)$
+Atrpz : res$
+print('Atrpz," = ",Atrpz)$
+
+ss : rectform(%sigma[phi])$
+coordtransf(Ap,ss)$
+Aprpz : res$
+print('Aprpz," = ",Aprpz)$
+
+print("_________________________________________________________")$
+print("Spherical to rectangular")$
+print("_________________________________________________________")$
+Ap :demoivre(Artp);
+ss : rectform(%sigma[1])$
+coordtransf(Ap,ss)$
+Axrtp : res$
+print('Axrtp," = ",Axrtp)$
+
+ss : rectform(%sigma[2])$
+coordtransf(Ap,ss)$
+Ayrtp : res$
+print('Ayrtp," = ",Ayrtp)$
+
+ss : rectform(%sigma[3])$
+coordtransf(Ap,ss)$
+Azrtp : res$
+print('Azrtp," = ",Azrtp)$
+
+print("_________________________________________________________")$
+print("Spherical to cylindrical")$
+print("_________________________________________________________")$
+Ap :demoivre(Artp);
+ss : rectform(%sigma[%rho])$
+coordtransf(Ap,ss)$
+Arrtp : res$
+print('Arrtp," = ",Arrtp)$
+
+ss : rectform(%sigma[phi])$
+coordtransf(Ap,ss)$
+Aprtp : res$
+print('Aprtp," = ",Aprtp)$
+
+ss : rectform(%sigma[3])$
+coordtransf(Ap,ss)$
+Azrtp : res$
+print('Azrtp," = ",Azrtp)$
+
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

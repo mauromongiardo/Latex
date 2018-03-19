@@ -1,0 +1,753 @@
+%%%%%%%%%%%%%%%%%%%%% author.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% sample root file for your "contribution" to a contributed volume
+%%
+%% Use this file as a template for your own input.
+%%
+%%%%%%%%%%%%%%%%% Springer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%% RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\documentclass[graybox]{svmult}
+%
+%% choose options for [] as required from the list
+%% in the Reference Guide
+%\usepackage{cite}
+%\usepackage{mathptmx}       % selects Times Roman as basic font
+%\usepackage{helvet}         % selects Helvetica as sans-serif font
+%\usepackage{courier}        % selects Courier as typewriter font
+%\usepackage{type1cm}        % activate if the above 3 fonts are
+%                            % not available on your system
+%%
+%\usepackage{makeidx}         % allows index generation
+%\usepackage{graphicx}        % standard LaTeX graphics tool
+%                            % when including figure files
+%\usepackage{multicol}        % used for the two-column index
+%\usepackage[bottom]{footmisc}% places footnotes at page bottom
+%
+%\usepackage[ruled,linesnumbered,longend]{algorithm2e} %when including algorithms 
+%
+%%\usepackage[authoryear]{natbib}
+%\usepackage{siunitx}
+%\usepackage{tikz}
+%\usepackage{circuitikz}
+% \usepackage{pgfplots}
+%%\usepackage{siunitx}
+%%\usepackage[amssymb]{SIunits}
+%
+%
+%% see the list of further useful packages
+%% in the Reference Guide
+%
+%%\usepackage[T1]{fontenc}
+%%\usepackage[utf8]{luainputenc}
+%\usepackage{color}
+%\usepackage{amssymb,amsmath}
+%
+%
+%\usepackage{setspace}
+%\usepackage{physics}
+%
+%\usepackage{latexsym}
+%%\usepackage{url}
+%\usepackage{hyperref}
+%\usepackage{color}
+%
+%
+%%% <local definitions>
+%\newcommand{\R}{\mathbb{R}}	
+%\newcommand{\C}{\mathbb{C}}
+%\newcommand{\HQ}{\mathbb{H}}
+%\newcommand{\N}{\mathbb{N}}
+%\newcommand{\be}{\begin{equation}}
+%\newcommand{\ee}{\end{equation}}	
+%\newcommand{\bea}{\begin{eqnarray}}
+%\newcommand{\eea}{\end{eqnarray}}	
+%\newcommand{\Pin}{\mathrm{Pin}}	
+%\newcommand{\Spin}{\mathrm{Spin}}
+%\renewcommand{\O}{\mathrm{O}}
+%\newcommand{\SO}{\mathrm{SO}}
+%\renewcommand{\eqref}[1]{(\ref{#1})}
+%\newcommand{\cl}[1]{\ensuremath{Cl(#1)}} % #1 stands for the values p,q. $\cl{p,q}$ produces 'Cl(p,q)'.
+%\newcommand{\gvec}[1]{\ensuremath{\mbox{\textbf{\textit{#1}}}}}
+%\newcommand{\vect}[1]{\ensuremath{\mbox{\textbf{\textit{#1}}}}}
+%%% </local definitions>
+%
+%\newcommand{\Ba}[0]{\mathbf{a}}
+%\newcommand{\Bb}[0]{\mathbf{b}}
+%\newcommand{\Bc}[0]{\mathbf{c}}
+%\newcommand{\Bd}[0]{\mathbf{d}}
+%\newcommand{\Be}[0]{\mathbf{e}}
+%\newcommand{\Bf}[0]{\mathbf{f}}
+%\newcommand{\Bg}[0]{\mathbf{g}}
+%\newcommand{\Bh}[0]{\mathbf{h}}
+%\newcommand{\Bi}[0]{\mathbf{i}}
+%\newcommand{\Bj}[0]{\mathbf{j}}
+%\newcommand{\Bk}[0]{\mathbf{k}}
+%\newcommand{\Bl}[0]{\mathbf{l}}
+%\newcommand{\Bm}[0]{\mathbf{m}}
+%\newcommand{\Bn}[0]{\mathbf{n}}
+%\newcommand{\Bo}[0]{\mathbf{o}}
+%\newcommand{\Bp}[0]{\mathbf{p}}
+%\newcommand{\Bq}[0]{\mathbf{q}}
+%\newcommand{\Br}[0]{\mathbf{r}}
+%\newcommand{\Bs}[0]{\mathbf{s}}
+%\newcommand{\Bt}[0]{\mathbf{t}}
+%\newcommand{\Bu}[0]{\mathbf{u}}
+%\newcommand{\Bv}[0]{\mathbf{v}}
+%\newcommand{\Bw}[0]{\mathbf{w}}
+%\newcommand{\Bx}[0]{\mathbf{x}}
+%\newcommand{\By}[0]{\mathbf{y}}
+%\newcommand{\Bz}[0]{\mathbf{z}}
+%\newcommand{\BA}[0]{\mathbf{A}}
+%\newcommand{\BB}[0]{\mathbf{B}}
+%\newcommand{\BC}[0]{\mathbf{C}}
+%\newcommand{\BD}[0]{\mathbf{D}}
+%\newcommand{\BE}[0]{\mathbf{E}}
+%\newcommand{\BF}[0]{\mathbf{F}}
+%\newcommand{\BG}[0]{\mathbf{G}}
+%\newcommand{\BH}[0]{\mathbf{H}}
+%\newcommand{\BI}[0]{\mathbf{I}}
+%\newcommand{\BJ}[0]{\mathbf{J}}
+%\newcommand{\BK}[0]{\mathbf{K}}
+%\newcommand{\BL}[0]{\mathbf{L}}
+%\newcommand{\BM}[0]{\mathbf{M}}
+%\newcommand{\BN}[0]{\mathbf{N}}
+%\newcommand{\BO}[0]{\mathbf{O}}
+%\newcommand{\BP}[0]{\mathbf{P}}
+%\newcommand{\BQ}[0]{\mathbf{Q}}
+%\newcommand{\BR}[0]{\mathbf{R}}
+%\newcommand{\BS}[0]{\mathbf{S}}
+%\newcommand{\BT}[0]{\mathbf{T}}
+%\newcommand{\BU}[0]{\mathbf{U}}
+%\newcommand{\BV}[0]{\mathbf{V}}
+%\newcommand{\BW}[0]{\mathbf{W}}
+%\newcommand{\BX}[0]{\mathbf{X}}
+%\newcommand{\BY}[0]{\mathbf{Y}}
+%\newcommand{\BZ}[0]{\mathbf{Z}}
+%
+%\newcommand{\ta}[0]{\tilde{a}}
+%\newcommand{\tb}[0]{\tilde{b}}
+%\newcommand{\tc}[0]{\tilde{c}}
+%\newcommand{\td}[0]{\tilde{d}}
+%
+%\makeindex             % used for the subject index
+%                       % please use the style svind.ist with
+%                       % your makeindex program
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{document}
+%
+
+ 
+% \section{Three--dimensional vectors represented by 2x2 matrices}
+  \section{Pauli matrices and their properties}
+ 
+ Three--dimensional vectors are usually represented as three ordered numbers as e.g. $\Ba = \left(a_x, a_y, a_z\right)^T$. However, there is also another possible representation in terms of 2x2 matrices.
+Naturally a 2x2 real matrix is defined by  4 numbers, while a complex one requires 8 numbers.
+It is therefore fairly natural that we can represent a vector via a matrix. However, there are many possible representations but, one among them, has several particular advantages. The representation we are going to introduce is due to \href{https://en.wikipedia.org/wiki/Wolfgang_Pauli}{\textcolor{blue}{Wolfgang Pauli}}.
+We first introduce the Pauli matrices and then discuss some of their properties and show how to operate with this new tool.
+Note that engineers are quite well trained to operate with matrices and we will see that many standard vectors operation can be simplified and new important elements will be found.
+ 
+ % \section{Pauli matrices and their properties}
+ The Pauli matrices are a set of three 2x2 complex matrices which are \emph{Hermitian} and \emph{unitary}. 
+ 
+ An \href{https://en.wikipedia.org/wiki/Hermitian_matrix}{\textcolor{blue}{Hermitian matrix}} (or \emph{self-adjoint} matrix) is a complex square matrix that is equal to its own conjugate transpose, that is, the element in the $i$-th row and $j$-th column is equal to the complex conjugate of the element in the $j$-th row and $i$-th column, for all indices $i$ and $j$.  Let us consider the matrix $a$
+ %
+\begin{eqnarray}
+A &= & \begin{pmatrix}a_{11} & a_{12}\cr a_{21} & a_{22}\end{pmatrix} \nonumber
+\end{eqnarray}
+%
+its transpose is given by
+%
+\begin{eqnarray}
+A^T&= & \begin{pmatrix}a_{11} & a_{21}\cr a_{12} & a_{22}\end{pmatrix} \nonumber
+\end{eqnarray}
+%
+and, by denoting with $^*$ the complex conjugate, its Hermitian $A^\dag$ is
+%
+\begin{eqnarray}
+A^\dag= & \begin{pmatrix}a_{11}^* & a_{21}^*\cr a_{12}^* & a_{22}^*\end{pmatrix} \nonumber
+\end{eqnarray}
+%
+The \emph{trace} of $A$ is 
+\be
+tr(A) = a_{11}+a_{22} \, .
+\ee
+ 
+ A complex square matrix $U$ is unitary if its conjugate transpose $U^\dag$ is also its inverse.
+ 
+ The Pauli matrices have the following form
+%
+\begin{eqnarray}
+\sigma_1 &= & \begin{pmatrix}0 & 1\cr 1 & 0\end{pmatrix} \nonumber \\
+%
+\sigma_2 &= & \begin{pmatrix}0 & -i\cr i & 0\end{pmatrix} \nonumber \\
+%
+\sigma_3 &= &\begin{pmatrix}1 & 0\cr 0 & -1\end{pmatrix}  \, .
+%
+\end{eqnarray}
+%
+Several properties of the Pauli matrices are of interest.
+It is immediately noted that the trace of these matrices is always zero. The determinant of the Pauli matrices is always -1.
+The following products hold: 
+%
+\begin {equation}
+\sigma_1^2 = \sigma_2^2 = \sigma_3^2 =  \begin{pmatrix}1 & 0\cr 0 & 1\end{pmatrix} = I = \sigma_0\,.
+ \end{equation}
+ %
+By multiplying e.g. $\sigma_1$ with $\sigma_2$ the result is $i \sigma_3$ and similarly for the other cases:
+%
+\begin {eqnarray}
+\sigma_1 \sigma_2 &=& i \sigma_3  = - \sigma_2 \sigma_1 \nonumber \\
+\sigma_2 \sigma_3 &=& i \sigma_1 =  - \sigma_3  \sigma_2\nonumber \\
+\sigma_3 \sigma_1 &=&  i \sigma_2 =  - \sigma_1  \sigma_3 \,.
+\label{sigmacombin}
+ \end{eqnarray}
+ %
+ The above relations are very important. In fact, they show that, in the three-dimensional case, we can always replace the quantities $\sigma_i\sigma_j$ with the orthogonal vector $i \sigma_k$ (with the appropriate combination given in (\ref{sigmacombin})).
+ 
+ From the above properties it is seen that
+ \be\label{i123}
+ (\sigma_1 \sigma_2 \sigma_3)^2 =  \sigma_1 \sigma_2 \sigma_3 \sigma_1 \sigma_2 \sigma_3 = -1 \
+ \ee
+i.e. $ \sigma_1 \sigma_2 \sigma_3 = i$.
+ 
+The three Pauli matrices, with the addition of the identity matrix $\sigma_0$, form a basis in the space of the 2x2  Hermitian matrices and a matrix $A$ can be represented as:
+%
+\begin {equation}
+A = a_0\sigma_0 + a_1 \sigma_1 + a_2 \sigma_2 + a_3 \sigma_3\,.
+ \end{equation}
+ %
+It is worthwhile to note that when the coefficients ($a_0,a_1,a_2,a_3$) are complex, also non Hermitian matrices can be described by the basis of ($\sigma_0,\sigma_1,\sigma_2, \sigma_3$).
+
+\subsection{The Pauli vector}
+Let us introduce the Pauli vector which is a vector made by the three matrices ($\sigma_1,\sigma_2, \sigma_3$).
+%
+\begin {equation}
+{\bf \sigma} = \left(  \sigma_1 \, {\bf x}_0,  \sigma_2 \, {\bf y}_0 ,  \sigma_3\, {\bf z}_0  \right)\,.
+ \end{equation}
+ %
+We can consider the vector $\Ba = \left(a_x\, {\bf x}_0 +  a_y \, {\bf y}_0 + a_z \, {\bf z}_0 \right)$  in the three-dimensional space and make the following product:
+%
+\begin {equation}
+\tilde{a} = {\bf \sigma} \cdot {\bf a} = \begin{pmatrix}a_z & a_x - i a_y \cr a_x + i a_y & -a_z\end{pmatrix}\,
+\label{Epauli}
+ \end{equation}
+ %
+The matrix $\tilde{a}$ is an equivalent description of the vector ${\bf a}$ in terms of a 2x2 matrix. Two different symbols have been used to denote the 2x2 matrix representation $\tilde{a}$  and the standard vector representation ${\bf a}$. They refer to exactly the same quantity and it is always possible to pass from one to the other. 
+
+\subsubsection{Inner product}
+The inner product between two matrices $A$ and $B$ can be defined as following
+\be
+\left<A,B\right> = \frac{1}{2} tr \, (AB^\dag) \, .
+\ee
+%
+From the properties of the Pauli matrices it is readily recognized that, for $i \ne j$ we have $\left<\sigma_i,\sigma_j\right>=0$, while $\left<\sigma_i,\sigma_i\right>=1$.
+This provides a simple way to retrieve the coefficients of the Pauli matrices for a given matrix $A$.
+In fact, we have
+\bea
+\left<A,\sigma_0\right> & = & a_0 \left<\sigma_0,\sigma_0\right> +  a_1 \left<\sigma_1,\sigma_0\right>
++ a_2 \left<\sigma_2,\sigma_0\right> +  a_3 \left<\sigma_3,\sigma_0\right> = a_0
+\eea
+and similarly for other components.
+
+
+\subsection{Pauli matrices properties determination  with a computer algebra system }
+
+It is instructive to try to verify the properties previously illustrated by using a computer algebra system (CAS). Here following we use wxMaxima to define the 2x2 Pauli matrices and to perform some computations.
+Please refer to the file:
+\small
+\begin{verbatim}
+Pauli_def.wxm
+\end{verbatim}
+\normalsize
+%
+which is listed in the following.
+\small
+\lstinputlisting{vector_Pauli/Pauli_def.wxm}
+\normalsize
+
+
+\section{Product of two vectors}
+In the previous section we have seen that a vector has been represented in terms of a 2x2 matrix.
+Naturally, several operations are possible with matrices: we can multiply them, we can compute the determinant, the inverse etc.
+With vectors, so far, we are only able to make the dot and cross products.
+We will  therefore try to investigate what happens when we perform the product of two matrices $\tilde{a}$, $\tilde{b}$, representing two vectors (say $\Ba$ and $\Bb$). In order to do that we take advantage of the CAS in the following way.
+
+\subsection{Product of two vectors with CAS}
+
+We introduce the Pauli matrices and then the representation of two vectors $\Ba$ and $\Bb$ via their Pauli matrices $\ta,\tb$. Then we perform their product obtaining $\tc= \ta \tb$ as illustrated in the code :
+%
+\small
+\begin{verbatim}
+Pauli_ab.wxm
+\end{verbatim}
+\normalsize
+%
+which is listed in the following.
+\small
+\lstinputlisting{vector_Pauli/Pauli_ab.wxm}
+\normalsize
+
+
+In the above code we have defined two matrices $\ta, \tb$ and evaluated their product $\tc = \ta \tb$,
+\bea
+\ta & = & \begin{pmatrix}a_3 & a_1-i\,a_2\cr i\,a_2+a_1 & -a_3\end{pmatrix} \nonumber \\
+\tb & = &\begin{pmatrix}b_3 & b_1-i\,b_2\cr i\,b_2+b_1 & -b_3\end{pmatrix} \nonumber \\
+\tc & = &\begin{pmatrix}a_3\,b_3+\left( a_2+i\,a_1\right) \,b_2+\left( a_1-i\,a_2\right) \,b_1 & \left( i\,a_2-a_1\right) \,b_3-i\,a_3\,b_2+a_3\,b_1\cr \left( i\,a_2+a_1\right) \,b_3-i\,a_3\,b_2-a_3\,b_1 & a_3\,b_3+\left( a_2-i\,a_1\right) \,b_2+\left( i\,a_2+a_1\right) \,b_1\end{pmatrix} \nonumber
+\eea
+%
+
+\subsection{The trace of the matrix $\ta\tb$ divided by 2 is the dot product}
+%
+As it is possible to note, if we perform $(\tc_{11} + \tc_{22})/2$ we obtain $a_1\,b_1+a_2\,b_2+a_3\,b_3$ i.e. the dot product $\Ba \cdot \Bb$.
+Let us recall that the sum of the elements on the diagonal of a matrix is its \emph{trace}. Therefore we have the following important result:
+\begin{itemize}
+\item\emph{the trace of $\tc=\ta \tb$ divided by 2 gives us the dot product}.
+\end{itemize}
+\be \label{dotpauli}
+(\tc_{11} + \tc_{22})/2 = a_1\,b_1+a_2\,b_2+a_3\,b_3
+\ee
+
+\subsection{Retrieving the other vector components}
+It is straightforward to recognize that the component along $x,y, z$ can be easily retrieved by the following operations
+%
+\bea
+c_x & = & \frac{{c}_{21}+{c}_{12}}{2} \nonumber \\
+c_y & = &  -\frac{i\,\left( {c}_{21}-{c}_{12}\right) }{2}\nonumber \\
+c_z & = &  \frac{{c}_{11}-{c}_{22}}{2}
+\eea
+%
+By writing them explicitly we find:
+%
+\bea
+c_x & = & i\,\left( a_2\,b_3-a_3\,b_2\right)  \nonumber \\
+c_y & = &  -i\,\left( a_1\,b_3-a_3\,b_1\right)  \nonumber \\
+c_z & = &  i\,\left( a_1\,b_2-a_2\,b_1\right) 
+\eea
+%
+It is now easy to recognize that, apart for the $i$ factor, this  is equal to the well known cross product.
+This new part is called \emph{external product} and is denoted by $\Ba \wedge \Bb$. We have just obtained the important identity:
+%
+\be \label{epcross}
+\Ba \wedge \Bb = i \, \Ba \times \Bb \, .
+\ee
+%
+Naturally, to represent the wedge product in terms of the Pauli matrices it is sufficient to subtract the dot product from $\ta \tb$, thus obtaining
+%
+\be \label{epcrossexplicit}
+\Ba \wedge \Bb = \begin{pmatrix}i\,\left( a_1\,b_2-a_2\,b_1\right)  & i\,a_2\,b_3-a_1\,b_3-i\,a_3\,b_2+a_3\,b_1\cr i\,a_2\,b_3+a_1\,b_3-i\,a_3\,b_2-a_3\,b_1 & -i\,\left( a_1\,b_2-a_2\,b_1\right) \end{pmatrix} \, .
+\ee
+%
+The quantity $\Ba \wedge \Bb$ is often called \emph{external product}   and is a  \emph{bivector} . The properties, meaning  and characteristics of bivectors will be discussed in a separate section.
+For now it is important to recognize that the product $\ta\tb$ has provided us with both the dot product and the cross product.
+
+\subsubsection{But there is more...}
+In fact once we have represented the vector $\Ba$ as a matrix $\ta$ it is possible to compute its determinant and its inverse.
+\subsubsection{The determinant of $\ta$}
+It is immediately recognized that we have for the determinant
+%
+\be \label{deta}
+det(\ta) =  -(a_1^2 + a_2^2 + a_3^2)\, 
+\ee
+%
+from which it is evident that, by taking the square root of the absolute value, we can recover the modulus of the vector.
+%
+\subsection{The inverse of a vector}
+In standard vector algebra the inverse of a vector is not defined. However we can perform the inverse of $\ta$ obtaining
+%
+\be \label{inva}
+\ta^{-1} =\frac{1}{{a_1}^{2}+{a_2}^{2}+{a_3}^{2}} \begin{pmatrix}a_3 & -i\,a_2+a_1\cr i\,a_2+a_1 & -a_3\end{pmatrix}\, 
+\ee
+%
+This is just the same vector divided by the square of its modulus!
+It is appropriate, at this point, to make an observation. Since it is well known that in matrix product the order is important we can ask to ourselves what comes out if we perform the product $\tb \ta$. This is shown in the next section.
+
+\subsection{The product $\tb \ta$}
+
+It is immediate, by applying the rules of matrix multiplication, to compute the product $\tb \ta$. An example of code doing this is reported in:
+%
+\small
+\begin{verbatim}
+Pauli_ba.wxm
+\end{verbatim}
+\normalsize
+%
+which is listed in the following.
+\small
+\lstinputlisting{vector_Pauli/Pauli_ba.wxm}
+\normalsize
+
+Naturally, the Pauli matrices and the matrices $\ta, \tb$ are the same as before. However, now we have:
+%
+\bea
+\td & = &  \tb \ta =
+\begin{pmatrix}a_3\,b_3+\left( a_2-i\,a_1\right) \,b_2+\left( i\,a_2+a_1\right) \,b_1 & \left( a_1-i\,a_2\right) \,b_3+i\,a_3\,b_2-a_3\,b_1\cr \left( -i\,a_2-a_1\right) \,b_3+i\,a_3\,b_2+a_3\,b_1 & a_3\,b_3+\left( a_2+i\,a_1\right) \,b_2+\left( a_1-i\,a_2\right) \,b_1\end{pmatrix} \nonumber
+\eea
+%
+
+It is apparent that the trace is the same as the one from $\ta \tb$.
+By writing  explicitly the various components we find:
+%
+\bea
+d_x & = & -i\,\left( a_2\,b_3-a_3\,b_2\right)  \nonumber \\
+d_y & = & i\,\left( a_1\,b_3-a_3\,b_1\right)   \nonumber \\
+d_z & = &  -i\,\left( a_1\,b_2-a_2\,b_1\right) 
+\eea
+%
+
+It is now easy to recognize that these  are the coefficient of $-i \, \Ba \times \Bb$.
+The \emph{external product}  $\Bb \wedge \Ba$ thus satisfy the rule:
+%
+\be \label{epcross3}
+\Bb \wedge \Ba = - \Ba \wedge \Bb = -i \, \Ba \times \Bb \, .
+\ee
+%
+We have another relevant property: \emph{the external product between two vectors is anti--commutative}. 
+
+
+We have therefore found that the dot product can also be obtained as: 
+%
+\be \label{intdef}
+\Ba \cdot \Bb = \frac{\ta \tb + \tb \ta}{2} \, ,
+\ee
+%
+while for the external product we have:
+%
+\be \label{extdef}
+\Ba \wedge \Bb = \frac{\ta \tb - \tb \ta}{2} \, .
+\ee
+%
+The relations (\ref{intdef}), (\ref{extdef}) can be also taken as the definitions of dot and external products, respectively.
+
+They also allow to introduce the \emph{fundamental identity} i.e. the \emph{geometric} or \emph{Clifford} product:
+%
+\be \label{funid}
+\Ba  \Bb =  \Ba \cdot \Bb + \Ba \wedge \Bb \, .
+\ee
+%
+What has been called external product is a new quantity, which is not anymore a vector, but is an oriented surface (we will come back later on this concept and also on geometric algebra).
+In 3D this oriented surface can be uniquely associated to a vector (the perpendicular at the surface).
+
+As in the case of standard vector analysis it is interesting to see what happens when we consider triple products, e.g. $\ta \tb \tc$. Please note that in our 3D space at the moment we have:
+\begin{itemize}
+\item one \emph{scalar} ($\sigma_0$)
+\item 3 basis \emph{vectors} ($\sigma_1, \sigma_2, \sigma_3$) corresponding to three directions;
+\item 3 basis \emph{bivectors} ($\sigma_1 \sigma_2, \sigma_1 \sigma_3, \sigma_2 \sigma_3$) corresponding to three surfaces.
+\end{itemize}
+
+After introduction of the triple product we will see that an additional element will be added to our space. Intuitively it is easy to see that what we are still missing is the volume element.
+
+\subsection{Triple products with Pauli matrices}
+
+Let us now investigate the triple product. We start by considering the product $\Ba  (\Bb \wedge \Bc)$ and by expressing $\Bb \wedge \Bc$. In (\ref{epcrossexplicit}) the geometric product has been written for $\Ba \wedge \Bb$ and it is now repeated giving:
+%
+\be \label{bwc}
+\Bb \wedge  \Bc =  
+\begin{pmatrix}i\,b_1\,c_2-i\,b_2\,c_1 & \left( i\,b_2-b_1\right) \,c_3-i\,b_3\,c_2+b_3\,c_1\cr
+ \left( i\,b_2+b_1\right) \,c_3-i\,b_3\,c_2-b_3\,c_1 & i\,b_2\,c_1-i\,b_1\,c_2\end{pmatrix} \, .
+\ee
+%
+
+The next step is to obtain $d = \Ba(\Bb \wedge \Bc)$ which simply reduces to the matrix multiplication of $\Ba$ and $\Bb \wedge \Bc$.
+This operation, together with a few others is reported in the following code. Note that we have used the symbol $d$ to denote the result but we still need to identify what type of result we are going to get. It will be a 2x2 matrix but the meaning of its components is still to be found. Please refer to the following code as an example:
+
+%
+\small
+\begin{verbatim}
+Pauli_abc.wxm
+\end{verbatim}
+\normalsize
+%
+which is listed in the following.
+\small
+\lstinputlisting{vector_Pauli/Pauli_abc.wxm}
+\normalsize
+
+
+
+After performing the matrix multiplication one get
+%
+\bea \label{abwc}
+d & = & \Ba(\Bb \wedge \Bc)  \\
+d_{11} & = &   \left( a_1-i\,a_2\right) \,\left( \left( i\,b_2+b_1\right) \,c_3-i\,b_3\,c_2-b_3\,c_1\right) +a_3\,\left( i\,b_1\,c_2-i\,b_2\,c_1\right)  \nonumber \\
+d_{12} & = &  a_3\,\left( \left( i\,b_2-b_1\right) \,c_3-i\,b_3\,c_2+b_3\,c_1\right) +\left( a_1-i\,a_2\right) \,\left( i\,b_2\,c_1-i\,b_1\,c_2\right) \nonumber \\
+d_{21} & = &  \left( i\,a_2+a_1\right) \,\left( i\,b_1\,c_2-i\,b_2\,c_1\right) -a_3\,\left( \left( i\,b_2+b_1\right) \,c_3-i\,b_3\,c_2-b_3\,c_1\right) \nonumber \\
+d_{22} & = & \left( i\,a_2+a_1\right) \,\left( \left( i\,b_2-b_1\right) \,c_3-i\,b_3\,c_2+b_3\,c_1\right) -a_3\,\left( i\,b_2\,c_1-i\,b_1\,c_2\right)  \nonumber 
+\eea
+%
+
+\subsubsection{Scalar part}
+As before the scalar part of $d$ is obtained by taking half of the trace and is denoted here (for reasons that will become clear in the following) as 
+$\left< d\right>_3$
+%
+\be \label{d_3}
+\left< d\right>_3 = i\,\left( a_1\,b_2\,c_3-a_2\,b_1\,c_3-a_1\,b_3\,c_2+a_3\,b_1\,c_2+a_2\,b_3\,c_1-a_3\,b_2\,c_1\right) 
+\ee
+%
+It is noted that there is the factor $i$ in front of the expression. This part corresponds to a \emph{trivector}, i.e. to the volume element obtained by performing
+$\Ba \wedge \Bb \wedge \Bc$. It is also observed that if we consider the matrix
+\be
+abc = \begin{pmatrix}a_1 & a_2 & a_3\cr b_1 & b_2 & b_3\cr c_1 & c_2 & c_3\end{pmatrix}
+\ee
+its determinant is 
+\be \label{detabc}
+det(abc) = a_1\,\left( b_2\,c_3-b_3\,c_2\right) -a_2\,\left( b_1\,c_3-b_3\,c_1\right) +a_3\,\left( b_1\,c_2-b_2\,c_1\right) 
+\ee
+%
+and, when multiplied by $i$ coincides with (\ref{d_3}). We have therefore derived the important property:
+\be \label{awbwc}
+\Ba \wedge \Bb \wedge \Bc = i \, det \, (abc) = \left< d\right>_3
+\ee
+It is noted that $\Ba \wedge \Bb \wedge \Bc$ is often called \emph{pseudoscalar} i.e. is a scalar quantity multiplied by $i$.
+In the 3D space this is the element of the third grade (this is the reason why we have used $\left< d\right>_3)$. This is also the highest grade in 3D.
+A few observations are in order:
+\bea 
+(\Ba \wedge \Bb) \wedge \Bc & = & \Ba \wedge (\Bb \wedge \Bc) \label{ppp} \\
+\Ba \wedge \Bb \wedge \Bc \wedge \Bd & = & 0 \label{abcd0}
+\eea
+%
+
+In (\ref{ppp}) it is noted that, \emph{unlikely to the cross product}, the wedge product can be computed without a particular order.
+
+The other property in (\ref{abcd0}) tell us the following. If we have assumed that the three vectors $\Ba, \Bb, \Bc$ span the 3D space (i.e. they do not lay on a plane, than a vector $\Bd$ cannot be external to them, i.e. its external part is zero.
+
+Let us introduce the bivector $\hat{\BB} = \Bb \wedge \Bc$. It is apparent that we have that \emph{the external product between a vector and a bivector is commutative}:
+\be
+\Ba \wedge \hat{\BB} = \hat{\BB} \wedge \Ba \, .
+\ee
+
+\subsubsection{Vector part $\Ba \cdot (\Bb \wedge \Bc)$ }
+Once from the matrix  $d$ in (\ref{abwc}) the scalar part is removed, the remaining part corresponds to $\Bw = \Ba \cdot (\Bb \wedge \Bc)$. If we express the components relative to this matrix we have:
+%
+\bea 
+w_{x} & = &  -a_3\,b_1\,c_3-a_2\,b_1\,c_2+\left( a_3\,b_3+a_2\,b_2\right) \,c_1 \nonumber \\
+w_{y} & = &  -a_3\,b_2\,c_3+\left( a_3\,b_3+a_1\,b_1\right) \,c_2-a_1\,b_2\,c_1 \nonumber \\
+w_{z} & = & \left( a_2\,b_2+a_1\,b_1\right) \,c_3-a_2\,b_3\,c_2-a_1\,b_3\,c_1  \label{adotbwc} 
+\eea
+%
+it is noted that they are the same coefficients, apart for a sign, that we would have obtained by performing the vector product $\Bv = \Ba \times \Bb \times \Bc$. In fact,
+in the last part of the code, we perform the triple vector product obtaining:
+%
+\bea 
+v_{x} & = &  a_3\,b_1\,c_3+a_2\,b_1\,c_2+\left( -a_3\,b_3-a_2\,b_2\right) \,c_1 \nonumber \\
+v_{y} & = &  a_3\,b_2\,c_3+\left( -a_3\,b_3-a_1\,b_1\right) \,c_2+a_1\,b_2\,c_1 \nonumber \\
+v_{z} & = & \left( -a_2\,b_2-a_1\,b_1\right) \,c_3+a_2\,b_3\,c_2+a_1\,b_3\,c_1 \label{atbtc}  \, .
+\eea
+%
+By comparing (\ref{atbtc}) with (\ref{adotbwc}) it is readily recognized that we have found another important relationship i.e.
+%
+\be \label{adbwcatbtc}
+\Ba \cdot \Bb \wedge \Bc = - \Ba \times \Bb \times \Bc
+\ee
+%
+In passing, it is reminded that we have already introduced the relationship 
+${\bf a} \times ( {\bf b} \times  {\bf c})  =   ({\bf a}  \cdot  {\bf c})  {\bf b} -  ({\bf a}  \cdot  {\bf b})    {\bf c}$.
+It is therefore apparent that we can also compute $\Ba \cdot \Bb \wedge \Bc$ as
+%
+\be \label{adbwcatbtcc}
+\Ba \cdot \Bb \wedge \Bc = - \Ba \times \Bb \times \Bc = ({\bf a}  \cdot  {\bf b})    {\bf c} - ({\bf a}  \cdot  {\bf c})  {\bf b}
+\ee
+%
+This computation is also performed in the code, where the dot products are obtained as e.g. $\Ba \cdot \Bb = \left( \ta \tb + \tb \ta \right)/2$ and then proceeding with standard matrix multiplication.
+
+So far we have considered the external product of a bivector with a vector (or viceversa) and we have obtained a trivector. Then we have considered the dot product of a vector with a bivector, obtaining a vector. It is thus natural to pose the question: what is the result  of a product of the type 
+$ \Bb \wedge \Bc  \cdot \Ba$? 
+In other words, the dot product of a \emph{bivector} with a vector is commutative or anticommutative?
+In order to answer to this question we can consider the following code.
+
+\small
+\begin{verbatim}
+Pauli_bca.wxm
+\end{verbatim}
+\normalsize
+%
+which is listed in the following.
+\small
+\lstinputlisting{vector_Pauli/Pauli_bca.wxm}
+\normalsize
+
+
+The initial part is identical as before, the difference only coming out when we compute
+$ (\Bb \wedge \Bc) \Ba$. The result is a 2x2 matrix with half of the trace that now corresponds to $ \Bb \wedge \Bc  \wedge \Ba $.
+We thus have $ \Bb \wedge \Bc  \wedge \Ba = \Ba \wedge \Bb \wedge \Bc$. By subtracting this part (times $\sigma_0$) from the matrix $ (\Bb \wedge \Bc) \Ba$
+we obtain the matrix representing $ (\Bb \wedge \Bc) \cdot \Ba$ with the components which are the same as in (\ref{adotbwc}) but with a minus sign.
+Therefore, \emph{the dot product for bivectors is anticommutative} or 
+%
+\be \label{bidotanti}
+\Ba \cdot \Bb \wedge \Bc = - \Bb \wedge \Bc \cdot \Ba \, .
+\ee
+%
+Therefore for a bivector $\hat{\BB}$ we can write
+%
+\bea
+\Ba \cdot \hat{\BB} & = & \frac{1}{2}\left(\Ba \hat{\BB} - \hat{\BB} \Ba \right) = - \Ba \times \Bb \times \Bc  \label{atbtc2}\\
+\Ba \wedge \hat{\BB} & = & \frac{1}{2}\left(\Ba \hat{\BB} + \hat{\BB} \Ba \right) =  \Ba \cdot \left( \Bb \times \Bc\right) \,  i  \label{adbtc2}
+\eea
+The last equality has not been shown so far, but the reader can easily prove it.
+
+By introducing the vector $\BB=\Bb \times \Bc $ we have
+\be \label{vbv}
+\hat{\BB} =  \Bb \wedge \Bc = i \, \Bb \times \Bc = i \, \BB
+\ee
+which, by using (\ref{atbtc2}, \ref{adbtc2}), allows to write
+%%
+\bea
+\Ba \cdot \hat{\BB} & = &  - \Ba \times \BB  \label{atbtcm}\\
+\Ba \wedge \hat{\BB} & = &   \Ba \cdot  \BB  \,  i  \label{adbtcm}
+\eea
+%
+Equation (\ref{vbv}) shows that a bivector $\hat{\BB} $ can be obtained from a vector $\BB$ simply by multiplication times $i$ (and viceversa). 
+It is also noted that a scalar $t$ when multiplied by $i$ becomes a trivector (and viceversa).
+The relationships (\ref{atbtcm}, \ref{adbtcm}) can be used for relating classical vector analysis with the Pauli algebra. 
+
+\subsection{Summary of the results of vector analysis with Pauli matrices}
+Although several aspects have still to be further elucidated, we can make a summary of what we have obtained so far.
+\begin{itemize}
+\item Three--dimensional vectors can be represented using 2x2 Pauli matrices.
+%
+\begin {equation}
+\tilde{a} =  \begin{pmatrix}a_z & a_x - i a_y \cr a_x + i a_y & -a_z\end{pmatrix}\,
+\label{Epauli}
+ \end{equation}
+ %
+\item Multiplication of two matrices corresponding to two vectors give us both the dot product and another new part, the external product. This multiplication corresponds, in 3D, to the geometric or Clifford product.
+%
+\be \label{funids}
+\Ba  \Bb =  \Ba \cdot \Bb + \Ba \wedge \Bb \, = \ta \tb.
+\ee
+%
+\item dot product between two vectors is commutative: 
+%
+\be \label{intdef}
+\Ba \cdot \Bb = \Bb \cdot \Ba = \frac{\ta \tb + \tb \ta}{2} \, ,
+\ee
+%
+\item the external product between two vectors is anticommutative
+%
+\be \label{extdef}
+\Ba \wedge \Bb = - \Bb \wedge \Ba =\frac{\ta \tb - \tb \ta}{2} \, .
+\ee
+%
+\item the external product is related to the cross product as:
+%
+\be \label{epcross3}
+\Ba \wedge \Bb =  i \, \Ba \times \Bb \, .
+\ee
+%
+\item the external product between two vectors introduces a new subject:  \emph{the bivector}.
+\item the bivector can be expressed either showing the two vector components or a single vector component but multiplied by $i$ 
+%
+\begin {eqnarray}
+\sigma_1 \sigma_2 &=& i \sigma_3  = - \sigma_2 \sigma_1 \nonumber \\
+\sigma_2 \sigma_3 &=& i \sigma_1 =  - \sigma_3  \sigma_2\nonumber \\
+\sigma_3 \sigma_1 &=&  i \sigma_2 =  - \sigma_1  \sigma_3 \,.
+\label{sigmacomb}
+ \end{eqnarray}
+ %
+\item a bivector can be multiplied by a vector giving rise to: a vector and a \emph{trivector}:
+\be \label{aB}
+\Ba \, \hat{\BB} = \Ba \cdot \hat{\BB} + \Ba \wedge \hat{\BB}
+\ee
+\item the internal product of a vector with a bivector is given by
+\be 
+\Ba \cdot \hat{\BB}  =  \frac{1}{2}\left(\Ba \hat{\BB} - \hat{\BB} \Ba \right) = - \Ba \times \Bb \times \Bc = - \Ba \times \BB
+\ee
+\item the external product of a vector and a bivector is
+%
+\be 
+\Ba \wedge \hat{\BB}  =  \frac{1}{2}\left(\Ba \hat{\BB} + \hat{\BB} \Ba \right) =  \Ba \cdot \left( \Bb \times \Bc\right) \,  i  =  \Ba \cdot  \BB  \,  i 
+\ee
+%
+%\item the dot product of a vector and a bivector is anticommutative and it is related to the cross product as:
+%\be \label{adbwcatbtccs}
+%\Ba \cdot \Bb \wedge \Bc = - \Ba \times \Bb \times \Bc = ({\bf a}  \cdot  {\bf b})    {\bf c} - ({\bf a}  \cdot  {\bf c})  {\bf b} = -\Bb \wedge \Bc \cdot \Ba
+%\ee
+%
+\end{itemize}
+
+
+\subsubsection{Space description}
+It is noted that elements  three-dimensional space are described by eight numbers (i.e. a complex 2x2 matrix). In particular they are: 
+\begin{itemize}
+\item one \emph{scalar} ($\sigma_0$). Grade $0$
+\item 3 basis \emph{vectors} ($\sigma_1, \sigma_2, \sigma_3$) corresponding to three directions. Grade $1$
+\item 3 basis \emph{bivectors} ($\sigma_1 \sigma_2, \sigma_1 \sigma_3, \sigma_2 \sigma_3$). Grade $2$
+\item one \emph{pseudoscalar} ($\sigma_0$). Grade $3$
+\end{itemize}
+%
+All these elements are contained in a matrix and, similarly to what we do for complex numbers, they can be written together in a 
+\emph{multivector} 
+$\mathit{M}$  
+%$\cal{M}$
+as
+\be \label{Mmultivector}
+\mathit{M}
+% {\cal{M}} 
+ = 
+a_0 + \, \Ba + \, \hat{\BB} +  \hat{\mathit{t}}
+\ee
+where $a_0$ is a scalar, $\Ba$ is a vector, $\hat{\BB}$ is a bivector and $\hat{\mathit{t}}$ is a pseudoscalar.
+
+%\section{Conclusions}
+We have started this section showing that a vector can be represented by a Pauli matrix. It is now possible to conclude that, in the three--dimensional space, a Pauli matrix not only can represent a vector, but it can encode all the information of the eight-dimensional base of a multivector! In other words a multivector can be represented as a Pauli matrix. Since matrix algebra is well--known, we can also multiply, take the inverse, etc of multivectors with ease.
+
+\subsection{Pauli matrix representation of a multivvector}
+Let us see with more details the Pauli matrix representation of a multivector. The corresponding matrices of the multivector in (\ref{Mmultivector}) are given next:
+%
+\bea
+\tilde{a_0} & = & \begin{pmatrix}a_0 & 0\cr 0 & a_0\end{pmatrix} \nonumber \\
+\ta & = & \begin{pmatrix}a_3 & a_1-i\,a_2\cr i\,a_2+a_1 & -a_3\end{pmatrix} \nonumber \\
+\tilde{B} & = & \begin{pmatrix}i\,B_3 & B_2+i\,B_1\cr i\,B_1-B_2 & -i\,B_3\end{pmatrix} \nonumber \\
+\tilde{t} & = & \begin{pmatrix}i\,t & 0\cr 0 & i\,t\end{pmatrix} \label{Paulimult} \, .
+ \eea
+%
+The matrices in (\ref{Paulimult}) can be summed together giving for the the multivector $\mathit{M}$
+\be \label{Mmultivector:10}
+\tilde{\mathit{M} }= 
+\begin{pmatrix}i\,B_3+i\,t+a_3+a_0 & B_2+i\,B_1-i\,a_2+a_1\cr -B_2+i\,B_1+i\,a_2+a_1 & -i\,B_3+i\,t-a_3+a_0\end{pmatrix} \, .
+\ee
+Naturally, for a given Pauli matrix, it is possible to retrieve the elements of the different grades as described next.
+%
+\subsection{Retrieving the elements of a multivector}
+Let us assume that the matrix in (\ref{Mmultivector:10}) is given and we want to retrieve the various elements.
+It is convenient to extract the real and imaginary part of $\tilde{\mathit{M} }$ as
+%
+\bea
+\tilde{M_r} & = & \Re{\tilde{\mathit{M} }} = \begin{pmatrix}a_3+a_0 & B_2+a_1\cr a_1-B_2 & a_0-a_3\end{pmatrix}\nonumber \\
+\tilde{M_i} & = & \Im{\tilde{\mathit{M} }} =  \begin{pmatrix}B_3+t & B_1-a_2\cr B_1+a_2 & t-B_3\end{pmatrix} \, . \label{Mmultivector:20}
+ \eea
+ %
+By inspection, it is seen that we have the following identities:
+%
+\bea
+a_0 & = & \frac{1}{2} \left(  \tilde{M_r}_{11} +  \tilde{M_r}_{22} \right)  \nonumber \\
+a_1 & = & \frac{1}{2} \left(  \tilde{M_r}_{12} +  \tilde{M_r}_{21} \right)  \nonumber \\
+a_2 & = & \frac{1}{2} \left(  \tilde{M_i}_{21}  -  \tilde{M_i}_{12} \right)  \nonumber \\
+a_3 & = & \frac{1}{2} \left(  \tilde{M_r}_{11}  -  \tilde{M_r}_{22} \right)  \nonumber \\
+B_1 & = & \frac{1}{2} \left(  \tilde{M_i}_{21}  +  \tilde{M_i}_{12} \right)  \nonumber \\
+B_2 & = & \frac{1}{2} \left(  \tilde{M_r}_{12} -  \tilde{M_r}_{21} \right)  \nonumber \\
+B_3 & = & \frac{1}{2} \left(  \tilde{M_i}_{11}  -  \tilde{M_i}_{22} \right)  \nonumber \\
+t & = & \frac{1}{2} \left(  \tilde{M_i}_{11}  +  \tilde{M_i}_{22} \right)
+ \, . \label{Mmultivector:30}
+ \eea
+ %
+
+The code for converting multivectors into their Pauli matrix equivalent and viceversa is given in the following lines.
+
+\small
+\lstinputlisting{vector_Pauli/Pauli_multivectors.wxm}
+\normalsize
+
+
+
+
+%%References may be cited in the text either by number (preferred) or by author/year. The reference list should ideally be sorted in alphabetical order – even if reference numbers are used for the their citation in the text. For instance, \cite{Lamport1989} depicts the styling of the preferred reference style.
+%
+%\bibliographystyle{spmpsci}
+%\bibliography{wireless_power_transmission}
+%
+%\end{document}
+%

@@ -1,0 +1,76 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 15.04.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+load(vect);
+
+print("Given two vectors")$
+
+a:[a1, a2, a3]; b:[b1, b2, b3];
+
+print(" dot product")$
+
+c : a . b;
+
+print(" cross product")$
+ axb : a ~ b;
+ axb : express(axb);
+
+bxa : express(b ~ a);
+print("find the difference axb - bxa")$
+diff : axb + bxa;
+
+
+c : [c1, c2, c3];
+
+
+print("Now we try Triple scalar product")$
+
+print("(A X B) . C")$
+try1 : express(a ~ b) . c;
+
+print("(C X A) . B")$
+try2 : express(c ~ a) . b;
+
+
+print("(B X C) . a")$
+try3 : express(b ~ c) . a;
+
+ratsimp(try1-try2);
+ratsimp(try3 - try2);
+
+print("Now we try Triple vector product")$
+
+print("first verify the rule A X ( B X C ) = B(A.C) -C(A.B)")$
+print("A X ( B X C ) = ")$
+r1 : express(a ~ express(b ~ c));
+
+print(" B(A.C) -C(A.B) = ")$
+r2 : b * (a . c) - c*(a . b);
+
+ratsimp(r1-r2);
+
+print("example 3.2")$
+A : [1,-1,2];
+B : [0,1,1] ; 
+C : [-2,0,3] ;
+
+print(" A X B")$
+apb : express(A~B);
+print(" (A X B) X C")$
+apbpc : express(apb~ C);
+
+print(" B X C")$
+bpc : express(B~C);
+print("A X (B X C)")$
+apbpc2 : express(A ~ bpc);
+print(" (A X B) X C  -  A X (B X C)")$
+diff : (apbpc- apbpc2);
+
+print("Bye")$
+
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

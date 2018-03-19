@@ -1,0 +1,87 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+
+print("_________________________________________________________")$
+print("Product of two vectors via Pauli Matrices")$
+print("_________________________________________________________")$
+
+declare([a1,a2,a3],scalar)$
+declare([b1,b2,b3],scalar)$
+
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition")$
+print("_________________________________________________________")$
+
+print('%sigma[0]," = ",%sigma[0])$
+print('%sigma[1]," = ",%sigma[1])$
+print('%sigma[2]," = ",%sigma[2])$
+print('%sigma[3]," = ",%sigma[3])$
+
+a : a1 . %sigma[1] + a2 . %sigma[2] + a3 . %sigma[3]$
+print("Express vector ",'a," as a Pauli matrix ",a)$
+
+b : b1 . %sigma[1] + b2 . %sigma[2] + b3 . %sigma[3]$
+print("Express vector ",'b," as a Pauli matrix ",b)$
+
+print("Find their product")$
+c : ratsimp(a . b);
+
+
+print("The compoments of ab are found as follows")$
+print("The  scalar part (inner product) is the trace/2")$
+sc : ratsimp((c[1,1]+c[2,2])/2);
+
+
+print("_________________________________________________________")$
+print("The above is the dot product a . b  ")$
+print("and it is the trace/2 of the matrix ")$
+print("_________________________________________________________")$
+
+print("The  x component is given by ",('c[21]+'c[12])/2)$
+cx : factor(ratsimp((c[2,1]+c[1,2])/2));
+
+print("The  y component is given by ", ('c[21]-'c[12])/(2*%i))$
+cy : factor(ratsimp((c[2,1]-c[1,2])/(2*%i)));
+
+print("The  z component is given by ", ('c[11]-'c[22])/2)$
+cz : factor(ratsimp((c[1,1]-c[2,2])/2));
+
+print("one can recognizes that the above components,")$
+print("apart for an i factor, are the same of a x b ")$
+
+
+print("This new part is called external product")$
+print("The external product ",'a ,"^", 'b)$
+awb : factor(ratsimp(c - sc.%sigma[0]));
+
+
+print("_________________________________________________________")$
+print("The external product a ^ b = i a x b")$
+print("_________________________________________________________")$
+
+print("It is also possible to compute the determinant of a vector")$
+deta : ratsimp(determinant(a));
+
+
+print("its modulus is the square root of the abs value of the determinant")$
+sqrt(abs(deta));
+
+print("and its inverse is")$
+inva : ratsimp(invert(a));
+print("note that the direction is the same of the original vector")$
+print("but it is scaled by the absolute value of the determinant")$
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

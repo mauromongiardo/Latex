@@ -1,0 +1,101 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+load(vect);
+ratprint:false$
+fpprintprec:5$
+
+print("we consider four vectors a,b,c,d")$
+print("vector a")$
+a1 : 1.0$ a2 : 0.0$ a3 : 1.0$
+avect :[a1,a2,a3];
+
+print("vector b")$
+b1 : 2.0$ b2 : 1.0$ b3 : 0.0$
+bvect :[b1,b2,b3];
+
+print("vector c")$
+c1 : 1.0$ c2 : 2.0$ c3 : 0.0$
+cvect :[c1,c2,c3];
+
+print("vector d")$
+d1 : -1.0$ d2 : 0.0$ d3 : 1.0$
+dvect :[d1,d2,d3];
+
+/*define the Pauli matrices */
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+/* write the vectors as Pauli matrices */
+a : a1 . %sigma[1] + a2 . %sigma[2] + a3 . %sigma[3]$
+print("Express vector ",'a," as a Pauli matrix ",a)$
+b : b1 . %sigma[1] + b2 . %sigma[2] + b3 . %sigma[3]$
+print("Express vector ",'b," as a Pauli matrix ",b)$
+c : c1 . %sigma[1] + c2 . %sigma[2] + c3 . %sigma[3]$
+print("Express vector ",'c," as a Pauli matrix ",c)$
+d : d1 . %sigma[1] + d2 . %sigma[2] + d3 . %sigma[3]$
+print("Express vector ",'d," as a Pauli matrix ",d)$
+
+print("__________________________________________________________")$
+print("geometric (Clifford) product between the two vectors ad   ")$
+print("__________________________________________________________")$
+print("Find their product")$
+ad : ratsimp(a . d);
+print("The  scalar part (inner product) is the trace/2")$
+sad : ratsimp((ad[1,1]+ad[2,2])/2);
+print("The external product ",'a ,"^", 'd)$
+awd : ratsimp(ad - sad . %sigma[0]);
+
+print("__________________________________________________________")$
+print("geometric (Clifford) product between the two vectors bc   ")$
+print("__________________________________________________________")$
+print("Find their product")$
+bc : ratsimp(b . c);
+print("The  scalar part (inner product) is the trace/2")$
+sbc : ratsimp((bc[1,1]+bc[2,2])/2);
+print("The external product ",'b ,"^", 'c)$
+bwc : ratsimp(bc - sbc . %sigma[0]);
+
+print("__________________________________________________________")$
+print("Now perform awd bwc")$
+print("__________________________________________________________")$
+adbc : awd . bwc;
+
+print("and retrieve the components")$
+print("Multivector M = adbc")$
+M : adbc ;
+print("_________________________________________________________")$
+print("Retrieving the elements of the multivector")$
+print("for a given Pauli matrix")$
+print("_________________________________________________________")$
+print("real part")$
+Mr : realpart(M);
+print("imaginary part")$
+Mi : imagpart(M);
+
+a0r : 1/2*(Mr[1,1]+Mr[2,2])$
+print('a0r," = ",a0r)$
+a1r : 1/2*(Mr[1,2]+Mr[2,1])$
+print('a1r," = ",a1r)$
+a2r : 1/2*(Mi[2,1]-Mi[1,2])$
+print('a2r," = ",a2r)$
+a3r : 1/2*(Mr[1,1]-Mr[2,2])$
+print('a3r," = ",a3r)$
+B1r : 1/2*(Mi[1,2]+Mi[2,1])$
+print('B1r," = ",B1r)$
+B2r : 1/2*(-Mr[2,1]+Mr[1,2])$
+print('B2r," = ",B2r)$
+B3r : 1/2*(Mi[1,1]-Mi[2,2])$
+print('B3r," = ",B3r)$
+t0r : 1/2*(Mi[1,1]+Mi[2,2])$
+print('t0r," = ",t0r)$
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

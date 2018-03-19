@@ -1,0 +1,87 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+pathmaxima:file_search_maxima$
+pathmaxima[2];
+
+
+load("/Users/mauromongiardo/dropbox/2017/Maxwell-Pauli/wxmaxima/test_clifford/clifford.mac");
+load("/Users/mauromongiardo/dropbox/2017/Maxwell-Pauli/wxmaxima/test_clifford/cliffordan.mac");
+
+/* file_search("clifford.mac"); */
+
+if get('clifford,'version)=false then load("clifford")$
+if get('cliffordan,'version)=false then load("cliffordan")$
+
+
+print("Clifford implements Clifford algebra for Maxima.")$
+
+print("Potential problems in G(3)")$
+ 
+clifford(e,3);
+
+%elements;
+
+EE:cons(1, %elements );
+
+("anticommutativity")$
+e[2].e[1];
+
+
+e[1].e[2].e[1].e[2];
+("simplification of products")$
+e[1].e[2].e[1].e[2], dotsimpc;
+e[2].e[1].e[1].e[2];
+e[2].e[1].e[1].e[2], dotsimpc;
+
+("simplification of inversions")$
+1/e[2] ;
+1/e[2], dotinvsimp;
+1/(e[1].e[2]);
+1/(e[1].e[2]), dotinvsimp;
+
+("full simplification")$
+1/(1+e[1]);
+1/(1+e[1]), cliffsimpall;
+
+(dependsv(F,[t,x,y,z]),
+member(F(t,x,y,z), dependencies));
+
+print("initialize variables")$
+	
+    
+r:cvect([x,y,z]);
+
+AM : a[0] + a[1] * e[1] + a[2] * e[2];
+BM : b[0] + b[1] * e[1];
+AB : ratsimp(AM * BM);
+AB, cliffsimpall ;
+
+("scalar product")$
+e[1]*e[2];
+(1+e[1])*(1+e[1]),expand;
+
+("outer product")$
+e[1] & e[2];
+(1+e[1])&(1+e[1]),expand;
+
+mvectdiff(F,r);
+mvectdiff(F,r,2);
+
+ctotdiff(log(r),r);
+
+mvectdiff(r,r);
+
+print("initialize variables")$
+ 	
+a1:cvect(a),b1:cvect(b), c1:cvect(c);
+ 	
+b1:cvect(b);
+c1:cvect(c);
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

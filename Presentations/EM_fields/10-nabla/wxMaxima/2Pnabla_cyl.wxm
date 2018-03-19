@@ -1,0 +1,215 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+/* Code name: Pnabla_cyl.wxm */
+
+kill(all)$
+assume(%rho>0)$
+
+print("_________________________________________________________")$
+print("Conventional Vector Analysis")$
+print("_________________________________________________________")$
+
+print("the package vect allows to perform vector operations")$
+load(vect);
+
+print("select the coordinate system by using the appropriate scalefactors")$
+print("Better to use phi since %phi is reserved")$
+
+scalefactors([[%rho*cos(phi),%rho*sin(phi),z],%rho,phi,z]);
+depends(w,[%rho,phi,z]);
+depends([Arho,Aphi,Az],[%rho,phi,z]);
+
+print("Cylindrical COORDINATES")$
+print("Gradient of w")$
+g : grad (w)$
+express (g)$
+gradw : ev (%, diff);
+
+print("Divergence")$
+d : div ([Arho,Aphi,Az])$ 
+express (d)$
+divA1 : ev (%, diff);
+
+print("Curl")$
+curl ([Arho,Aphi,Az])$
+express (%)$
+curl_A1 : ev (%, diff)$
+curl_A1_rho : curl_A1[1]$
+curl_A1_phi : curl_A1[2]$
+curl_A1_z   : curl_A1[3]$
+print('curl_A1_rho," = ",curl_A1_rho)$
+print('curl_A1_phi," = ",curl_A1_phi)$
+print('curl_A1_z," = ",curl_A1_z)$
+
+print("grad(divA1)")$
+g : grad (divA1);
+express (g)$
+graddivA1 : factor(ev (%, diff))$
+graddivA1_rho : graddivA1[1]$
+graddivA1_phi : graddivA1[2]$
+graddivA1_z   : graddivA1[3]$
+print('graddivA1_rho," = ",graddivA1_rho)$
+print('graddivA1_phi," = ",graddivA1_phi)$
+print('graddivA1_z,"   = ",graddivA1_z)$
+
+print("curlcurlA1")$
+ccA1 : curl(curl_A1);
+express (%)$
+curlcurlA1 : ev (%, diff)$
+curlcurlA1_rho : curlcurlA1[1]$
+curlcurlA1_phi : curlcurlA1[2]$
+curlcurlA1_z   : curlcurlA1[3]$
+print('curlcurlA1_rho," = ",curlcurlA1_rho)$
+print('curlcurlA1_phi," = ",curlcurlA1_phi)$
+print('curlcurlA1_z,"   = ",curlcurlA1_z)$
+
+print("nabla^2 A = grad (div A) -nabla x nabla xA")$
+N2A_rho : ratsimp(graddivA1_rho - curlcurlA1_rho)$
+N2A_phi : ratsimp(graddivA1_phi - curlcurlA1_phi)$
+N2A_z : ratsimp(graddivA1_z - curlcurlA1_z)$
+print('N2A_rho," = ",N2A_rho)$
+print('N2A_phi," = ",N2A_phi)$
+print('N2A_z,"   = ",N2A_z)$
+
+print("_________________________________________________________")$
+print("End conventional Vector Analysis")$
+print("_________________________________________________________")$
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+/*
+print("_________________________________________________________")$
+print("Pauli Matrices Definition")$
+print("_________________________________________________________")$
+print('%sigma[0]," = ",%sigma[0])$
+print('%sigma[1]," = ",%sigma[1])$
+print('%sigma[2]," = ",%sigma[2])$
+print('%sigma[3]," = ",%sigma[3])$
+*/
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition Cylindrical")$
+print("_________________________________________________________")$
+
+%sigma[%rho] : matrix([0,%e^(-%i * phi)],[%e^(%i * phi),0])$
+%sigma[phi] : matrix([0,-%i * %e^(-%i * phi)],[%i * %e^(%i * phi),0])$
+%sigma[z] : matrix([1,0],[0,-1])$
+
+print('%sigma[%rho]," = ",%sigma[%rho])$
+print('%sigma[phi]," = ",%sigma[phi])$
+print('%sigma[z]," = ",%sigma[z])$
+
+/*
+(%sigma[%rho].%sigma[phi])/%i;
+(%sigma[phi].%sigma[z])/%i;
+(%sigma[z].%sigma[%rho])/%i;
+*/
+
+[Arho,Aphi,Az];
+
+print("Nabla as Pauli matrix")$
+Np : dd[%rho] * %sigma[%rho] + dd[phi]/%rho * %sigma[phi] + dd[z] * %sigma[3]$
+Np : factor(Np);
+
+print("vector A as Pauli matrix")$
+Ap : factor(Arho * %sigma[%rho] + Aphi * %sigma[phi] + Az * %sigma[3]);
+
+print("Nabla A is")$
+NEp11 : diff(Ap[1,1],z) + %e^(-%i*phi) * diff(Ap[2,1],%rho)
+        -(%i*%e^(-%i*phi))/%rho*diff(Ap[2,1],phi)$
+
+NEp12 : diff(Ap[1,2],z) + %e^(-%i*phi) * diff(Ap[2,2],%rho)
+        -(%i*%e^(-%i*phi))/%rho*diff(Ap[2,2],phi)$
+NEp12 : factor(NEp12)$
+
+NEp21 : -diff(Ap[2,1],z) + %e^(%i*phi) * diff(Ap[1,1],%rho)
+        +(%i*%e^(%i*phi))/%rho*diff(Ap[1,1],phi)$
+NEp21 : factor(NEp21)$
+
+NEp22 : -diff(Ap[2,2],z) + %e^(%i*phi) * diff(Ap[1,2],%rho)
+        +(%i*%e^(%i*phi))/%rho*diff(Ap[1,2],phi)$
+NEp22 : factor(NEp22)$
+
+NEp : expand((matrix([NEp11, NEp12],[NEp21, NEp22])));
+
+print("The divergence is ")$
+divA : expand(1/2*(NEp[1,1]+NEp[2,2]));
+print("Test divergence")$
+ratsimp(divA-divA1);
+
+/* The external product is */
+NeEp : ratsimp(NEp -divA * %sigma[0])$
+
+print("The rho component is ")$
+rr : NeEp.%sigma[%rho]$
+CurlA_rho : expand(1/2*(rr[1,1]+rr[2,2]));
+print("Test curl_rho")$
+ratsimp(CurlA_rho - curl_A1_rho*%i);
+
+print("The phi component is ")$
+rr : NeEp.%sigma[phi]$
+CurlA_phi : expand(1/2*(rr[1,1]+rr[2,2]));
+print("Test curl_phi")$
+ratsimp(CurlA_phi - curl_A1_phi*%i);
+
+print("The z component is ")$
+CurlA_z : expand(1/2*(NEp[1,1]-NEp[2,2]));
+print("Test curl_z")$
+ratsimp(CurlA_z - curl_A1_z*%i);
+
+print("_________________________________________________________")$
+print("Second order operator")$
+print("_________________________________________________________")$
+print("Nabla Nabla A is")$
+
+NNEp11 : diff(NEp[1,1],z) + %e^(-%i*phi) * diff(NEp[2,1],%rho)
+        -(%i*%e^(-%i*phi))/%rho*diff(NEp[2,1],phi)$
+NNEp11 : ratsimp(NNEp11)$
+
+NNEp12 : diff(NEp[1,2],z) + %e^(-%i*phi) * diff(NEp[2,2],%rho)
+        -(%i*%e^(-%i*phi))/%rho*diff(NEp[2,2],phi)$
+NNEp12 : ratsimp(NNEp12)$
+
+NNEp21 : -diff(NEp[2,1],z) + %e^(%i*phi) * diff(NEp[1,1],%rho)
+        +(%i*%e^(%i*phi))/%rho*diff(NEp[1,1],phi)$
+NNEp21 : factor(NNEp21)$
+
+NNEp22 : -diff(NEp[2,2],z) + %e^(%i*phi) * diff(NEp[1,2],%rho)
+        +(%i*%e^(%i*phi))/%rho*diff(NEp[1,2],phi)$
+NNEp22 : ratsimp(NNEp22)$
+
+NNEp : ratsimp(matrix([NNEp11, NNEp12],[NNEp21, NNEp22]));
+
+print("The divergence is ")$
+NdivA : expand(1/2*(NNEp[1,1]+NNEp[2,2]));
+
+/* The external product is */
+NNeEp : ratsimp(NNEp -NdivA * %sigma[0])$
+
+print("The rho component is ")$
+rr : NNeEp.%sigma[%rho]$
+NCurlA_rho : expand(1/2*(rr[1,1]+rr[2,2]));
+print("Test ")$
+ratsimp(NCurlA_rho - N2A_rho) ;
+
+print("The phi component is ")$
+rr : NNeEp.%sigma[phi]$
+NCurlA_phi : expand(1/2*(rr[1,1]+rr[2,2]));
+print("Test ")$
+ratsimp(NCurlA_phi - N2A_phi) ;
+
+print("The z component is ")$
+NCurlA_z : expand(1/2*(NNEp[1,1]-NNEp[2,2]));
+print("Test ")$
+ratsimp(NCurlA_z - N2A_z) ;
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

@@ -1,0 +1,1343 @@
+%\documentclass[10pt]{beamer}
+\documentclass[handout,10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+%\usepackage{placeins} %%%
+\usepackage{subfig}
+\usepackage{physics}
+\usepackage{amssymb}
+
+
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+
+
+\usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage{slashed} % for the Feynman slash notation
+
+\usepackage{listings}
+
+\usepackage{balance}
+
+\input{definitions}
+
+\newcommand{\iGA}{{i}}
+\newcommand{\conjg}[1] {\ensuremath{#1}^*}
+
+\setbeamertemplate{bibliography item}{[\theenumiv]}
+
+
+\title{Maxwell's equations}
+
+\date{}
+
+%\subtitle{Maximizing efficiency and power at a fixed frequency}
+%\date{\today}
+%\author{Alessandra Costanzo, Franco Mastri, Mauro Mongiardo*, Giuseppina Monti}
+%\institute{*Department of Engineering,
+%University of Perugia, Italy}
+
+\author{ Mauro Mongiardo$^1$}
+
+\institute{
+ $^1$ Department of Engineering, University of Perugia, Perugia, Italy.
+}
+
+%
+\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo}}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Table of contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+%=========================================================================
+\section{Maxwell's equations}
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{Maxwell's equations}
+Equations linking electromagnetic field quantities have been
+introduced by \alert{James Clerk Maxwell} \index{Maxwell, J.C.} in an
+elegant treatise first published in \alert{1873}.
+
+\pause
+ We assume that a student reader is familiar with
+these equations. In what
+follows, we summarize Maxwell's equations in \alert{time and frequency} domains.
+
+%\subsection{Maxwell's Equations in Time--Dependent Form}
+\pause
+
+It is customary to write \alert{Maxwell's equations} \index{Maxwell's
+equations}in either \alert{local or in global form}; we shall first consider
+their local form. 
+
+\pause
+We also note that, unfortunately, it is customary
+to designate the local form as differential form and this generates
+some confusion with the general meaning that differential forms
+have. 
+
+\end{frame}
+
+
+
+%=========================================================================
+\begin{frame}[shrink=20]{Local Form of Maxwell's Equations}
+%\subsubsection{Local Form of Maxwell's Equations}
+In three--dimensional vector notation, with vector $\Br$ a
+indicating a position in space and $t$ the time variable, Maxwell's
+equations are \index{Maxwell's equations!differential
+form}\index{Faraday, M.} \index{Amp\`ere, A.M.} \index{Gauss, K.F.}
+%
+\begin{subequations}
+\begin{align}
+  \nabla \times {\BE}({\Br},t) & =
+  - {\partial {\BB}({\Br},t) \over
+  \partial t} \, , &&\text{Faraday's law} \label{Faraday} \\
+  \nabla \times {\BH}({\Br},t) & =
+  {\partial {\BD}({\Br},t) \over
+  \partial t} + {\BJ}({\Br},t) \, ,
+  &&\text{Amp\`ere's law}  \label{Ampere} \\
+  \nabla \cdot {\BD}({\Br},t)  & =
+  \rho_e({\Br},t) \, , &&\text{Gauss' law}
+  \label{Gausse} \\[1mm]
+  \nabla \cdot {\BB}({\Br},t) & =
+  0 \, , &&\text{Magnetic flux continuity}
+  \label{Gaussm}
+\end{align}
+\end{subequations}
+%
+%
+where bold face symbols denote vector quantities. The quantities are
+defined as
+%
+\begin{align}
+{\BE}({\Br},t)  \quad &
+  \mbox{electric field strength}
+ \nonumber \\
+{\BD}({\Br},t) \quad &
+  \mbox{electric displacement}
+ \nonumber \\
+{\BB}({\Br},t) \quad &
+  \mbox{magnetic flux density}
+ \nonumber \\
+{\BH}({\Br},t) \quad &
+  \mbox{magnetic field strength}
+ \nonumber \\
+{\BJ}({\Br},t)  \quad &
+  \mbox{electric current density }
+ \nonumber \\
+\rho_e({\Br},t) \quad &
+  \mbox{electric charge density }
+ \nonumber
+\end{align}
+ %
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Equations dependence}
+\alert{Equations (\ref{Faraday})--(\ref{Gaussm}) are not independent}
+since, for example, we may derive (\ref{Gaussm}) by taking the
+divergence of (\ref{Faraday}). 
+
+\pause
+
+Another fundamental relationship
+can be derived by introducing (\ref{Gausse}) into the divergence
+of (\ref{Ampere})
+%
+\begin{eqnarray}
+ \nabla \cdot {\BJ}({\Br},t) & = &
+ - {\partial \rho_e ({\Br},t) \over\partial t}
+\label{currentlaw}
+\end{eqnarray}
+%
+which provides the \alert{conservation law} \index{Conservation law} for
+electric charge and current densities.
+
+\pause
+Actually, the set of three equations (\ref{Faraday}), (\ref{Ampere})
+and (\ref{currentlaw}) may be considered as the independent
+equations describing macroscopic electromagnetic fields, since the
+two Gauss equations (\ref{Gausse}) and (\ref{Gaussm}) can be derived
+from this set. \index{Gauss, K.F.}
+
+\end{frame}
+
+
+%=========================================================================
+\begin{frame}[fragile]{Static case}
+%\paragraph{Static case}
+Note that in the static case ${\partial  \over
+\partial t}=0$ the electric and magnetic fields are not any more
+interdependent and the equations  (\ref{Faraday}) -- (\ref{Gaussm})
+become
+%
+\begin{subequations}
+\begin{align}
+\nabla \times {\BE}({\Br})  & =   0\,,
+\\[1mm]
+  \nabla \times {\BH}({\Br} )  & =  {\BJ}({\Br})\,,
+\\[1mm]
+  \nabla \cdot {\BD}({\Br})  & =   \rho_e({\Br})\,,
+\\[1mm]
+  \nabla \cdot {\BB}({\Br})  & =   0\,.
+%\label{Maxwelleq}
+\end{align}
+\end{subequations}
+%
+
+\pause
+Note that, if we assign the electric current density
+${\BJ}({\Br})$ and the electric charge density
+$\rho_e({\Br})$, we have, from (\ref{Faraday}) and
+(\ref{Ampere}), two vector equations (i.e.\ six scalar equations)
+while we have four unknown vectors (i.e.\ twelve scalar quantities).
+
+\pause
+To complete the number of equations we have to account for the media
+properties expressed by the \alert{constitutive relations}.
+
+
+\end{frame}
+
+
+%=========================================================================
+\section{Integral  Form of Maxwell's Equations}
+%=========================================================================
+\begin{frame}[fragile]{Maxwell's equations!integral form}
+
+The properties of an electromagnetic field  may also be expressed
+globally by an equivalent system of integral relations through use
+of the two fundamental theorems of vector analysis: the divergence
+theorem and Stokes' theorem
+
+\pause
+\alert{Divergence or Gauss' Theorem}
+
+%
+Let ${\BU}({\Br})$ be any vector function of position,
+continuous together with its first derivative throughout a volume
+$V$ bounded by a surface $S$. The divergence theorem states that
+%
+\begin{equation}
+\oint_{S} {\BU}({\Br}) \cdot {\Bn} \; dS = \int_{V}
+\nabla \cdot {\BU}({\Br})  \; dV\,, \label{divergenceq}
+\end{equation}
+%
+where ${\bf n }$ is the outward unit vector normal to $S$. 
+
+\pause
+
+\alert{Gauss's theorem may also be used to \emph{define} the divergence}.
+
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{Stokes' Theorem}
+
+\alert{Stokes' theorem}
+%
+Let ${\BU}({\Br})$ be any vector function of position,
+continuous together with its first derivatives throughout an
+arbitrary surface $S$ bounded by a contour $C$, and assumed to be
+resolvable into a finite number of regular arcs. 
+
+\pause
+Stokes' theorem
+(also called curl theorem) states that
+%
+\begin{equation}
+%\oint_{C} {\BU}({\Br}) \cdot d{\bf \ell}  = \int_{S} \left[
+\oint_{C} {\BU}({\Br}) \cdot d\, \Bl  = \int_{S} \left[
+\nabla \times {\BU}({\Br})\right] \cdot {\Bn} \; dS \,,
+\label{curleq}
+\end{equation}
+%
+where $d\,\Bl$ is an element of length along $C$, and
+${\Bn}$ is a unit vector normal to the positive side of the
+element area $dS$ as defined by the right--hand thumb rule. 
+
+\pause
+\alert{This
+relationship may also be considered as an equation defining the
+\emph{curl} or \emph{circulation}}.\index{Circulation}
+
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{Integral form of Maxwell's equations}
+By applying the curl theorem to (\ref{Faraday}) and
+(\ref{Ampere}), and the divergence theorem to (\ref{Gausse}) and
+(\ref{Gaussm}), we get
+
+%
+\begin{subequations}
+\begin{align}
+% \oint_{C} {\BE}({\Br},t) \cdot d{\bf {\ell}}   & =
+  \oint_{C} {\BE}({\Br},t) \cdot d\,{\Bl}   & =
+- \int_{S}{\partial {\BB}({\Br},t) \over \partial t} \cdot
+{\Bn} \; dS\,,
+  \label{intinduction}
+\\[1mm]
+% \oint_{C} {\BH}({\Br},t) \cdot d{\bf \ell}   & =
+  \oint_{C} {\BH}({\Br},t) \cdot d\, \Bl   & =
+\int_{S}{\partial {\BD}({\Br},t) \over \partial t} \cdot
+{\Bn} \; dS + \int_{S}{{\BJ}({\Br},t)} \cdot {\Bn}
+\; dS \,,
+  \label{intAmpere}
+\\[1mm]
+ \int_{V} \nabla \cdot {\BD}({\Br},t) dv   & =
+\oint_{S}{\BD}({\Br},t) \cdot {\Bn} \; dS = \int_{V}
+\rho_e ({\Br},t) \; dv \,,
+  \label{intGausse}
+\\[1mm]
+ \int_{V} \nabla \cdot {\BB}({\Br},t) dv   & =
+\oint_{S}{\BB}({\Br},t) \cdot {\Bn} \; dS =0 \,.
+  \label{intGaussm}
+\end{align}
+\end{subequations}
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\section{Maxwell's Equations in the Frequency Domain}
+
+%=========================================================================
+\begin{frame}[fragile]{Maxwell's Equations in the Frequency Domain}
+
+%
+Electromagnetic fields operating at a particular frequency are known
+as \alert{time--harmonic steady--state or monochromatic fields}. 
+
+\pause
+By adopting
+the time dependence $e^{j\omega t}$ to denote a time--harmonic field
+with angular frequency $\omega$, we write
+%
+\begin{equation}
+{\BE}({\Br}, t) = \Re \left\{ {\BE} ({\Br})
+e^{j\omega t} \right\}\,, \label{phasor}
+\end{equation}
+%
+where $\Re$ denotes the mathematical operator which selects the real
+part of a complex quantity. 
+
+\pause
+The complex quantity is
+$\BE(\Br)$ is called a \emph{vector phasor}. In (\ref{phasor}) we have used the same symbol to denote
+both the real quantity in the time domain, ${\BE}({\Br},
+t)$, and the complex quantity, ${\BE} ({\Br})$, in the
+frequency domain. 
+
+%\pause
+%In what follows we shall generally refer to
+%complex quantities unless otherwise explicitly stated.
+
+%\pause
+
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{Example}
+
+By applying (\ref{phasor}) to the field quantities appearing in
+(\ref{Faraday}), (\ref{Ampere}), (\ref{Gausse}) and (\ref{Gaussm})
+we obtain Maxwell's equations in the frequency domain. 
+\pause
+
+As an
+example, let us consider (\ref{Faraday}) for which we have
+%
+\begin{equation}
+\Re  \left\{ \left[ \nabla \times {\BE}({\Br}) +
+  j \omega  {\BB}({\Br})  \right] e^{j\omega t} \right\}  =0
+  \,.
+\end{equation}
+%
+
+Since this equation is valid for {\em all times} $t$, we may make
+use of the above lemma and state that the quantity inside the square
+bracket must be equal to zero.
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{Maxwell's equation in frequency domain}
+
+%
+\begin{subequations}
+\begin{align}
+ \nabla \times {\BE}({\Br})  & =    - j\omega
+ {\BB}({\Br})\,,
+ \\[1mm]
+ \nabla \times {\BH}({\Br})  & =     j\omega {\BD}({\Br})
++ {\BJ}({\Br})\,,  \\[1mm]
+  \nabla \cdot {\BD}({\Br})  & =   \rho_e({\Br})\,,
+  \\[1mm]
+  \nabla \cdot {\BB}({\Br})  & =   0\,.
+\end{align}
+\end{subequations}
+%
+\end{frame}
+
+
+
+
+
+%=========================================================================
+\begin{frame}[fragile]{Some identities for expressing Maxwell's Equations in GA}
+%\subsubsection{Some identities for expressing Maxwell's Equations in GA}
+Let us consider a generic vector $\Ba$  expressed in terms of the Pauli representation $\ta$ as
+\be
+ \ta = \sigma_1 \, a_x + \sigma_2 \, a_y + \sigma_3 \, a_z
+\label{asigma}
+\ee
+where the elements $\sigma_i$ constitutes the basis elements.
+
+%\pause
+%%(they can also be interpreted as Pauli matrices, but in the following we will simply make use of their properties as a GA basis). 
+%The  bivector $\hB=i \sigma_0\, \tB$ is expressed, using the identity $i \sigma_0= \sigma_1 \, \sigma_2 \,\sigma_3$, as
+%%
+%\bea
+%\hB &=&  i  \sigma_0\, \left(\sigma_1 \, B_x + \sigma_2 \, B_y + \sigma_3 \, B_z \right) \nonumber \\
+%&=&  \sigma_2 \,\sigma_3 \, B_x + \sigma_3 \, \sigma_1 \, B_y + \sigma_1 \, \sigma_2 \, B_z
+%\label{BBivsigma}
+%\eea
+
+\pause
+The $\nabla$ operator, in cartesian coordinates, is given by:
+\be
+\tnabla = \sigma_1 \, \partial_x + \sigma_2 \, \partial_y + \sigma_3 \, \partial_z \,.
+\label{nablasigma2}
+\ee
+Although we are referring to cartesian coordinates, the results derived next are valid in general.
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{External product of nabla with the vector $\Ba$}
+
+The divergence is readily expressed as usual as:
+\bea
+\tnabla \cdot \ta & = & 
+\left(  \sigma_1 \, \partial_x + \sigma_2 \, \partial_y + \sigma_3 \, \partial_z \right) 
+\cdot \left(  \sigma_1  a_x +  \sigma_2 \, a_y + \sigma_3 \, a_z \right) 
+\nonumber \\
+& = &  \left( \partial_x \, a_x + \partial_y \, a_y + \partial_z \, a_z\right) \sigma_0 \,.
+\eea
+
+\pause
+%
+The external product of nabla with the vector $\ta$ is (by using 1,2,3 instead of x,y,z)
+\bea
+\tnabla \wedge \ta & = & \left(  \sigma_1 \, \partial_1 + \sigma_2 \, \partial_2 + \sigma_3 \, \partial_3 \right) 
+\wedge  
+\left(  \sigma_1  a_1 +  \sigma_2 \, a_2 + \sigma_3 \, a_3 \right)  \nonumber \\
+& = & 
+\sigma_1 \sigma_2 \left( \partial_1 a_2 - \partial_2 a_1\right) +
+\sigma_1 \sigma_3 \left( \partial_1 a_3 - \partial_3 a_1\right) +
+\sigma_2 \sigma_3 \left( \partial_2 a_3 - \partial_3 a_2\right) 
+\nonumber \\
+& = & i \left[
+\sigma_1  \left( \partial_2 a_3 - \partial_3 a_2\right) -
+\sigma_2  \left( \partial_1 a_3 - \partial_3 a_1\right)+
+\sigma_3  \left( \partial_1 a_2 - \partial_2 a_1\right)
+\right]
+\nonumber \\
+%& = &  \sigma_1 \, \sigma_2 \,\sigma_3\left( \partial_x \, B_x + \partial_y \, B_y\ + \partial_z \, B_z \right)  \nonumber \\
+& = & i \nabla \times \Ba \, .
+\eea
+
+\end{frame}
+
+
+%=========================================================================
+\begin{frame}[fragile]{Some identities for expressing Maxwell's Equations in GA: Bivectors}
+%\subsubsection{Some identities for expressing Maxwell's Equations in GA}
+Let us consider a generic vector $\BB$  expressed in terms of the Pauli representation $\tB$ as
+\be
+ \tB = \sigma_1 \, B_x + \sigma_2 \, B_y + \sigma_3 \, B_z
+\label{Bsigma}
+\ee
+where the elements $\sigma_i$ constitutes the basis elements.
+
+\pause
+%(they can also be interpreted as Pauli matrices, but in the following we will simply make use of their properties as a GA basis). 
+The  bivector $\hB=i \sigma_0\, \tB$ is expressed, using the identity $i \sigma_0= \sigma_1 \, \sigma_2 \,\sigma_3$, as
+%
+\bea
+\hB &=&  i  \sigma_0\, \left(\sigma_1 \, B_x + \sigma_2 \, B_y + \sigma_3 \, B_z \right) \nonumber \\
+&=&  \sigma_2 \,\sigma_3 \, B_x + \sigma_3 \, \sigma_1 \, B_y + \sigma_1 \, \sigma_2 \, B_z
+\label{BBivsigma}
+\eea
+
+\pause
+The $\nabla$ operator, in cartesian coordinates, is given by:
+\be
+\nabla = \sigma_1 \, \partial_x + \sigma_2 \, \partial_y + \sigma_3 \, \partial_z \,.
+\label{nablasigma}
+\ee
+Although we are referring to cartesian coordinates, the results derived next are valid in general.
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{External product of nabla with the bivector $\hB$}
+
+The divergence is readily expressed as usual as:
+\be
+\nabla \cdot \BB = \partial_x \, B_x + \partial_y \, B_y\ + \partial_z \, B_z \,.
+\ee
+
+\pause
+%
+The external product of nabla with the bivector $\hB$ is
+\bea
+\nabla \wedge \hB & = & \left(  \sigma_1 \, \partial_x + \sigma_2 \, \partial_y + \sigma_3 \, \partial_z \right) 
+\wedge  
+\left(  \sigma_2 \,\sigma_3 \, B_x + \sigma_3 \, \sigma_1 \, B_y + \sigma_1 \, \sigma_2 \, B_z \right)  \nonumber \\
+& = &  \sigma_1 \, \sigma_2 \,\sigma_3\left( \partial_x \, B_x + \partial_y \, B_y\ + \partial_z \, B_z \right)  \nonumber \\
+& = & i \nabla \cdot \BB \, .
+\eea
+
+Note that 
+\alert{the divergence of $\BB$ is a scalar}; when multiplied by $i$ it becomes a pseudoscalar. 
+\pause
+
+Also, when performing the external product of nabla with the bivector $\hB$ a pseudoscalar is obtained.
+
+\end{frame}
+
+
+%=========================================================================
+\begin{frame}[fragile]{Divergence of the bivector $\hB$}
+
+The divergence of the bivector $\hB$ is
+\bea
+\nabla \cdot \hB & = & \left(  \sigma_1 \, \partial_x + \sigma_2 \, \partial_y + \sigma_3 \, \partial_z \right) 
+\cdot  
+\left(  \sigma_2 \,\sigma_3 \, B_x + \sigma_3 \, \sigma_1 \, B_y + \sigma_1 \, \sigma_2 \, B_z \right)  \nonumber \\
+& = & 
+- \sigma_3 \, \partial_x \, B_y
++  \sigma_2 \, \partial_x \, B_z
++ \sigma_3 \, \partial_y \, B_x
+- \sigma_1 \, \partial_y \, B_z
+- \sigma_2 \, \partial_z \, B_x
++ \sigma_1 \, \partial_z \, B_y
+ \nonumber \\
+& = & - \nabla \times \BB  = i \nabla \wedge \BB\, .
+\eea
+In summary we have derived the following important identities:
+\bea
+\nabla \wedge \hB & = &  i \nabla \cdot \BB  \label{nablaestBiv}\\
+\nabla \cdot \hB & = & - \nabla \times \BB  = i \, \nabla \wedge \BB\,  \label{nabladotBiv}\\
+\nabla \, \hB & = & i \, \nabla \, \BB
+\eea
+
+\end{frame}
+
+\section{Geometric Algebra form of Maxwell's Equations}
+
+%=========================================================================
+\begin{frame}[fragile]{Geometric Algebra form of Maxwell's Equations}
+
+%
+\alert{Faraday's law}
+
+%\paragraph{Faraday's law}
+By multiplying both sides of (\ref{Faraday}) times $i$ one obtains:
+%
+\be
+\nabla \wedge \BE = - \partial_t \hB \,.
+\ee
+%
+It is noted that is \alert{an equation of grade 2, i.e. between bivectors}.
+
+\pause
+
+\alert{Ampere's law}
+
+%\paragraph{Ampere's law}
+Let us now consider (\ref{Ampere}) and make use of (\ref{nabladotBiv}):
+%
+\be
+\nabla \cdot \hH = - \partial_t \BD - \BJ \,.
+\ee
+%
+This is an \alert{equation of grade 1, i.e. between vectors}.
+
+
+
+\end{frame}
+
+
+%=========================================================================
+%=========================================================================
+\begin{frame}[fragile]{}
+\alert{Gauss' law}
+This equation remains unchanged: in fact, by considering (\ref{Gausse}):
+%
+\be
+\nabla \cdot \BD =  \rho_e 
+\ee
+%
+we have an \alert{equation of grade 0, i.e. a scalar equation}.
+
+\pause
+\alert{Magnetic flux continuity}
+
+By considering (\ref{Gaussm}), multiplying by $i$ and using (\ref{nablaestBiv}):
+%
+\be
+\nabla \wedge \hB =  0 
+\ee
+%
+we have an \alert{equation of grade 3, i.e. a pseudoscalar equation}.
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{GA equivalent of Maxwell's equations}
+
+In summary the following form are the GA equivalent of Maxwell's equations local form:
+
+\begin{subequations}
+\begin{align}
+\nabla \wedge \BE &= - \partial_t \hB \, , &&\text{grade 2}  \label{FaradayGA} \\
+\nabla \cdot \hH &= - \partial_t \BD - \BJ  \, , &&\text{grade 1} \label{AmpereGA} \\
+\nabla \cdot \BD &=  \rho_e  \, , &&\text{grade 0} \label{GausseGA} \\
+\nabla \wedge \hB &=  0 \, , &&\text{grade 3} \label{GaussmGA}
+\end{align}
+\end{subequations}
+
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{GA equivalent of Maxwell's equations with magnetic sources}
+
+Sometimes it is convenient to consider also magnetic sources 
+%summary and a piecewise constant medium 
+obtaining the following local form of Maxwell's equations:
+\begin{subequations}
+\begin{align}
+\nabla \cdot \BE &=  \frac{\rho_e}{\epsilon}  \, , &&\text{grade 0} \label{GausseGA} \\
+\nabla \cdot \left(i \eta \BH\right) &= - \frac{1}{c}\,  \partial_t \BE - \eta \,\BJ  \, , &&\text{grade 1} \label{AmpereGA} \\
+\nabla \wedge \BE &= - \frac{1}{c}\,  \partial_t \, \left(i \eta \BH\right) \, -i \, \BM , &&\text{grade 2}  \label{FaradayGA} \\
+\nabla \wedge \left(i \eta \BH\right) &=  - i \, c \, \rho_m \, , &&\text{grade 3} \label{GaussmGA}
+\end{align}
+\end{subequations}
+
+\end{frame}
+
+
+
+%=========================================================================
+\begin{frame}[shrink=10]{Geometric Algebra Global form of Maxwell's Equations}
+%\subsubsection{Geometric Algebra Global form of Maxwell's Equations}
+Let us refer to the equations (\ref{intinduction})--(\ref{intGaussm}).
+Instead of dealing with the term $\Bn \, dS$ we can now consider the bivector $d\, \hA$ denoting the oriented surface area. In addition note that when a volume term $dv$ is considered, it corresponds to a pseudoscalar as $dv = dx\, dy \, dz$.
+
+\pause
+\begin{subequations}
+\begin{align}
+% \oint_{C} {\BE}({\Br},t) \cdot d{\bf {\ell}}   & =
+  \oint_{C} {\BE} \cdot d\,{\Bl}   & =
+- \int_{S}\frac{\partial \hB }{ \partial t} \cdot
+d \,\hA \,,
+  \label{intinductionGA}
+\\[1mm]
+% \oint_{C} {\BH}({\Br},t) \cdot d{\bf \ell}   & =
+  \oint_{C} {\hH} \wedge d\, \Bl   & =
+\int_{S} \left( \BJ + \frac{\partial \BD} { \partial t} \right) \wedge
+d\,{\hA}   \label{intAmpereGA}
+\\[1mm]
+ \int_{V} \nabla \cdot {\BD} \, dv   & =
+\oint_{S}{\BD} \wedge d\,{\hA}  = \int_{V}
+\rho_e  \; dv \,,
+  \label{intGausseGA}
+\\[1mm]
+ \int_{V} \nabla \cdot {\BB} \, dv   & =
+\oint_{S}{\hB} \cdot d \; \hA = 0 \,.
+  \label{intGaussmGA}
+\end{align}
+\end{subequations}
+\pause
+It is noted that, in the above equations, the dot product between two bivectors give rise to a scalar, while the volume integral and the external product of a vector with a bivector produce a pseudoscalar.
+
+
+
+\end{frame}
+
+
+
+
+\section{Maxwell's Equations in compact form}
+%=========================================================================
+\begin{frame}[shrink=20,fragile]{Time--domain Maxwell's Equations in compact form}
+ 
+Time--domain Maxwell's equations are commonly expressed as:
+\bea 
+%\label{Maxwell--time}
+\nabla \times \BE & = & - \frac{\partial \, \BB}{\partial t} \label{curlE} \\
+\nabla \times \BH & = &  \frac{\partial \, \BD}{\partial t} + \BJ \label{curlH} \\
+\nabla \cdot \BD & = & \rho \label{divD} \\
+\nabla \cdot \BH & = & 0 \label{divH} 
+\eea
+%
+It is convenient to express the above equations making use of the light velocity in the medium $v$ and of the medium impedance $\eta$, recalling that:
+{\small
+\bea
+v & = & \frac{1}{\sqrt{\mu \epsilon}} \label{clight} \\
+\eta & = &\sqrt{  \frac{\mu}{\epsilon}} \label{etaimp} \\
+\mu & = & \frac{\eta}{v} \label{lmu} \\
+\epsilon & = &  \frac{1}{v\eta} \label{leps} \, .
+\eea
+}
+%
+%and noticing that
+%%
+%\be
+%v\, \BB = \eta \, \BH 
+%\ee
+%
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+With a few superficial changes we can make more evident the symmetries in Maxwell equations as,
+%
+\bea 
+%\label{Maxwell--time}
+\nabla \times \BE  +  \frac{\partial \, v \BB}{\partial vt} & = &  0\label{curlE2} \\
+\nabla \times v \BB - \frac{\partial \, \BE}{\partial vt} & = &   \eta \BJ \label{curlH2} \\
+\nabla \cdot \BE & = & \frac{v\rho}{v \epsilon} = \eta v \rho \label{divD2} \\
+\nabla \cdot v \BB & = & 0 \label{divH2} 
+\eea
+%
+It is also noted that
+\be
+v\, \BB = \eta \, \BH 
+\ee
+so that one can change the expression containing $v \, \BB$ in $\eta \, \BH$ or viceversa.
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+Equation (\ref{curlE2}) can be multiplied by $i$ and (\ref{curlH2}) can be multiplied by $i^2$, obtaining
+%\label{Maxwell--time}
+\bea
+i \nabla \times \BE  +  \frac{\partial \, i \, \eta \BH}{\partial vt} & = &  0 \label{curlE3} \\
+i \nabla \times  i \, \eta \BH + \frac{\partial \, \BE}{\partial vt} & = &   - \eta \BJ \label{curlH3} \\
+\nabla \cdot \BE & = & \eta \, v \rho \label{divD3} \\
+\nabla \cdot i\, \eta \BH & = & 0 \label{divH3} 
+\eea
+%
+
+
+By using the Pauli identity
+we can write compactly (\ref{curlE3})--(\ref{divH3}) as
+%
+\bea
+\nabla \,  \BE  +  \frac{\partial \, i \, \eta \BH}{\partial vt} & = &  \eta \, v \rho \label{nablaE} \\
+\nabla \left(  i \, \eta \BH \right) + \frac{\partial \, \BE}{\partial vt} & = &   - \eta \BJ  \label{nablaH} \,.
+\eea
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+A few observations are in order:
+\begin{itemize}
+\item
+In every place where $t$ appears, we have arranged things so that $vt$ appears, rather than $t$ alone. The rationale is that $vt$ has the same dimensions as $x, y$, and $z$. 
+%
+%To say the same thing another way, in spacetime, the partner to $x, y$, and $z$ is not $t$ but rather $vt$.
+\item
+Similarly, the partner to $\BJ$ is not $\rho$ but rather $v\,\rho$. 
+%In spacetime, $v\,\rho$ represents a certain amount of charge that sits at one spatial location and  flows toward the future, whereas $\BJ$ represents charge  flowing from one spatial location to another.
+\item
+Last but not least, the proper partner for $\BE$ is not $\BH$ but rather $\eta \, \BH$. In every place where $\BH$ appears, we have arranged things so the combination $\eta \, \BH$ appears, rather than $\BH$ alone. This is just an exercise in algebraic re--arrangement, and does not change the meaning of the equations. The rationale is that $\eta \, \BH$ has the same dimensions as $\BE$, and arranging things this way makes the equations more  symmetric. It is also noted that since $\eta \, \BH$ is always multiplied by $i$ it is a bivector while $\BE$ is a vector.
+\end{itemize}
+
+
+\end{frame}
+
+
+%=========================================================================
+\begin{frame}[fragile]{The field multivector: GA approach}
+
+%\subsubsection{The field multivector}
+%
+The multivector $\cal{F}$, composed by a vector  and a bivector part, is now introduced with the following definition:
+\be
+%\cal{F} = \BE + \eta \, \hat{\BH} \label{Fpassage:20} \, .
+{\cal{F}} = \BE +i \,  \eta \, {\BH} \label{Fpassage:20} \, .
+\ee
+By summing together (\ref{nablaE}) and (\ref{nablaH}), the well known results that allows to express the four Maxwell equation as a single one is recovered:
+\be
+\left(\nabla + \frac{1}{v}\partial_t\right) {\cal{F}} =  \eta  \, \left( v \rho  -  \BJ \right) \label{Fpassage:30} \, .
+\ee
+
+This expression, while being very synthetic, does not provide the same insight as the Dirac form, that we will introduce next.
+\end{frame}
+
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+The two equations (\ref{nablaE},\ref{nablaH}) in the sourceless case, may be rewritten in terms of Pauli matrices as
+%
+\bea
+\tnabla \,  \tE  + \sigma_0 \frac{\partial \, i \, \eta \tH}{\partial vt} & = & 0 \label{nablaE_pauli} \\
+\tnabla \left(  i \, \eta \tH \right) + \sigma_0 \frac{\partial \, \tE}{\partial vt} & = &   0 \label{nablaH_pauli} \,.
+\eea
+%
+
+By using matrix notation we can write
+%
+\bea
+\begin{pmatrix}
+\frac{1}{v}\partial_t \, \sigma_0 & \tnabla \cr 
+- \tnabla & -\frac{1}{v}\partial_t \, \sigma_0
+\end{pmatrix}
+\begin{pmatrix}
+ \tE \cr  i \, \eta \tH
+\end{pmatrix}
+& = & 0
+\label{Maxwell_Pauli_Dirac}
+\eea
+%
+where we have changed sign at (\ref{nablaE_pauli}). Equation (\ref{Maxwell_Pauli_Dirac}) is ready to be cast in Dirac form, remembering that
+\be
+\tnabla   =   \sigma \cdot \nabla = \sigma_1 \partial_x + \sigma_2 \partial_y +\sigma_3 \partial_z  \nonumber
+\ee
+\end{frame}
+
+
+%=========================================================================
+\section{Maxwell's equations in Dirac form}
+%=========================================================================
+%=========================================================================
+\begin{frame}[fragile]{Maxwell's equations}
+It is convenient to introduce the following notation:
+%
+\bea
+x_0 & = & vt \nonumber \\
+x_1 & = & x \nonumber \\
+x_2 & = & y \nonumber \\
+x_3 & = & z
+\eea
+which is valid for the cartesian coordinate system. Similarly, we use for the derivatives the symbol
+\bea
+\partial_i & = &\frac{\partial}{\partial x_i} \, .
+\eea
+By changing the sign of eq. (\ref{nablaE}) it is possible to rewrite the Maxwell equations in a Dirac like notation in terms of the gamma matrices as
+\be
+\sum_{i=0}^3 \partial_i \gamma^i 
+ \begin{pmatrix}{E}_{z}\cr i\,{E}_{y}+{E}_{x}\cr \eta\,i\,{H}_{z}\cr \eta\,\left( i\,{H}_{x}-{H}_{y}\right) \end{pmatrix} =
+ -\eta 
+ \begin{pmatrix} 
+ {J}_{z} \cr
+ i\,{J}_{y}+{J}_{x}\cr 
+ v\,\rho_e\cr
+ 0 \end{pmatrix} 
+\ee
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Maxwell's equations}
+We have already seen eq. (\ref{Maxwell_Pauli_Dirac}), here repeated for convenience for the sourceless case and expressed in the present notation:
+%
+\bea
+\begin{pmatrix}
+\partial_0 \, \sigma_0 & \tnabla \cr 
+- \tnabla & -\partial_0 \, \sigma_0
+\end{pmatrix}
+\begin{pmatrix}
+ \tE \cr  i \, \eta \tH
+\end{pmatrix}
+& = & 0
+\label{Maxwell_Pauli_Dirac2}
+\eea
+%
+with $\tnabla$ being
+%
+\be
+\tnabla   =   \sigma \cdot \nabla = \sigma_1 \partial_1 + \sigma_2 \partial_2 +\sigma_3 \partial_3  \nonumber \,.
+\ee
+
+
+\end{frame}
+
+
+%=========================================================================
+\begin{frame}[fragile]{}
+Therefore, if we write explicitly eq. (\ref{Maxwell_Pauli_Dirac2}) we have
+%
+\be 
+\begin{pmatrix}
+{\partial}_{0} & 0 & {\partial}_{3} & \partial_1 -i \partial_2 \cr 
+0 & {\partial}_{0} & {\partial}_{1} + i\,{\partial}_{2} & -{\partial}_{3}\cr 
+-{\partial}_{3} & - \partial_1 +i \partial_2& -{\partial}_{0} & 0 \cr 
+-\partial_1 -i \partial_2 & {\partial}_{3} & 0 & -{\partial}_{0}
+\end{pmatrix}
+\begin{pmatrix}{E}_{z}\cr i\,{E}_{y}+{E}_{x}\cr \eta\,i\,{H}_{z}\cr \eta\,\left( i\,{H}_{x}-{H}_{y}\right) \end{pmatrix} =0 
+\label{expMaxdir}
+\ee
+In (\ref{expMaxdir}) we have considered the sourceless case and we have used just the first column of the Pauli matrices representing the fields $\tE$
+and $i \, \eta \tH$.
+By using the Dirac gamma matrices we have
+\be
+\left(\gamma^0 \partial_0 + \gamma^1 \partial_1 + \gamma^2 \partial_2+ \gamma^3 \partial_3 \right) 
+\begin{pmatrix}{E}_{z}\cr i\,{E}_{y}+{E}_{x}\cr \eta\,i\,{H}_{z}\cr \eta\,\left( i\,{H}_{x}-{H}_{y}\right) \end{pmatrix}
+= 0
+\ee
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Maxwell--Dirac}
+By taking into account also of the sources  it is possible to rewrite the Maxwell equations in a Dirac like notation in terms of the gamma matrices as
+\be
+\sum_{i=0}^3 \partial_i \gamma^i 
+ \begin{pmatrix}{E}_{z}\cr i\,{E}_{y}+{E}_{x}\cr \eta\,i\,{H}_{z}\cr \eta\,\left( i\,{H}_{x}-{H}_{y}\right) \end{pmatrix} =
+ -\eta 
+ \begin{pmatrix} 
+ {J}_{z} \cr
+ i\,{J}_{y}+{J}_{x}\cr 
+ v\,\rho_e\cr
+ 0 \end{pmatrix} 
+ \label{4equations}
+\ee
+By introducing the Feynman slash notation
+\be
+{\slashed \partial} = \sum_{i=0}^3 \partial_i \gamma^i 
+\ee
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Maxwell--Dirac}
+and the shorthand notation for the quadrivectors
+\bea
+\barF & = & \begin{pmatrix}{E}_{z}\cr i\,{E}_{y}+{E}_{x}\cr \eta\,i\,{H}_{z}\cr \eta\,\left( i\,{H}_{x}-{H}_{y}\right) \end{pmatrix} \nonumber \\
+\barJ & = & \begin{pmatrix} 
+ {J}_{z} \cr
+ i\,{J}_{y}+{J}_{x}\cr 
+ v\,\rho_e\cr
+ 0 \end{pmatrix}
+\eea
+%
+we simply have 
+\be
+{\slashed \partial} \barF = -\eta \barJ
+\label{Maxwell_Feynman}
+\ee
+%
+which  presents a form similar to the Dirac equation for null mass.
+
+
+
+\end{frame}
+
+
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+
+
+%=========================================================================
+\begin{frame}[fragile]{The quadrivector $\barF $}
+
+The quadrivector $\barF $ can also be written in terms of waves
+\bea
+\barF & = & \begin{pmatrix}{E}_{z}\cr i\,{E}_{y}+{E}_{x}\cr \eta\,i\,{H}_{z}\cr \eta\,\left( i\,{H}_{x}-{H}_{y}\right) \end{pmatrix} 
+ = 
+\begin{pmatrix}{a}_{0}+{b}_{0}\cr {a}_{1}+{b}_{1}\cr {a}_{0}-{b}_{0}\cr {a}_{1}-{b}_{1}\end{pmatrix} 
+ \nonumber 
+\eea
+%
+%we simply have 
+%\be
+%{\slashed \partial} \barF = -\eta \barJ
+%\label{Maxwell_Feynman}
+%\ee
+%%
+%which  presents a form similar to the Dirac equation.
+
+
+\end{frame}
+
+\begin{frame}[fragile]{Explicit representation of ${\slashed \partial} \barF$}
+ The representation of ${\slashed \partial} \barF$ in matrix terms is:
+\be
+{\slashed \partial} \barF = 
+\begin{pmatrix}
+{\partial}_{0} & 0 & {\partial}_{3} & \partial_1 -i \partial_2 \cr 
+0 & {\partial}_{0} & {\partial}_{1} + i\,{\partial}_{2} & -{\partial}_{3}\cr 
+-{\partial}_{3} & - \partial_1 +i \partial_2& -{\partial}_{0} & 0 \cr 
+-\partial_1 -i \partial_2 & {\partial}_{3} & 0 & -{\partial}_{0}
+\end{pmatrix}
+\begin{pmatrix}{E}_{z}\cr i\,{E}_{y}+{E}_{x}\cr \eta\,i\,{H}_{z}\cr \eta\,\left( i\,{H}_{x}-{H}_{y}\right) \end{pmatrix} 
+\nonumber
+\ee
+
+It is possible to note that the four equations are coupled:  \alert{we need to solve 4 coupled equations}.
+
+It is possible to separate the problem into \alert{two systems of only two coupled equations} by using the Weyl decomposition.
+\end{frame}
+
+%=========================================================================
+\section{Weyl decomposition}
+%=========================================================================
+\begin{frame}[fragile]{Weyl decomposition}
+
+Let us consider the case without sources, which applies e.g. to propagation problems.
+
+The four eqs. (\ref{4equations}) are coupled, but it is possible to separate them in two independent sets of two equations.
+
+\pause
+To this end it is convenient to introduce the two matrices
+%
+\bea
+A^- & = & \frac{1}{\sqrt{2}} \left(\gamma^4 - \gamma^5 \right) \nonumber \\
+A^+ & = & \frac{1}{\sqrt{2}} \left(\gamma^4 + \gamma^5 \right) \,.
+\eea
+%
+\pause
+
+These matrices square to the identity matrix thus being equal to their inverse. 
+\be
+A^-A^- = A^+A^+ = I_4
+\ee
+
+\pause
+
+
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{Weyl decomposition in matrix form}
+It is also noted that
+%
+\be
+ \begin{pmatrix}{a}_{0}\cr {a}_{1}\cr {b}_{0}\cr {b}_{1}\end{pmatrix}
+ =  \frac{1}{\sqrt{2}}  \, A^- \, 
+ \begin{pmatrix}{a}_{0}+{b}_{0}\cr {a}_{1}+{b}_{1}\cr {a}_{0}-{b}_{0}\cr {a}_{1}-{b}_{1}\end{pmatrix}  \, .
+\ee
+%
+We can therefore transform eq. (\ref{Maxwell_Feynman}) as
+\be
+A^+ \, {\slashed \partial} \, A^- \, \, A^- \,\barF =0
+\label{Maxwell_Feynman_mod}
+\ee
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{Weyl decomposition in matrix form}
+or,
+explicitly, in cartesian coordinates, we have
+%
+\be
+A^+ \, {\slashed \partial} \, A^- = 
+\begin{pmatrix}
+{\partial}_{3}+{\partial}_{0} & {\partial}_{1}-i\,{\partial}_{2} & 0 & 0\cr 
+i\,{\partial}_{2}+{\partial}_{1} & {\partial}_{0}-{\partial}_{3} & 0 & 0\cr 
+0 & 0 & {\partial}_{3}-{\partial}_{0} & {\partial}_{1}-i\,{\partial}_{2}\cr 
+0 & 0 & i\,{\partial}_{2}+{\partial}_{1} & -{\partial}_{3}-{\partial}_{0}
+\end{pmatrix}
+\nonumber
+\ee
+%
+\pause
+i.e. the problem is decomposed in two systems as following:
+%
+\bea
+\left( \tnabla + \sigma_0 \partial_0\right)  \begin{pmatrix}{a}_{0}\cr {a}_{1}\end{pmatrix}  & = & \tilde{\partial}^+ \begin{pmatrix}{a}_{0}\cr {a}_{1}\end{pmatrix} = 0 \nonumber \\
+\left( \tnabla - \sigma_0 \partial_0\right)  \begin{pmatrix}{b}_{0}\cr {b}_{1}\end{pmatrix}  & = &  
+ \tilde{\partial}^- \begin{pmatrix}{b}_{0}\cr {b}_{1}\end{pmatrix} =
+ 0 \, .
+\label{nabla_sigma_ab}
+\eea
+%
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{An alternative approach}
+At the same result we can arrive directly starting from (\ref{nablaE_pauli}), (\ref{nablaH_pauli}) and by introducing the column vectors $u,w$ defined as
+%
+\bea
+u & = & \begin{pmatrix}{E}_{z}\cr i\,{E}_{y}+{E}_{x} \end{pmatrix}
+=  \begin{pmatrix}{a}_{0}+{b}_{0}\cr {a}_{1}+{b}_{1}\end{pmatrix} 
+  \nonumber \\
+w & = &\begin{pmatrix} \eta\,i\,{H}_{z}\cr \eta\,\left( i\,{H}_{x}-{H}_{y}\right) \end{pmatrix} 
+=
+ \begin{pmatrix} {a}_{0}-{b}_{0}\cr {a}_{1}-{b}_{1}\end{pmatrix} 
+\eea
+%
+\pause
+we have
+%
+%
+\bea
+ \tnabla   u + \sigma_0 \,  \partial_0 \, w   & = & 0 \nonumber \\
+\tnabla   w + \sigma_0 \,  \partial_0 \, u   & = & 0 \, .
+\eea
+%
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{Wave propagation equations}
+By summing and subtracting the above eqs. we have:
+%
+\bea
+ \tnabla   \left( u+w \right) + \sigma_0 \,  \partial_0 \,  \left( u+w \right)   & = & 0 \nonumber \\
+\tnabla    \left( u-w \right) + \sigma_0 \,  \partial_0 \,  \left( u-w \right)   & = & 0 \, 
+\eea
+%
+\pause
+and since 
+%
+\bea
+u+w & = & 2\, a = 2 \begin{pmatrix} {a}_{0}\cr {a}_{1}\end{pmatrix} \nonumber \\
+u-w & = & 2\, b = 2 \begin{pmatrix} {b}_{0}\cr {b}_{1}\end{pmatrix} 
+\eea
+% 
+\pause
+we have obtained eqs. (\ref{nabla_sigma_ab}) or
+%
+\bea
+\left( \tnabla + \sigma_0 \partial_0\right)  \begin{pmatrix}{a}_{0}\cr {a}_{1}\end{pmatrix}  & = & \tilde{\partial}^+ \begin{pmatrix}{a}_{0}\cr {a}_{1}\end{pmatrix} = 0 \nonumber \\
+\left( \tnabla - \sigma_0 \partial_0\right)  \begin{pmatrix}{b}_{0}\cr {b}_{1}\end{pmatrix}  & = &  
+ \tilde{\partial}^- \begin{pmatrix}{b}_{0}\cr {b}_{1}\end{pmatrix} =
+ 0 \, .
+\label{nabla_sigma_ab}
+\eea
+%
+
+
+\end{frame}
+
+%%=========================================================================
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%
+%=========================================================================
+%
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%
+%%=========================================================================
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%
+%=========================================================================
+%
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+
+
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+
+
+%
+%%=========================================================================
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+
+
+%=========================================================================
+
+
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+
+
+%=========================================================================
+
+
+
+
+
+
+\end{document}

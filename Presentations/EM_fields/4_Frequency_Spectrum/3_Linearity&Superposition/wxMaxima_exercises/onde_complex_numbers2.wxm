@@ -1,0 +1,78 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+/* example for complex numbers*/
+
+kill(all);
+ratprint: false$
+fpprintprec:7$
+
+Giga : 10^9$
+Mega : 10^6$
+kilo : 10^3$
+milli : 10^(-3)$
+micro : 10^(-6)$
+nano  : 10^(-9)$
+pico  : 10^(-12)$
+
+z : x + %i * y;
+print("realpart")$
+x : realpart(z);
+print("imag part")$
+y : imagpart(z);
+
+print("polar form")$
+zpol : polarform(z); 
+print("convert in rectform")$
+znorm : rectform(zpol);
+print("abs")$
+zabs : cabs(zpol);
+
+print("Euler identity");
+%e^(%i * %theta);
+Euler : demoivre(%e^(%i*%theta));
+
+realpart(Euler);
+imagpart(Euler);
+
+zmod : cabs(z);
+zc : zmod * Euler;
+
+zcc : conjugate(zc);
+zcr : rectform(zc);
+zccr : rectform(zcc);
+
+print("sqrt(z * conjugate(z))")$
+a : sqrt(z * conjugate(z));
+zmod : cabs(a);
+imagpart(a);
+
+print("properties")$
+print("Sum");
+z[1] : x[1]+ %i * y[1];
+z[2] : x[2]+ %i * y[2];
+z[1]+z[2];
+
+print("Multiplication")$
+expand(z[1]*z[2]);
+
+print("division");
+d : z[1]/z[2];
+rectform(d);
+polarform(d);
+
+print("z^n")$
+zn : z^n;
+polarform(zn);
+
+(y^2+x^2)^(n/2)*%e^(%i*atan2(sin(n*atan2(y,x)),cos(n*atan2(y,x))));
+
+print("useful relationships")$
+print("%e^(%i * %pi) = ")$
+%e^(%i * %pi);
+print("Bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

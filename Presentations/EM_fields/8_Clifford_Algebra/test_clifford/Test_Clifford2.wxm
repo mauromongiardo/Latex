@@ -1,0 +1,32 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+pathmaxima:file_search_maxima$
+pathmaxima[2];
+
+
+load("/Users/mauromongiardo/dropbox/2017/Maxwell-Pauli/wxmaxima/test_clifford/clifford.mac");
+
+if get('clifford,'version)=false then load("clifford");
+("Cliford implements Clifford algebra for Maxima.")$
+("Space-time algebra")$clifford(g,1,3);
+("here are all elements of the algebra")$elements();
+("anticommutativity")$g[2].g[1];
+("Electric field vector")$EE:cvect(E,[[],x,y,z]);
+("Magnetic field vector")$BB:cvect(B,[[],x,y,z]);
+("Faraday multi-vector")$F: EE + %iv.BB;
+("Faraday multi-vector full simplification")$
+F: F,expand, dotsimpc;
+("pseudo-Euclidaen vector segment")$
+mtable1([g[1],g[2],g[3],g[4]]);
+("Quaternion segment")$
+mtable1([g[1] . g[3] . g[4], g[1] . g[2] . g[4],g[1] . g[2] . g[3]]);
+("space-time split")$F1:F.g[1],expand,dotsimpc;
+("Quaternion segment")$mtable1([ g[3] . g[4], g[2] . g[4], g[2] . g[3]]);
+("Euclidaen vector segment")$mtable1([  g[1] . g[2], g[1] . g[3], g[1] . g[4]]);
+("Full algebra")$mtable2();
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

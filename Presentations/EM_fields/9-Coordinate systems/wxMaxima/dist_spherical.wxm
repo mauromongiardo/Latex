@@ -1,0 +1,26 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+/* example 3.8 */
+kill(all);
+ratprint: false$
+fpprintprec:7$
+
+/* evaluate distance in spherical coordinates*/
+
+x[1] : R[1] * sin(%theta[1]) * cos(%phi[1]);
+y[1] : R[1] * sin(%theta[1]) * sin(%phi[1]);
+z[1] : R[1] * cos(%theta[1]);
+
+x[2] : R[2] * sin(%theta[2]) * cos(%phi[2]);
+y[2] : R[2] * sin(%theta[2]) * sin(%phi[2]);
+z[2] : R[2] * cos(%theta[2]);
+
+dist2 : ((x[2] - x[1])^2 + (y[2] - y[1])^2 + (z[2] - z[1])^2);
+dist2 : trigsimp(dist2);
+dist :  sqrt(dist2);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

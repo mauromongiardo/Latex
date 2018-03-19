@@ -1,0 +1,162 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+
+print("Once the Pauli matrices are given all the transformations are available!")$
+
+
+/* Pauli matrices: rectangular */
+print("_________________________________________________________")$
+print("Pauli Matrices rectangular")$
+print("_________________________________________________________")$
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+print('%sigma[0]," = ",%sigma[0])$
+print('%sigma[1]," = ",%sigma[1])$
+print('%sigma[2]," = ",%sigma[2])$
+print('%sigma[3]," = ",%sigma[3])$
+
+/* Pauli matrices: cylindrical */
+print("_________________________________________________________")$
+print("Pauli matrices in cylindrical coordinates")$
+print("_________________________________________________________")$
+%sigma[%rho] : matrix([0,%e^(-%i * phi)],[%e^(%i * phi),0])$
+%sigma[phi] : matrix([0,-%i * %e^(-%i * phi)],[%i * %e^(%i * phi),0])$
+%sigma[z] : matrix([1,0],[0,-1])$
+print('%sigma[%rho]," = ",%sigma[%rho])$
+print('%sigma[phi]," = ",%sigma[phi])$
+print('%sigma[z]," = ",%sigma[z])$
+
+/* Pauli matrices: spherical */
+print("_________________________________________________________")$
+print("Pauli matrices in spherical coordinates")$
+print("_________________________________________________________")$
+ct : cos(%theta)$
+st : sin(%theta)$
+%sigma[r] : matrix([ct,st * %e^(-%i * phi)],[st * %e^(%i * phi),-ct])$
+%sigma[%theta] : matrix([-st,ct  * %e^(-%i * phi)],[ct * %e^(%i * phi),st])$
+%sigma[phi] : matrix([0,-%i * %e^(-%i * phi)],[%i * %e^(%i * phi),0])$
+print('%sigma[r]," = ",%sigma[r])$
+print('%sigma[%theta]," = ",%sigma[%theta])$
+print('%sigma[phi]," = ",%sigma[phi])$
+
+print("_________________________________________________________")$
+print("vector A in rectangular coordinates")$
+print("_________________________________________________________")$
+Axyz : A[x] * %sigma[1] + A[y] * %sigma[2]+ A[z] * %sigma[3];
+
+print("_________________________________________________________")$
+print("vector A in cylindrical coordinates")$
+print("_________________________________________________________")$
+Arpz : factor(A[%rho]*%sigma[%rho] + A[phi]*%sigma[phi] + A[z]*%sigma[z]);
+
+print("_________________________________________________________")$
+print("vector A in spherical coordinates")$
+print("_________________________________________________________")$
+Artp : factor(A[r]*%sigma[r] + A[%theta]*%sigma[%theta] + A[phi]*%sigma[phi]);
+
+print("_________________________________________________________")$
+print("From rectangular to cylindrical")$
+print("_________________________________________________________")$
+
+sr1 : trigsimp(Axyz . %sigma[%rho])$
+Arho : trigsimp(realpart(1/2 * (sr1[1,1]+sr1[2,2])))$
+print('Arho, " = ",Arho)$
+
+sr1 : trigsimp(Axyz . %sigma[phi])$
+Aphi : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Aphi, " = ",Aphi)$
+
+sr1 : trigsimp(Axyz . %sigma[3])$
+Az : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Az, " = ",Az)$
+
+print("_________________________________________________________")$
+print("From cylindrical to rectangular")$
+print("_________________________________________________________")$
+
+sr1 : Arpz . %sigma[1]$
+Ax : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Ax, " = ",Ax)$
+
+sr1 : Arpz . %sigma[2]$
+Ay : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Ay, " = ",Ay)$
+
+sr1 : Arpz . %sigma[3]$
+Az : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Az, " = ",Az)$
+
+print("_________________________________________________________")$
+print("From rectangular to spherical")$
+print("_________________________________________________________")$
+
+sr1 : trigsimp(Axyz . %sigma[r])$
+Ar : trigsimp(realpart(1/2 * (sr1[1,1]+sr1[2,2])))$
+print('Ar, " = ",Ar)$
+
+sr1 : trigsimp(Axyz . %sigma[%theta])$
+Atheta : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Atheta, " = ",Atheta)$
+
+sr1 : trigsimp(Axyz . %sigma[phi])$
+Aphi : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Aphi, " = ",Aphi)$
+
+print("_________________________________________________________")$
+print("From spherical to rectangular")$
+print("_________________________________________________________")$
+
+sr1 : Artp . %sigma[1]$
+Ax : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Ax, " = ",Ax)$
+
+sr1 : Artp . %sigma[2]$
+Ay : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Ay, " = ",Ay)$
+
+sr1 : Artp . %sigma[3]$
+Az : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Az, " = ",Az)$
+
+print("_________________________________________________________")$
+print("From cylindrical to spherical")$
+print("_________________________________________________________")$
+
+sr1 : trigsimp(Arpz . %sigma[r])$
+Ar : trigsimp(realpart(1/2 * (sr1[1,1]+sr1[2,2])))$
+print('Ar, " = ",Ar)$
+
+sr1 : trigsimp(Arpz . %sigma[%theta])$
+Atheta : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Atheta, " = ",Atheta)$
+
+sr1 : trigsimp(Arpz . %sigma[phi])$
+Aphi : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Aphi, " = ",Aphi)$
+
+print("_________________________________________________________")$
+print("From spherical to cylindrical")$
+print("_________________________________________________________")$
+
+sr1 : Artp . %sigma[%rho]$
+Arho : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Arho, " = ",Arho)$
+
+sr1 : Artp . %sigma[phi]$
+Aphi : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Aphi, " = ",Aphi)$
+
+sr1 : Artp . %sigma[3]$
+Az : trigsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Az, " = ",Az)$
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

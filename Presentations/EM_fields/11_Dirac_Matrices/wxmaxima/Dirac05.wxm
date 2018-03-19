@@ -1,0 +1,87 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+
+print("Define the Pauli matrices")$
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+print("Define the Dirac matrices according to Arfken pag. 213")$
+
+/* print("First row of Arfken table")$ */
+print("These are the sigmas here called s")$
+s[0] : kronecker_product (%sigma[0],%sigma[0])$
+s[1] : kronecker_product (%sigma[0],%sigma[1])$
+s[2] : kronecker_product (%sigma[0],%sigma[2])$
+s[3] : kronecker_product (%sigma[0],%sigma[3])$
+
+g[00]: s[0]$
+g[01]: s[1]$
+g[02]: s[2]$
+g[03]: s[3]$
+
+/* print("second row of Arfken table")$ */
+%alpha[0] : kronecker_product (%sigma[1],%sigma[0])$
+%alpha[1] : kronecker_product (%sigma[1],%sigma[1])$
+%alpha[2] : kronecker_product (%sigma[1],%sigma[2])$
+%alpha[3] : kronecker_product (%sigma[1],%sigma[3])$
+g[10]: %alpha[0]$
+g[11]: %alpha[1]$
+g[12]: %alpha[2]$
+g[13]: %alpha[3]$
+
+/* print("third row of Arfken table")$ */
+%gamma[0] : kronecker_product (%sigma[2],%sigma[0])$
+%gamma[1] : kronecker_product (%sigma[2],%sigma[1])$
+%gamma[2] : kronecker_product (%sigma[2],%sigma[2])$
+%gamma[3] : kronecker_product (%sigma[2],%sigma[3])$
+g[20]: %gamma[0]$
+g[21]: %gamma[1]$
+g[22]: %gamma[2]$
+g[23]: %gamma[3]$
+
+/* print("fourth row of Arfken table")$ */
+%delta[0] : kronecker_product (%sigma[3],%sigma[0])$
+%delta[1] : kronecker_product (%sigma[3],%sigma[1])$
+%delta[2] : kronecker_product (%sigma[3],%sigma[2])$
+%delta[3] : kronecker_product (%sigma[3],%sigma[3])$
+g[30]: %delta[0]$
+g[31]: %delta[1]$
+g[32]: %delta[2]$
+g[33]: %delta[3]$
+
+
+/* Example */
+
+i : 2$
+j : 3$
+
+k : 0$
+l : 1$
+
+print("Rule for the product of gamma matrices")$
+print(" The gamma[ij] is obtained as the kronecher product of %sigma[i] and %sigma[j]")$
+print(" The gamma[lk] is obtained as the kronecher product of %sigma[l] and %sigma[k]")$
+
+
+print("gijgkl product by direct multiplication")$
+gijgkl : g[23] . g[01];
+
+/*
+print("result obtained with the rule")$
+first : %sigma[2].%sigma[0];
+second : %sigma[3].%sigma[1];
+res : kronecker_product (first,second);
+ print("test")$
+res - gijgkl;
+*/
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

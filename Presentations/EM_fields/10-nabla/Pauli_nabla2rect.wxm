@@ -1,0 +1,65 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+
+depends([a11,a12,a21,a22],[x,y,z]);
+Ap : matrix([a11,a12],[a21,a22]); 
+
+/* 
+The block Nablarect perform the nabla operation
+in rectangular coordinates on a Pauli matrix Ap
+*/
+
+Nablarect(Ap) := 
+block([],
+
+print("Nabla is"),
+
+NAp11 : diff(Ap[1,1],z)+diff(Ap[2,1],x)-%i*diff(Ap[2,1],y),
+NAp12 : diff(Ap[1,2],z)+diff(Ap[2,2],x)-%i*diff(Ap[2,2],y),
+NAp21 :-diff(Ap[2,1],z)+diff(Ap[1,1],x)+%i*diff(Ap[1,1],y),
+NAp22 :-diff(Ap[2,2],z)+diff(Ap[1,2],x)+%i*diff(Ap[1,2],y),
+
+NAp11 : factor(NAp11),
+NAp12 : factor(NAp12),
+NAp21 : factor(NAp21),
+NAp22 : factor(NAp22),
+
+NAp : (matrix([NAp11, NAp12],[NAp21, NAp22]))
+)$
+
+print("_______________________________________")$
+print("Consider a vector E with components Ex, Ey, Ez")$
+depends([Ex,Ey,Ez],[x,y,z]);
+/* 
+print("Consider an Electric Field of the form")$
+Ex :  %e^(-%i * k * z)$   
+Ey : 0$
+Ez : 0$
+*/
+[Ex, Ey, Ez];
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+print("Nabla as Pauli matrix")$
+Np : dx * %sigma[1] + dy * %sigma[2] + dz * %sigma[3];
+
+print("vector E as Pauli matrix")$
+Ep : Ex * %sigma[1] + Ey * %sigma[2] + Ez * %sigma[3];
+
+print("nabla E is")$
+NEp  : Nablarect(Ep);
+
+print("nabla nabla E is")$
+NNEp : Nablarect(NEp);
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

@@ -1,0 +1,38 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+load(vect)$
+/* V_r2c.wxm */
+
+print(" from the cartesian expression of a vector pass to the cylindrical representation")$
+/* numerical  
+fpprintprec:5$
+ratprint : false$
+A[x] :5.0 ;
+A[y] : 3.14/4.0 ;
+A[z] :4.6 ;
+phi : atan2(A[y],A[x]);
+*/
+
+/* for unit vectors the following holds: 
+A[x] : x[0]; 
+A[y] : y[0]; 
+A[z] : z[0]; 
+*/
+
+print("Transformation matrix r2cmat")$
+r2cmat :matrix([cos(phi),sin(phi),0],[-sin(phi),cos(phi),0],[0,0,1]);
+
+print("vector A in rectangular coordinates")$
+Avect : [A[x],A[y],A[z]];
+
+print("rectangular to cylindrical")$
+Aspher : r2cmat . Avect ;
+
+print("bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

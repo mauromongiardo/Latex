@@ -1,0 +1,117 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+pathmaxima:file_search_maxima$
+pathmaxima[2];
+
+
+load("/Users/mauromongiardo/dropbox/2017/Maxwell-Pauli/wxmaxima/test_clifford/clifford.mac");
+load("/Users/mauromongiardo/dropbox/2017/Maxwell-Pauli/wxmaxima/test_clifford/cliffordan.mac");
+
+if get('clifford,'version)=false then load("clifford")$
+if get('cliffordan,'version)=false then load("cliffordan")$
+("Cliford implements Clifford algebra for Maxima.")$
+"Inner and outer products in G(3)"$
+ 	
+
+clifford(e, 3);
+	
+	
+"initialize variables"$
+ 	
+a1:cvect(a),b1:cvect(b), c1:cvect(c);
+ 	
+b1:cvect(b);
+ 	c1:cvect(c);
+	
+	
+
+"assocativity of outer product"$
+ 	
+L1:(a1 & b1 )& c1, factor;
+ 	
+L2:a1 & (b1 & c1) ,factor;	
+	
+L1-L2;
+	
+ 	
+
+L1:a1 | (b1 & c1);
+ 	
+L2:(a1| b1).c1 - (a1 | c1) .b1,expand;
+ 	
+L1-L2;
+	
+	
+
+"cross prduct"$
+ 	
+D1:c1| (-%iv. (a1 & b1)),dotsimpc;
+ 	
+	
+
+"matrix  representation"$
+ 	
+M1: matrix(
+ 	
+[a[1],a[2],a[3]], 
+ 	
+[b[1],b[2],b[3]], 
+ 	
+[c[1],c[2],c[3]]
+ 	);
+ 	
+D2:determinant(M1);
+ 	
+ 	
+
+equal(D1,D2),pred;
+	
+	
+
+e[1] &e[2] &e[3];
+	
+(1+e[1])&(1+e[1]);		
+	
+(1+e[1])&(1-e[1]);
+	
+
+"outer product multiplication table"$
+		print("outer product multiplication table")$
+	
+mtable2o();	
+
+
+	
+
+"left contraction"$
+	
+	
+
+inprotype:'lc;
+	((1+e[1])/2)|( (1+e[1])/2),factor;		
+	
+mtable2i();
+	
+	
+
+"right contraction"$
+	
+inprotype:'rc;
+	mtable2i();
+	
+	
+
+"symmetric"$
+	
+inprotype:'sym;
+	
+mtable2i();
+
+
+print("End")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

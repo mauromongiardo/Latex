@@ -1,0 +1,53 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+load(vect)$
+/* example3.8.wxm */
+
+/* */
+print("Example of of transformation from rectangular to spherical")$
+print("given the vector")$
+print(Ax, " = ",x+y)$
+print(Ay, " = ",-x+y)$
+print(Az, " = ",z)$
+print("Find the vector in spherical coordinates")$
+
+print("_________________________________")$
+print(" Solution")$
+print("_________________________________")$
+print("Express x,y,z in terms of r, theta ,phi")$
+x : r * sin(theta) * cos(phi)$
+y : r * sin(theta) * sin(phi)$
+z : r *cos(theta)$
+
+print("spherical to rectangular")$
+print('x, " = ",x)$
+print('y, " = ",y)$
+print('z, " = ",z)$
+
+print("write the vector A in rectangular coordinates")$
+Ax : trigsimp(x+y) ;
+Ay : trigsimp(y-x);
+Az : trigsimp(z);
+
+print("Transformation matrix s2rmat")$
+r2smat :matrix([sin(theta)* cos(phi),sin(theta)*sin(phi),cos(theta)],
+               [cos(theta)*cos(phi),cos(theta)*sin(phi),-sin(theta)],
+               [-sin(phi),cos(phi),0]);
+
+print("vector A in rectangular coordinates")$
+Arect : [Ax,Ay,Az];
+
+print("Transform vector A in spherical coordinates")$
+print("rectangular to spherical")$
+Aspher : r2smat . Arect ;
+print("after semplification we recover")$
+Aspher : trigsimp(Aspher);
+
+print("bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

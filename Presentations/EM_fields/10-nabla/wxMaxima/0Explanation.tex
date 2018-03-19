@@ -1,0 +1,143 @@
+\documentclass[]{article}
+\input{packages}
+\input{definitions}
+\begin{document}
+
+\title{wxMaxima Files}
+\author{Mauro Mongiardo}
+\date{Today}
+\maketitle
+
+
+The files which start with 1 are for rectangular coordinates, 2 corresponds to cylindrical coordinates, 3 corresponds to spherical coordinates.
+
+
+\section{Rectangular coordinates}
+
+
+The most complete file is:
+\begin{verbatim}
+File: 1Pauli_nabla3rect.wxm
+\end{verbatim}
+Nablarect is the block that performs the nabla operator in rectangular coordinates.
+Gradesep performs the grade extraction. 
+It is suggested to start from here.
+
+The file
+\begin{verbatim}
+File: 1Example3.10rect.wxm
+\end{verbatim}
+perform the gradient evaluation of a given function.
+
+The file
+\begin{verbatim}
+File: 1Example3.11rect.wxm
+\end{verbatim}
+perform the div and curl evaluation of a given vector.
+Conventional analysis is also used. 
+
+The file
+\begin{verbatim}
+File: 1Gradient_rectangular.wxm
+\end{verbatim}
+perform the gradient evaluation of a givenfunction with Pauli matrices.
+ 
+ 
+The file
+\begin{verbatim}
+File: 1nabla_rectangular.wxm
+\end{verbatim}
+perform the div and curl evaluation of a given vector with Pauli matrices.
+ 
+
+
+
+\section{Cylindrical coordinates}
+
+\subsection{Cylindrical Potential}
+The most complete file is the following:
+\begin{verbatim}
+File: Nabla_cyl_4_blocks.wxm
+\end{verbatim}
+
+This file contains a block performing the nabla operator in cylindrical coordinates.
+It also contains the Pauli matrices for rectangular and cylindrical coordinates.
+It also contains a block Gradecyl which perform the grade operation in cylindrical coordinates.
+
+At the end there are two examples. 
+The first example deals with a charged line (Electrostatic field)
+The second example deals with an infinite filament with current.
+
+\subsection{Conventional and GA nabla for cylindrical coordinates}
+\begin{verbatim}
+File: 2Nabla_cyl.wxm
+\end{verbatim}
+
+This files shows how to the div , grad curl operation in conventional analysis and with Pauli matrices.
+
+
+
+\subsection{example 3.10, exercise 3.10, exercise 3.13}
+\begin{verbatim}
+File: Esempio_3.10.wxm
+\end{verbatim}
+
+This file contains a block performing the nabla operator in cylindrical coordinates.
+It also contains the Pauli matrices for rectangular and cylindrical coordinates.
+
+It solves the example 3.10 of Ulaby which for a scalar function
+\be
+V = {V}_{0}\,{e}^{-2\,\rho}\,\mathrm{sin}\left( 3\,\phi\right) 
+\ee
+ask to evaluate the gradient.
+Then performs the divergence and the curl in cylindrical coordinates.
+
+
+\section{Spherical coordinates: Dipole}
+
+The most complete file is 
+\begin{verbatim}
+File: 3Nabla_sph_2_blocks.wxm
+\end{verbatim}
+which contains a block for the nabla evaluation in spherical coordinates and a block for the grade retrieval.
+
+
+A first example of application is given in 
+\begin{verbatim}
+File: 3Dipole_sph_static1.wxm
+\end{verbatim}
+
+
+
+The file
+\begin{verbatim}
+File: 3Nabla_sph_exc_2.wxm
+\end{verbatim}
+is an example for a particular vector.
+
+
+
+\begin{verbatim}
+File: Dipole_sph_1.wxm
+\end{verbatim}
+
+This file contains a block performing the nabla operator in spherical coordinates.
+It also contains the Pauli matrices for rectangular and spherical coordinates.
+
+We assume a potential of the type
+\be
+\frac{{e}^{-j\,k\,r}}{r} \Bz_0
+\ee
+which is the same of a short dipole.
+Perform the nabla operator on this potential.
+
+This file also contains a block Gradesph that performs the grade extraction.
+
+The Electric field is evaluated from the potential as
+\bea
+\Phi & = & - \frac{v}{jk} \nabla \cdot \BA\nonumber \\
+\BE & = & -j \, k \,  v \,  \BA - \nabla\Phi \nonumber
+\eea
+
+
+\end{document}

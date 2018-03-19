@@ -1,0 +1,109 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+
+/* Define Dirac Gammas */
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+g0 :  kronecker_product (%sigma[3],%sigma[0])$
+g1 :  kronecker_product (%i*%sigma[2],%sigma[1])$
+g2 :  kronecker_product (%i*%sigma[2],%sigma[2])$
+g3 :  kronecker_product (%i*%sigma[2],%sigma[3])$
+g4 :  g0$
+g5 :  - kronecker_product (%sigma[1],%sigma[0])$
+
+
+/* 
+The block Dslash perform the d-slash operation
+in rectangular coordinates on a quadrivector
+*/
+/*********** Block start **********************/
+Dslash(Ap) := 
+block([],
+
+print("_______________________________________"),
+print("d-slash result"),
+print("_______________________________________"),
+DAp :  factor(j*k*g0.Ap+diff(g1.Ap,x)+diff(g2.Ap,y)+diff(g3.Ap,z))
+)$
+/*********** Block end **********************/
+
+print("_______________________________________")$
+print("The vector E and H in general depend on x,y,z,")$
+
+/* 3D case */
+depends([Ex,Ey,Ez],[x,y,z]);
+depends([Hx,Hy,Hz],[x,y,z]);
+
+depends([Ax,Ay,Az],[x,y,z]);
+depends([%Phi],[x,y,z]);
+
+print("_______________________________________")$
+print("compose the Field Quadrivector")$
+A:  matrix([v* Az],[v* Ax+%i * Ay*v],[%Phi],[0]);
+
+print("compose the Field Quadrivector")$
+F: matrix([Ez],[Ex+%i * Ey],[%i * %eta *Hz],[%i*%eta*(Hx + %i*Hy)]);
+
+print("compose the Source Quadrivector")$
+J: matrix([Jz],[Jx+%i * Jy],[%rho*v],[0]);
+
+
+/* The component of F should be written in this form
+F[1][1];
+F[2][1];F[2,1];
+*/
+
+print("_________________ D-slah __________________________________________")$
+print("Application of the d-slash operator on the potential gives")$
+Apot : rectform(A)$
+Dslash(Apot)$
+DslApot : rectform(DAp);
+
+print("further application gives")$
+Dslash(DslApot)$
+DAp2 : DAp$
+DAp2 :subst(-1,j^2,DAp2);
+print("Potentials equations")$
+DAp2 - %eta * J; 
+
+print("setting to zero the scalar part gives Lorenz condition")$
+re3 :realpart(DslApot[3,1]);
+solphi : solve(re3,%Phi);
+%Phi : rhs(solphi[1]);
+print("compose again the Potential Quadrivector satisfying Lorenz gauge")$
+A: matrix([v* Az],[v* Ax+%i * Ay*v],[%Phi],[0]);
+
+print("_________________ D-slah __________________________________________")$
+print("Application of the d-slash operator on the Potential gives")$
+Ap : rectform(A)$
+Dslash(Ap)$
+DAp1 :  - rectform(DAp)$
+DAp1 :subst(-1,j^2,DAp1);
+DAp1 :subst(-1/j,j,DAp1);
+
+Ex :  ratsimp(realpart(DAp1[2][1]))$
+Ey :  ratsimp(imagpart(DAp1[2][1]))$
+Ez :  ratsimp(DAp1[1][1])$
+Hy :  -1/%eta *ratsimp(realpart(DAp1[4][1]))$
+Hx :  1/%eta *ratsimp(imagpart(DAp1[4][1]))$
+Hz :  1/%eta * ratsimp(imagpart(DAp1[3][1]))$
+
+print("Which provides the field equations")$
+print('Ex," = ",Ex)$
+print('Ey," = ",Ey)$
+print('Ez," = ",Ez)$
+print('Hx," = ",Hx)$
+print('Hy," = ",Hy)$
+print('Hz," = ",Hz)$
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

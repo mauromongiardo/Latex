@@ -1,0 +1,30 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+load(vect)$
+/* s2r.wxm */
+
+/* numerical 
+fpprintprec:5$
+ratprint : false$
+r :5.0 ;
+theta :float(%pi)/4 ;
+phi :4.6 ;
+*/
+
+x : r * sin(theta) * cos(phi)$
+y : r * sin(theta) * sin(phi)$
+z : r *cos(theta)$
+
+print("spherical to rectangular")$
+print('x, " = ",x)$
+print('y, " = ",y)$
+print('z, " = ",z)$
+
+print("bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

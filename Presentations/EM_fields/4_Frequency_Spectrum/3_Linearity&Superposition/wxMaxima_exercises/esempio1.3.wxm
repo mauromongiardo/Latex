@@ -1,0 +1,84 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* scrivere V e I in funzione polare e fare i loro prodotti*/
+
+fpprintprec:6$
+
+V[r] : 3$
+V[i] : -4$
+V : V[r] + V[i] * %i$
+print('V, " = ",V)$
+
+Ir : - 2$
+Ii : -3$
+I :  Ir + Ii * %i$
+print('I, " = ",I)$
+
+print("===========  V  ============")$
+print("express V, I in polar form")$
+Vp : polarform(V);
+print("V modulus")$
+Vm : abs(Vp);
+eVp: Vp/Vm$
+
+
+print("angle")$
+r : float(atan(V[i]/V[r]))$
+d : float(r*180/%pi)$
+
+Vphase : d;
+
+
+/*
+deg_to_rad(d) := %pi*d/180$
+rad_to_deg(r):= r*180/%pi$
+*/
+
+
+print("===========  I  ============")$
+Ip : polarform(I);
+print("modulus")$
+Im : float(abs(Ip));
+
+print("angle")$
+/* in order to get the correct result is important to use atan2 not atan */
+rI : float(atan2(Ii,Ir))$
+
+dI : float(rI*180/%pi) + 360.0$
+Iphase : dI $
+print(" Iphase = ",Iphase)$
+
+
+
+print("==================================")$
+print(" part b of the excercise")$
+print("compute V * I")$
+
+print("modulus")$
+VIm : Vm*Im ;
+print("phase")$
+VIp : Vphase+Iphase;
+
+print("compute V * I*")$
+
+print("modulus")$
+VIm : Vm*Im ;
+print("phase")$
+VIp : Vphase-Iphase+360;
+
+print("compute V/I ")$
+VoIm : Vm/Im;
+VoIp : Vphase-Iphase+360;
+
+print("sqrt I")$
+Is : sqrt(Im);
+Isphase : Iphase/2.0;
+/* */
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

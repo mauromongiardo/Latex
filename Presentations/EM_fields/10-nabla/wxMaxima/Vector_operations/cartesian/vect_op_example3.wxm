@@ -1,0 +1,139 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+assume(r>0);    /* Arghh */
+assume(%rho>0); /* Arghh */
+
+print("the package vect allows to perform vector operations")$
+load(vect);
+
+print("select the coordinate system by using the appropriate scalefactors")$
+
+scalefactors(cartesian3d);
+/* 
+scalefactors(polar);
+scalefactors(spherical);
+*/
+
+/* give either the w expression or its dependence */
+
+/* w  : 1/sqrt(x^2 +z^2 +y^2);   example of function in rectangular coordinates */
+
+ /*  depends(w,[x,y,z]);  */
+
+/*  specific function */
+print("Consider an Electric Field of the form")$
+Ex : (1 + %i) * %e^(-%i * k * z)$   
+Ey : %i/sqrt(1) * %e^(-%i * k * z)$
+Ey : 0$
+Ez : 0$
+
+[Ex, Ey, Ez];
+
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+/*
+print("_________________________________________________________")$
+print("Pauli Matrices Definition")$
+print("_________________________________________________________")$
+
+print('%sigma[0]," = ",%sigma[0])$
+print('%sigma[1]," = ",%sigma[1])$
+print('%sigma[2]," = ",%sigma[2])$
+print('%sigma[3]," = ",%sigma[3])$
+*/
+print("vector E as Pauli matrix")$
+
+Ep : Ex * %sigma[1] + Ey * %sigma[2] + Ez * %sigma[3];
+
+ /*
+depends (Ex,[x,y,z]);
+depends (Ey,[x,y,z]);
+depends (Ez,[x,y,z]);
+*/
+
+/* Fvect: matrix([Fx, Fy, Fz]); */
+
+/* depends(f,[r,theta,phi]) */
+
+print(" RECTANGULAR COORDINATES")$
+/*
+print("Gradient of w")$
+g : grad (w);
+express (g);
+ev (%, diff);
+*/
+
+print("Divergence")$
+d : div ([Ex, Ey, Ez]); 
+express (d);
+divE : ev (%, diff);
+
+print("Curl")$
+curl ([Ex, Ey, Ez]);
+express (%);
+curlE : ev (%, diff);
+
+print("nabla E = div (E) + %i curl (E)")$
+nablaE : ratsimp(divE + %i * curlE);
+
+print("The magnetic field is ")$
+H : nablaE /(k * %eta);
+
+print("The magnetic bivector is obtained by multiplying times %i %eta")$
+Hb : ratsimp(%i * H * %eta);
+
+Hp : Hb[1] * %sigma[1] + Hb[2] * %sigma[2] + Hb[3] * %sigma[3];
+
+print("Finding the nabla nabla E")$
+print("The divergence is")$
+dde : express(div(nablaE));
+dde : ev (%, diff);
+
+print("The curl is")$
+cce :express(curl(nablaE));
+cce : ev(cce,diff);
+
+print("nabla nabla E is")$
+nnF : dde + %i * cce;
+
+nnF + k^2 * [Ex, Ey, Ez];
+/*
+print("second order operators")$
+print("Expression of the Laplacian in rectangular coordinates")$
+aa:laplacian w;
+/* scalefactors(cartesian3d); */
+express(aa);
+ev (%, diff);
+
+print("laplacian is div(grad(w))")$
+
+g : grad (w);
+express (g);
+gradw : ev (%, diff);
+
+d : div (gradw); 
+express (d);
+ev (%, diff);
+
+print("Now evaluate curl curl of a vector")$
+print("Curl")$
+curl ([Fx, Fy, Fz]);
+express (%);
+curlF : ev (%, diff);
+
+curl(curlF);
+express (%);
+curlcurlF : ev (%, diff);
+*/
+print("Bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

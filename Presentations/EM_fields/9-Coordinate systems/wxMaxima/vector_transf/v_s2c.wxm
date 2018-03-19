@@ -1,0 +1,42 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+load(vect)$
+/* V_c2s.wxm */
+
+print("From the spherical representation of a vector express the cylindrical one")$ 
+/* numerical */ 
+fpprintprec:5$
+ratprint : false$
+Ar :0.0 ;
+Atheta : -1.0 ;
+Aphi : 1.0 ;
+print("coordinates where the vector is evaluated")$
+Px: 0.0;
+Py: 1.0;
+Pz: 0.0;
+phi : float(atan2(Py,Px));
+theta : float(atan2(sqrt(Px^2+Py^2),Pz));
+
+
+print("Transformation matrix c2smat")$
+c2smat :matrix([sin(theta),0,cos(theta)],
+               [cos(theta),0,-sin(theta)],
+               [0,1,0])$
+s2cmat : trigsimp(invert(c2smat));
+
+
+print("vector A in spher coordinates")$
+Aspher : [Ar,Atheta,Aphi];
+
+
+print("spherical to cylindrical")$
+Acyl : s2cmat . Aspher ;
+/* */
+print("bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

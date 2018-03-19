@@ -1,0 +1,82 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+/* Pauli_def */
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition")$
+print("_________________________________________________________")$
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+print('%sigma[0]," = ",%sigma[0])$
+print('%sigma[1]," = ",%sigma[1])$
+print('%sigma[2]," = ",%sigma[2])$
+print('%sigma[3]," = ",%sigma[3])$
+
+
+print("_________________________________________________________")$
+print("Pauli Matrices Properties")$
+print("_________________________________________________________")$
+print("")$
+print("_________________________________________________________")$
+print("Squared give the identity matrix %sigma[i].%sigma[i]=sigma[0]")$
+print("_________________________________________________________")$
+
+print("involutory (it is also its inverse)")$
+ss1 :  %sigma[1] . %sigma[1];
+ss2 :  %sigma[2] . %sigma[2];
+ss3 :  %sigma[3] . %sigma[3];
+
+print("_________________________________________________________")$
+print(" %sigma[1] . %sigma[2] =  i %sigma[3]")$
+print("_________________________________________________________")$
+print("Let us try multiply %sigma[1].%sigma[2]")$
+%sigma[1] . %sigma[2];
+print("It is apparent that the result is i %sigma[3]")$
+print("_________________________________________________________")$
+print("Let us try multiply %sigma[1].%sigma[3]")$
+%sigma[1] . %sigma[3];
+print("It is apparent that the result is - i %sigma[2]")$
+print("_________________________________________________________")$
+print("Let us try multiply %sigma[2].%sigma[3]")$
+%sigma[2] . %sigma[3];
+print("It is apparent that the result is i %sigma[1]")$
+
+
+print("_________________________________________________________")$
+print("Anticommutative")$
+print("_________________________________________________________")$
+print("Commutation : %sigma[1] . %sigma[2] + %sigma[2] . %sigma[1]")$
+sc12 : %sigma[1] . %sigma[2] + %sigma[2] . %sigma[1];
+print("The result is 0 %sigma[0]")$
+print("_________________________________________________________")$
+print("If we add instead of subtracting")$
+print(" %sigma[1] . %sigma[2] + %sigma[2] . %sigma[1]")$
+sc12 : %sigma[1] . %sigma[2] + %sigma[2] . %sigma[1];
+print("the result is %sigma[1] . %sigma[2] = - %sigma[2] . %sigma[1]")$
+/*
+print("_________________________________________________________")$
+print("(%sigma[i] . %sigma[j]) squared gives -1 * %sigma[0]")$
+print("_________________________________________________________")$
+print("Squared %sigma[1] . %sigma[2]")$
+sc12 : (%sigma[1] . %sigma[2]) . (%sigma[1] . %sigma[2]);
+print("The result is -1 * %sigma[0] !!")$
+
+print("_________________________________________________________")$
+print("%sigma[1] . %sigma[2] . %sigma[3] = i * %sigma[0]")$
+print("_________________________________________________________")$
+print("Squared %sigma[1] . %sigma[2] . %sigma[3]")$
+sc12 : (%sigma[1].%sigma[2].%sigma[3]).(%sigma[1].%sigma[2].%sigma[3]);
+print("The result is -%sigma[0] !!")$ 
+
+*/
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

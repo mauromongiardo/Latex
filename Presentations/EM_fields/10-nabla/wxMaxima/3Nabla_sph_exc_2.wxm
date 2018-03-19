@@ -1,0 +1,242 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+
+print("introducing the dependencies")$
+depends([a11,a12,a21,a22],[r,%theta,phi]);
+Ap : matrix([a11,a12],[a21,a22]); 
+
+/*_________________________________________________________________*/
+/* This block computes the nabla operator in spherical coordinates */
+/*_________________________________________________________________*/
+Nablasph(Ap) := 
+block([],
+
+print("Nabla is"),
+
+n11ap11 : cos(%theta)*diff(Ap[1,1],r)-
+            sin(%theta)/r * diff(Ap[1,1],%theta),
+n12ap21 : sin(%theta)*diff(Ap[2,1],r) 
+            + cos(%theta)/r * diff(Ap[2,1],%theta) -
+            %i/(r*sin(%theta))*diff(Ap[2,1],phi),
+n12ap21 : n12ap21 * %e^(-%i*phi),
+NEp11 : ratsimp(n11ap11 + n12ap21),
+NEp11 : trigsimp(NEp11),
+
+n21ap11 : sin(%theta)*diff(Ap[1,1],r) 
+            + cos(%theta)/r * diff(Ap[1,1],%theta) +
+            %i/(r*sin(%theta))*diff(Ap[1,1],phi),
+n21ap11 : n21ap11 * %e^(%i*phi),
+n22ap21 : -cos(%theta)*diff(Ap[2,1],r)
+            +sin(%theta)/r * diff(Ap[2,1],%theta),
+NEp21 : ratsimp(n21ap11 + n22ap21),
+NEp21 : trigsimp(NEp21),
+
+n11ap12 : cos(%theta)*diff(Ap[1,2],r)
+            -sin(%theta)/r * diff(Ap[1,2],%theta),
+n12ap22 : sin(%theta)*diff(Ap[2,2],r) 
+            + cos(%theta)/r * diff(Ap[2,2],%theta) -
+            %i/(r*sin(%theta))*diff(Ap[2,2],phi),
+n12ap22 : n12ap22 * %e^(-%i*phi),
+NEp12 : ratsimp(n11ap12 + n12ap22),
+NEp12 : trigsimp(NEp12),
+
+
+n21ap12 : sin(%theta)*diff(Ap[1,2],r) 
+            + cos(%theta)/r * diff(Ap[1,2],%theta) +
+            %i/(r*sin(%theta))*diff(Ap[1,2],phi),
+n21ap12 : n21ap12 * %e^(%i*phi),
+n22ap22 : -cos(%theta)*diff(Ap[2,2],r)
+            +sin(%theta)/r * diff(Ap[2,2],%theta),
+NEp22 : ratsimp(n21ap12 + n22ap22),
+NEp22 : trigsimp(NEp22),
+
+NEp : expand((matrix([NEp11, NEp12],[NEp21, NEp22]))),
+NEp : factor(trigsimp(NEp))
+)$
+/*_________________________________________________________________*/
+/*
+NA  : Nablasph(Ap);
+NNA : Nablasph(NA);
+*/
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition")$
+print("_________________________________________________________")$
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+print('%sigma[0]," = ",%sigma[0])$
+print('%sigma[1]," = ",%sigma[1])$
+print('%sigma[2]," = ",%sigma[2])$
+print('%sigma[3]," = ",%sigma[3])$
+
+print("_________________________________________________________")$
+print("vector A in rectangular coordinates")$
+print("_________________________________________________________")$
+A[x] : 0;
+A[y] : 0;
+A[z] : 1/r;
+
+Axyz : A[x] * %sigma[1] + A[y] * %sigma[2]+ A[z] * %sigma[3]$
+print("vector A in cartesian coordinates"," = ",Axyz)$
+
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition Spherical")$
+print("_________________________________________________________")$
+
+ct : cos(%theta)$
+st : sin(%theta)$
+
+%sigma[r] : matrix([ct,st * %e^(-%i * phi)],[st * %e^(%i * phi),-ct])$
+%sigma[%theta] : matrix([-st,ct  * %e^(-%i * phi)],[ct * %e^(%i * phi),st])$
+%sigma[phi] : matrix([0,-%i * %e^(-%i * phi)],[%i * %e^(%i * phi),0])$
+
+print('%sigma[r]," = ",%sigma[r])$
+print('%sigma[%theta]," = ",%sigma[%theta])$
+print('%sigma[phi]," = ",%sigma[phi])$
+
+print("_________________________________________________________")$
+print("vector decompositions")$
+print("_________________________________________________________")$
+print("obtaining A vector components")$
+print("_________________________________________________________")$
+print("From rectangular to spherical")$
+print("_________________________________________________________")$
+print("original vector ",Axyz)$
+print("Dot multiplication with %sigma[r] provides the r component")$
+
+sr1 : trigsimp(Axyz . %sigma[r])$
+Ar : factor(realpart(1/2 * (sr1[1,1]+sr1[2,2])))$
+print('Ar, " = ",Ar)$
+
+print("Dot multiplication with %sigma[%theta] provides the %theta component")$
+sr1 : trigsimp(Axyz . %sigma[%theta])$
+Atheta : ratsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Atheta, " = ",Atheta)$
+
+print("Dot multiplication with %sigma[phi] provides the phi component")$
+sr1 : trigsimp(Axyz . %sigma[phi])$
+Aphi : ratsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))))$
+print('Aphi, " = ",Aphi)$
+
+print("_________________________________________________________")$
+print("vector A in spherical coordinates")$
+print("_________________________________________________________")$
+Asph : trigsimp(factor(Ar*%sigma[r]+Atheta*%sigma[%theta]+Aphi*%sigma[phi]));
+
+Ap : Asph$
+
+NA  : Nablasph(Ap);
+
+print("Divergence")$
+DivA : 1/2 * (NA[1,1]+NA[2,2]);
+
+print("matrix without the scalar part")$
+NA_vector : NA - DivA * %sigma[0];
+
+print("Dot Multiplication with %sigma[r] and taking the trace")$
+Asph_sr : (NA_vector . %sigma[r]);
+Asr : 1/2 * (Asph_sr[1,1]+Asph_sr[2,2])$
+print('Asr," = ",Asr)$
+
+print("Dot Multiplication with %sigma[%theta] and taking the trace")$
+Asph_st : (NA_vector . %sigma[%theta]);
+Ast : 1/2 * (Asph_st[1,1]+Asph_st[2,2])$
+print('Ast," = ",Ast)$
+
+print("Dot Multiplication with %sigma[phi] and taking the trace")$
+Asph_sp : (NA_vector . %sigma[phi]);
+Asp : 1/2 * (Asph_sp[1,1]+Asph_sp[2,2])$
+print('Asp," = ",Asp)$
+
+/*
+print("_________________________________________________________")$
+print("From spherical to rectangular")$
+print("_________________________________________________________")$
+
+print("Dot multiplication with %sigma[1] provides the x component")$
+sr1 :A[r] * trigsimp(%sigma[r] . %sigma[1]) + 
+     A[%theta] * trigsimp(%sigma[%theta] . %sigma[1]) + 
+     A[phi] * trigsimp(%sigma[phi] . %sigma[1])  $
+Ax : factor(realpart(1/2 * (sr1[1,1]+sr1[2,2])))$
+print('Ax, " = ",Ax)$
+
+print("Dot multiplication with %sigma[2] provides the y component")$
+sr1 :A[r] * trigsimp(%sigma[r] . %sigma[2]) + 
+     A[%theta] * trigsimp(%sigma[%theta] . %sigma[2]) + 
+     A[phi] * trigsimp(%sigma[phi] . %sigma[2])  $
+Ay : factor(realpart(1/2 * (sr1[1,1]+sr1[2,2])))$
+print('Ay, " = ",Ay)$
+
+print("Dot multiplication with %sigma[3] provides the z component")$
+sr1 :A[r] * trigsimp(%sigma[r] . %sigma[3]) + 
+     A[%theta] * trigsimp(%sigma[%theta] . %sigma[3]) + 
+     A[phi] * trigsimp(%sigma[phi] . %sigma[3])  $
+Az : factor(realpart(1/2 * (sr1[1,1]+sr1[2,2])))$
+print('Az, " = ",Az)$
+*/
+
+
+print("_________________________________________________________")$
+print("Conventional Vector Analysis")$
+print("_________________________________________________________")$
+kill(all)$
+
+assume(r>0);
+assume(sin(%theta) > 0);
+
+print("the package vect allows to perform vector operations")$
+load(vect);
+
+print("select the coordinate system with the appropriate scalefactors")$
+print("Better to use phi since %phi is reserved")$
+
+print("SPHERICAL COORDINATES")$
+scalefactors([[r*sin(%theta)*cos(phi),r*sin(%theta)*sin(phi),r*cos(%theta)]
+                ,r,%theta,phi]);
+
+depends(w,[r,%theta,phi]);
+depends([Ar,Atheta,Aphi],[r,%theta,phi]);
+
+const : 1 ;
+
+Ar :  const * cos(%theta) /r$
+Atheta : - const * sin(%theta) /r$
+Aphi : 0$
+print("The following potential is assumed")$
+print('Ar," = ",Ar)$
+print('Atheta," = ",Atheta)$
+print('Aphi," = ",Aphi)$
+
+A1 : [Ar,Atheta,Aphi]$
+
+print("Divergence")$
+d : div ([Ar,Atheta,Aphi])$ 
+express (d)$
+divA1 : expand(ev (%, diff));
+
+print("Curl")$
+curl ([Ar,Atheta,Aphi])$
+express (%)$
+curl_A1 : ev (%, diff)$
+curl_A1_r : expand(curl_A1[1])$
+curl_A1_theta : expand(curl_A1[2])$
+curl_A1_phi   : expand(curl_A1[3])$
+
+print('curl_A1_r," = ",curl_A1_r)$
+print('curl_A1_theta," = ",curl_A1_theta)$
+print('curl_A1_phi," = ",curl_A1_phi)$
+
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

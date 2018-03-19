@@ -1,0 +1,44 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+
+/* excercises on complex number */
+
+print("given the following complex numbers")$ 
+
+z[1] : x[1] + %i * y[1];
+z[2] : x[2] + %i * y[2];
+z[3] : x[3] + %i * y[3];
+z[4] : x[4] + %i * y[4];
+
+ a : (z[1] + z[2]*conjugate(z[3]))/(z[3]*z[4] ); 
+/* a : 1/z[1] + x[2]; */
+
+print("compute the modulus")$
+
+moda : cabs(a);
+
+print("write a in rect form")$
+arf :rectform(a);
+
+print("take the imaginary part")$
+
+ai : factor(imagpart(a));
+
+print("take the real part")$
+
+ar : ratsimp(realpart(a));
+
+print("write a in polar form")$
+polarform(a);
+
+print("find the complex conjugate")$
+conjugate (a);
+
+print("Bye");
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

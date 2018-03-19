@@ -1,0 +1,107 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+
+/* Define Dirac Gammas */
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+g0 :  kronecker_product (%sigma[3],%sigma[0])$
+g1 :  factor(kronecker_product (%i*%sigma[2],%sigma[1]))$
+g2 :  kronecker_product (%i*%sigma[2],%sigma[2])$
+g3 :  kronecker_product (%i*%sigma[2],%sigma[3])$
+g4 :  g0$
+g5 :  - kronecker_product (%sigma[1],%sigma[0])$
+
+
+/* 
+The block Dslash perform the d-slash operation
+in rectangular coordinates on a quadrivector
+*/
+/*********** Block start **********************/
+Dslash(Ap) := 
+block([],
+
+print("_______________________________________"),
+print("d-slash result"),
+print("_______________________________________"),
+DAp :  factor(j*k*g0.Ap+diff(g1.Ap,x)+diff(g2.Ap,y)+diff(g3.Ap,z))
+)$
+/*********** Block end **********************/
+
+print("_______________________________________")$
+print("The vector E and H in general depend on x,y,z,")$
+
+/* 3D case */
+depends([Ex,Ey,Ez],[x,y,z]);
+depends([Hx,Hy,Hz],[x,y,z]);
+
+/* 2D case 
+depends([Ex,Ey,Ez],[x,z]);
+depends([Hx,Hy,Hz],[x,z]);
+*/
+
+/* 1D case 
+depends([Ex,Ey,Ez],[z]);
+depends([Hx,Hy,Hz],[z]);
+*/
+
+/* static case 
+k:0;
+*/
+
+print("compose the Field Quadrivector")$
+F: matrix([Ez],[Ex+%i * Ey],[%i * %eta *Hz],[%i*%eta*(Hx + %i*Hy)]);
+
+print("compose the Source Quadrivector")$
+J: matrix([Jz],[Jx+%i * Jy],[%rho*v],[0]);
+
+/* sourceless case 
+ J:0; 
+*/
+
+/* The component of F should be written in this form
+F[1][1];
+F[2][1];F[2,1];
+*/
+
+print("_________________ D-slah __________________________________________")$
+print("Application of the d-slash operator on the Field gives")$
+Ap : rectform(F)$
+Dslash(Ap)$
+DAp1 : DAp;
+
+print("_________________ MAXWELL __________________________________________")$
+print("Maxwell's equations are recovered by adding the sources")$
+Maxwell : rectform(DAp1+%eta*J);
+
+print("Real part of Maxwell's equations gives")$
+Mr : realpart(Maxwell);
+
+print("Imaginary part of Maxwell's equations gives")$
+Mi : imagpart(Maxwell);
+
+print("_________________ HELMHOLTZ __________________________________________")$
+print("In the sourceless case the wave equation can be obtained as")$
+print("second order")$
+Dslash(DAp1)$
+DAp2 : DAp$
+DAp2 :subst(-1,j^2,DAp2);
+
+print("This is the Helmholtz equation")$
+Helm : DAp2$
+print("Real part of Helmholtz equations gives")$
+Hr : realpart(Helm);
+
+print("Imaginary part of Helmholtz equations gives")$
+Hi : imagpart(Helm);
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

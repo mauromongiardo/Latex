@@ -1,0 +1,705 @@
+/*******************************
+Clifford algebra
+a lightweight package for performing Geometric Algebra calculations
+
+Clifford analysis
+
+@version 	1.6.5 Date 13 Jun 2016
+		1.6 Date 10 Apr 2016
+		1.5 Date 20 Feb 2016
+		1.2 Date 22 Jan 2016
+		1.1 Date 16 Dec 2015
+
+@depends 'clifford
+
+**********************************
+ * @license This library is free software	 you can redistribute it and/or
+ *      modify it under the terms of the GNU Lesser General Public
+ *      License as published by the Free Software Foundation	 either
+ *      version 2.1 of the License, or (at your option) any later version.
+ *
+ *      This library is distributed in the hope that it will be useful,
+ *      but WITHOUT ANY WARRANTY	 without even the implied warranty of
+ *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *       Lesser General Public License for more details.
+ *
+ *      You should have received a copy of the GNU Lesser General Public
+ *      License along with this library	 if not, write to the Free Software
+ *      Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ 
+ stringdisp :true;
+ declare(trigsimp, evfun);
+ 
+if get('clifford,'version)=false then (
+	
+	err:errcatch(
+		load("clifford.mac")
+	),
+	if emptyp(err) then (
+	
+	"inner product",
+	infix ("|", 130, 129),	
+	"|"(a, b):=  expand((a.b + cinvolve(b).cinvolve(a))/2),
+	texput ("|", " \\circ ", infix),
+ 
+	"outer product",
+	infix("&", 130, 129),
+	"&"(a, b):= expand((a.b - cinvolve(b).cinvolve(a))/2),
+	texput ("&", " \\wedge ", infix)
+	)
+);
+
+%clverbose:false;
+%divsimp:true;
+
+
+dependsv(F, var):= block([ ee], 
+	if subvarp(var) then var:op(var),
+	if subvarp(F) then F:op(F),
+	ee:buildq([var], declare(var, scalar) ), 
+	ev(ee, nouns),
+	ee:buildq([F], declare(F, scalar) ), 
+	ev(ee, nouns),
+	ee:buildq([var],  if listp(var) then makelist(var[k], k, length(var)) 
+	else var ), 
+	ev(depends(F,ee), nouns)
+);
+
+
+ 
+/*
+ Analysis functions
+
+*/
+
+/* total differentiation; 
+no assumptions */
+totdiff(f,x, [lv]):=block( [ret:0],
+	if mapatom(x) then 
+		ret: diff( f, x )
+	else (
+		if emptyp(lv) then
+			lv:listofvars(x)
+		else 
+			lv:lv[1],
+		/*display(lv),*/
+		for u in lv do
+			if symbolp(u) then
+				ret: ret + diff(f, u) / diff(x, u)
+	),
+	ret
+);
+
+
+/* 
+Clifford-valued
+total differentiation; */
+ctotdiff(f, x):=block( [ret:0, lv],
+	if mapatom(x) then 
+		ret: diff( f, x )
+	else (
+		lv: sublist( listofvars(x), lambda ([z], freeof(asymbol, z))),		
+		for u in lv do 
+			ret: ret + cinv(diff(x, u)). subst(".", "*", diff( f, u ))
+	),
+	ret
+);
+
+ctotintdiff(f, x):=block( [ret:0, lv],
+	if mapatom(x) then 
+		ret: diff( f, x )
+	else (
+		lv: sublist( listofvars(x), lambda ([z], freeof(asymbol,z))),
+		for u in lv do 
+			ret: ret + cinv(diff(x, u)) | subst(".", "*", diff( f, u ))
+	),
+	ret
+);
+
+ctotextdiff(f, x):=block( [ret:0, lv],
+	if mapatom(x) then 
+		ret: diff( f, x )
+	else (
+		lv: sublist( listofvars(x), lambda ([z], freeof(asymbol,z))),
+		for u in lv do 
+			ret: ret + cinv(diff(x, u)) & subst(".", "*", diff( f, u ))
+	),
+	ret
+);
+
+/*
+ multi vector derivative
+*/
+mvectdiff(f, x, [k] ):=block ([s:0, n:1, m, es],
+	if emptyp(k) then k:1 else k: k[1],
+	x:expand(x),
+	for p:1 thru k do (
+		s:ctotdiff(f, x),
+		s:cliffsimpall(s),
+		f:s
+	),
+	if %divsimp=true then (
+		es: sublist( listofvars(x), lambda ([z], not freeof(asymbol, z))),
+		"display(es)",
+		s:trigsimp(s),
+		if not emptyp(es) then
+			s:simpfact(s, es)
+	),
+	s
+);
+
+/*
+diffmap(f, x, eps):= block([es, ex, df, q, v, aa, listarith:true, ss:0 ], 
+	[es, ex]: oppart( listofvars(x), lambda ([z], freeof(asymbol, z))),
+	ex: push(1, ex),
+	q: makelist(es[i]=es[i]+eps, i, 1, length(es)),
+	df:expand(subst(q, f) -  f),
+	display(df, ex),
+	for i:1 thru length(ex) do (
+		aa:expand( (df | ex[i]) ),  
+		disp(aa),
+		aa:expand( aa/eps),
+		ss:ss+aa
+		),
+	ss
+);
+ */
+ 
+/*
+partial derivative
+*/ 
+pardiff(f, x, [k] ):=block( [ret:0 ],
+	if emptyp(k) then k:1 else k: k[1],
+	if mapatom(x) then 
+		ret:diff(f, x, k )
+	else (
+		ret:diff(ratsubst( u, x, f),u, k),
+		ret:subst(u=x,ret)
+	),
+	ret
+);
+
+/*
+ vector derivative
+ reference implementation
+*/
+vectdiff(f, x, [k] ):=block ([s, n:1, m, i ],
+	if listp(x) then n:length(x) else x:[x],
+	if n>ndim then error("size mismatch"),
+	if emptyp(k) then k:1 else k: k[1],
+	for p:1 thru k do (
+		i:1, s:0,
+		for m in x do (
+			if not emptyp(m) then
+				s: s+ cinv(asymbol[i]). subst(".", "*", pardiff( f, m )),
+			i:i+1
+		),
+		s:cliffsimpall(s),
+		f:s
+	),
+	s
+);
+
+/*
+ multi vector partial derivative
+*/
+parmvectdiff(f, x, [k] ):=block ([s, n:1, m, i, ee, xx, df, qq, es ],
+	[ee, xx]:clicoeff(x, 'list),
+	if %clverbose=true then
+		display(xx),
+	if emptyp(k) then k:1 else k: k[1],
+	es: sublist( listofvars(x), lambda ([z], not freeof(asymbol, z))),
+	"display(es)",
+	for p:1 thru k do (
+		i:1, s:0,
+		for m in xx do (			
+			df: expand(pardiff( f, m )),
+			qq: cinv(ee[i]),
+			s: s +  cliffsimpall(qq . subst(".", "*", df )),
+			i:i+1
+		),
+		if %divsimp=true then (
+			/*s:cliffsimpall(s),*/
+			if not emptyp(es) then
+				s:simpfact(s, es)
+		),
+		f:s
+	),
+	s
+);
+
+parmvectintdiff(f, x, [k] ):=block ([s, n:1, m, i, ee, xx, df, qq, es ],
+	[ee, xx]:clicoeff(x, 'list),
+	if %clverbose=true then
+		display(xx),
+	if emptyp(k) then k:1 else k: k[1],
+	es: sublist( listofvars(x), lambda ([z], not freeof(asymbol, z))),
+	"display(es)",
+	for p:1 thru k do (
+		i:1, s:0,
+		for m in xx do (			
+			df: expand(pardiff( f, m )),
+			qq: cinv(ee[i]),
+			s: s +  cliffsimpall(qq | subst(".", "*", df )),
+			i:i+1
+		),
+		if %divsimp=true then (
+			/*s:cliffsimpall(s),*/
+			if not emptyp(es) then
+				s:simpfact(s, es)
+		),
+		f:s
+	),
+	s
+);
+
+/*
+ directional, inner, derivative
+*/
+invectdiff(f, x, [k] ):=block ([s, n:1, m, i, ee, xx, df, qq, es ],
+	[ee, xx]:clicoeff(x,'list),
+	if emptyp(k) then k:1 else k: k[1],
+		es: sublist( listofvars(x), lambda ([z], not freeof(asymbol, z))),
+	display(es),
+	for p:1 thru k do (
+		i:1, s:0,
+		for m in xx do (
+			if mapatom(m) then (
+				df: expand(diff( f, m )),
+				qq: dotinvsimp(1/ ee[i]),
+				s: s +  cliffsimpall(qq | subst(".", "*", df ))
+				),
+			i:i+1
+		),
+		s:cliffsimpall(s),
+		f:s
+	),
+	if %divsimp=true then (
+		es: sublist( listofvars(x), lambda ([z], not freeof(asymbol, z))),
+		s:trigsimp(s),
+		if not emptyp(es) then
+			s:simpfact(s, es)
+	),
+	s
+);
+
+intmvectdiff(f, x, [k] ):=block ([s:0, n:1, m, es],
+	if emptyp(k) then k:1 else k: k[1],
+	x:expand(x),
+	for p:1 thru k do (
+		s:ctotintdiff(f, x),
+		s:cliffsimpall(s),
+		f:s
+	),
+	if %divsimp=true then (
+		es: sublist( listofvars(x), lambda ([z], not freeof(asymbol, z))),
+		"display(es)",
+		s:trigsimp(s),
+		if not emptyp(es) then
+			s:simpfact(s, es)
+	),
+	s
+);
+
+
+/*
+ exterior, dual, vector derivative
+*/
+extvectdiff(f, x, [k] ):=block ([s, n:1, m, i, ee, xx, df, qq ],
+	[ee, xx]:clicoeff(x, 'list),
+	if emptyp(k) then k:1 else k: k[1],
+	for p:1 thru k do (
+		i:1, s:0,
+		for m in xx do (
+			if mapatom(m) then (
+				df: expand(diff( f, m )),
+				qq: dotinvsimp(1/ ee[i]),
+				s: s +  cliffsimpall(qq & subst(".", "*", df))
+				),
+			i:i+1
+		),
+		s:cliffsimpall(s),
+		f:s
+	),
+	if %divsimp=true then (
+		es: sublist( listofvars(x), lambda ([z], not freeof(asymbol, z))),
+		s:trigsimp(s),
+		if not emptyp(es) then
+			s:simpfact(s, es)
+	),
+	s
+);
+
+extvectdiff(f, x, [k] ):=block ([s:0, n:1, m, es],
+	if emptyp(k) then k:1 else k: k[1],
+	x:expand(x),
+	for p:1 thru k do (
+		s:ctotextdiff(f, x),
+		s:cliffsimpall(s),
+		f:s
+	),
+	if %divsimp=true then (
+		es: sublist( listofvars(x), lambda ([z], not freeof(asymbol, z))),
+		"display(es)",
+		s:trigsimp(s),
+		if not emptyp(es) then
+			s:simpfact(s, es)
+	),
+	s
+);
+
+svectdiff(f, x, [k] ):=block ([ df],
+	if emptyp(k) then k:1 else k: k[1],
+	for p:1 thru k do (
+		df:mvectdiff(f, x, p),
+		df:scalarpart(df)
+		),
+	df
+);
+
+vvectdiff(f, x, [k] ):=block ([ df],
+	if emptyp(k) then k:1 else k: k[1],
+	for p:1 thru k do (
+		df:mvectdiff(f, x, p),
+		df:nscalarpart(df)
+		),
+	if %divsimp=true then 
+			df:simpfact(df, %elements),
+	df
+);
+
+
+/*
+ Euler-Lagrange equations
+*/
+
+/*
+EL  field Lagrangians
+*/
+
+ciELfdiff(_F, tt, pvars):=block ([eq:0, p, pv, ee, xx, len, qq, yy:[], ss:[], zz:[], es:[], ez:[], vv, lv  ],
+	[p, pv]:pvars,
+	if %clverbose=true then
+		display(p, pv),	 
+	[ee, vv]:clicoeff(pv, 'list),
+	lv: sublist( listofvars(tt), lambda ([z],  freeof(asymbol, z) )),	
+	if not mapatom(vv) then
+		vv: substinpart("[",vv, 0)
+	else vv:[vv],
+	for j:1 thru length(vv) do (
+		for i:1 thru length(lv) do ( 
+			if inop(vv[j])#"+" then (
+				push(vv[j]=vv[j](lv[i]), ss),
+				push(vv[j](lv[i])=vv[j], zz)
+			)
+		)
+	),
+	/*display(ss, zz),*/
+	qq:parmvectdiff(_F, pv),
+	if %clverbose=true then
+		display(qq),
+	qq:psubst(ss, qq),
+	eq:parmvectdiff(_F, p)-psubst(zz, mvectdiff(qq , tt)),
+	es: sublist( listofvars(eq), lambda ([z], not freeof(asymbol, z))),
+	if not emptyp(es) then
+		eq:simpfact(eq, es),
+	eq
+);
+
+alias (EuLagEq2, ciELfdiff); 
+
+/*
+noether(_F, tt, pvars, aa):=block ([eq:0, p, pv, ee, xx, len, qq, yy:[], ss:[], zz:[], es:[], ez:[], vv, lv  ],
+	[p, pv]:pvars,
+	if %clverbose=true then
+		display(p, pv),	 
+	[ee, vv]:clicoeff(pv, 'list),
+	lv: sublist( listofvars(tt), lambda ([z],  freeof(asymbol, z) )),	
+	if not mapatom(vv) then
+		vv: substinpart("[",vv, 0)
+	else vv:[vv],
+	for j:1 thru length(vv) do (
+		for i:1 thru length(lv) do ( 
+			if inop(vv[j])#"+" then (
+				push(vv[j]=vv[j](lv[i]), ss),
+				push(vv[j](lv[i])=vv[j], zz)
+			)
+		)
+	),
+ 
+	qq:parmvectdiff(_F, pv),
+	if %clverbose=true then
+		display(qq),
+	qq:psubst(ss, qq),
+	eq: psubst(zz,  aa. (p | qq )  ) ,
+	eq:vectorpart(eq),
+	es: sublist( listofvars(eq), lambda ([z], not freeof(asymbol, z))),
+	if not emptyp(es) then
+		eq:simpfact(eq, es),
+	eq
+);
+*/
+/*
+ EL particle lagrangians
+*/
+/*
+convective derivative
+*/
+convderiv(f, t, xx, [vs]):=block( 
+	[ lv, n:1, u, nabla:[], lv, ss:0, m, es:[], s:0, ez:[], aa:[], bb:[], cc:[], dd:[], gg:[], rr ],
+	if not symbolp(t) then error(t, " must be a symbol"),	
+	lv:listofvars(xx),
+ 	xx:expand(xx),
+	/*es: sublist( lv, lambda ([z], not freeof(asymbol, z))),
+	ez: sublist( lv, lambda ([z],     freeof(asymbol, z))),*/
+	[ez, es]: oppart( lv, lambda ([z], freeof(asymbol, z))),
+	if not emptyp(vs) then vs:vs[1],
+	for j:1 thru length(ez) do (
+			push(ez[j]=ez[j](t), aa),
+			push(ez[j](t)=ez[j], bb),
+			if not emptyp(vs) then (
+				rr:arraymake (vs, [ ez[j]] ),
+				push('diff(ez[j](t), t, 1)=rr, cc),
+				push(rr=rr(t) , dd),
+				push(rr(t)=rr , gg)
+			)
+		),
+	if mapatom(xx) then 
+		nabla:[diff( psubst(aa, xx),t)]
+	else
+		nabla:diff(args(psubst(aa, xx)),t),
+	/*display(aa,bb, cc, dd),*/
+	if not emptyp(vs) then (
+		nabla:psubst(cc, nabla),
+		f: psubst(dd, f), 
+		display( f)
+		),
+	ss:diff(f, t), 
+	n:1, s:0,
+	if mapatom(xx) then 
+		 xx:[xx],
+    for m in xx do (
+		s:s+ nabla[n]. ctotdiff(f, m),			
+		n:n+1
+	),
+	ss:ss+s,
+	if %divsimp=true then (
+			ss:cliffsimpall(ss),
+			if not emptyp(es) then
+				ss:simpfact(ss, es)
+	),
+	if not emptyp(gg) then
+		ss:psubst(gg, ss),
+	ss:psubst(bb, ss)
+);
+
+
+/*
+Euler - Lagrange equation derivation
+*/
+
+ciEL1(_F, tt, pvars, smat):=block([eq, p, pv, qq, ee, aa:[], bb:[], es:[], ez:[], qp, qq2, cc:[], dd:[] ],
+	if not listp(pvars) then error("list required"),
+	[p, pv]:pvars,
+	eq:parmvectdiff(_F, p),
+ 	es: sublist( listofvars(p), lambda ([z],  freeof(asymbol, z))),	 
+	ez: sublist( listofvars(pv), lambda ([z],  freeof(asymbol, z))),	
+	/*display(es, ez), */
+	if %clverbose=true then
+		display(pv, eq),
+	 for j:1 thru length(ez) do (
+		push(ez[j]='diff(es[j], tt, 1), aa),
+		push('diff(es[j], tt, 1)=ez[j], bb),
+		push(ez[j]=ez[j](tt) , cc),
+		push(ez[j](tt)=ez[j] , dd)
+	),
+	/*aa:reverse(aa),
+	bb:reverse(bb),
+	cc:reverse(cc),*/
+	/*display (aa, bb)*/
+	qq2: parmvectdiff(_F, pv),
+	qq2: subst(cc, qq2),
+	display(es, qq2),
+	/*
+	depends(es, tt),			
+	qq: diff(qq2, tt),	
+	ee:buildq([es], remove(es, dependency)), 
+	ev(ee, nouns),
+	*/
+	qp: convderiv(qq2, tt, p),
+	/* display(qq, qp, ratsimp(qq-qp)), 	*/
+	eq:eq - qp,
+	eq: psubst(dd, eq),	
+	eq: psubst(bb, eq),	
+	if smat='list then 
+		eq:subst(aa, eq)
+	else if smat='mat then  		
+		eq:bdecompose(eq),
+	eq:factorby(eq, ez),
+	eq
+);
+ 
+ciEL(_F, tt, pvars, smat):=block([eq, p, pv, qq, ee, aa:[], bb:[], es:[], ez:[] ],
+	if not listp(pvars) then error("list required"),
+	[p, pv]:pvars,
+	eq:parmvectdiff(_F, p),
+ 	es: sublist( listofvars(p), lambda ([z],  freeof(asymbol, z))),	 
+	ez: sublist( listofvars(pv), lambda ([z],  freeof(asymbol, z))),	
+	/*display(es, ez), */
+	if %clverbose=true then
+	 display(pv, eq),
+	 for j:1 thru length(ez) do (
+		push(ez[j]='diff(es[j], tt, 1), aa),
+		push('diff(es[j], tt, 1)=ez[j] , bb)
+	),
+	aa:reverse(aa),
+	bb:reverse(bb),
+	/*display (aa, bb)
+	depends(es, tt),,*/
+	
+	qq: parmvectdiff(_F, pv),
+	qq: diff(qq, tt),
+	eq:eq - qq,
+	if %clverbose=true then
+		display(qq),
+	eq: psubst(bb, eq),
+	/*
+	ee:buildq([es], remove(es, dependency)), 
+	ev(ee, nouns),
+	*/
+	if smat='list then 
+		eq:subst(aa, eq)
+	else if smat='mat then  
+		eq:bdecompose(eq),
+	eq:factorby(eq, ez),
+	eq
+);
+
+EL(_F, q, pvars):=block ([eq:0, p, pv, qq, rr, len, ret:[]],
+	if not listp(pvars) then error("list required"),
+	 len:length(pvars),
+	 p:pvars[1],
+	 eq:pardiff(_F, p),
+	 if len>1 then (
+		for i:2 thru len do (
+			pv:pvars[i],
+			qq: subst('pv(q), pv, pardiff(_F, pv)),
+			/*qq: pardiff(_F, pv),*/
+			display(qq),
+			for j:1 thru i-1 do (
+				rr:- convderiv(qq, q, p),				
+				rr: subst('diff(p, q)='pv(q), rr),
+				display(q, p, pv,  rr),
+				eq:eq + subst( pv, 'pv(q), rr  ),
+				/*eq:eq+ rr,*/
+				qq:rr
+			),
+			push(pv='diff(pvars[1], q, i-1), ret)
+		),
+		ret:reverse(ret)
+	),
+	[ ret, eq]
+);
+
+
+
+/*
+coordinate substitution
+*/
+coordsubst(rr, eqs):=block( [lv, ret:rr, qq],
+	lv: sublist( listofvars(rr), lambda ([z], freeof(asymbol,z))),
+	if not listp(eqs) then eqs:[eqs],
+	for i:1 thru length(eqs) do (
+		if op(eqs[i])="=" then ( 
+			qq:rhs(eqs[i]),
+			ret:ratsubst(qq,  lhs(eqs[i]), ret)
+		) else ( 
+			qq:eqs[i],
+			ret:ratsubst(qq, lv[i], ret)
+			)
+	),
+	if %divsimp=true then (
+		ret:trigsimp(ret),
+		ret:ratsimp(ret)
+	),
+	ret
+);
+
+/*
+volume element
+coordinate substitution
+*/
+
+volel(eqs, [lv]):=block( [ ret, qq:[] ],
+	if not listp(eqs) then eqs:[eqs],
+	if not emptyp(lv) then (
+		lv:lv[1],
+		for i:1 thru length(eqs) do
+			push(rhs(eqs[i]), qq)  
+	) else (
+		for i:1 thru length(eqs) do (
+		 lv: append( sublist( listofvars(rhs(eqs[i])), lambda ([z], freeof(asymbol,z))), lv),
+			  push(rhs(eqs[i]), qq)  
+			  ), 
+		lv:unique (lv)
+	  ),
+	   qq:reverse(qq),
+	   /*disp(qq, lv),*/
+	   /*  jacobian computation*/
+	ret: outermap (lambda([u,z], diff(qq[z], u)),  lv, makelist(i,i, length(lv))),
+	ret: substinpart('matrix, ret,0),
+	if %clverbose=true then display(lv, qq, ret),
+	ret:determinant(ret),
+	if %divsimp=true then (
+		ret:trigsimp(ret),
+		ret:ratsimp(ret)
+	),
+	%iv.ret
+);
+
+clidet(vlist):=block([dd, n ],
+	n:length(vlist),
+	dd:vlist[1], 
+	for i:2 thru n do (
+		dd:dotsimpc(dd & vlist[i]),
+		if dd=0 then return(dd)
+	),
+	factorby(dd, %iv)
+);
+
+clivolel(rr, eqs, [lv]):=block([ ret, qq:[], rq ],
+	if not listp(eqs) then eqs:[eqs],
+	if not emptyp(lv) then (
+		lv:lv[1],
+		for i:1 thru length(eqs) do
+			push(rhs(eqs[i]), qq)  
+	) else (
+	 for i:1 thru length(eqs) do (
+		 lv: append ( sublist( listofvars(rhs(eqs[i])), lambda ([z], freeof(asymbol,z))), lv),
+		  push(rhs(eqs[i]), qq)  
+		  ), 
+	  lv:unique (lv)
+	  ),
+	  rq:subst(eqs,rr),
+	ret:map (lambda([z], diff(rq, z)),  lv ),
+	if %clverbose=true then display(lv, qq, ret),
+	ret:clidet(ret),
+	if %divsimp=true then (
+		ret:trigsimp(ret),
+		ret:ratsimp(ret)
+	),
+	ret
+);
+
+  
+
+put('cliffordan, 'v16,'version);
+put('cliffordan, "Dimiter Prodanov", 'author);
+put('cliffordan, "(C) - Dimiter Prodanov, 2015", 'copyright);
+
+print("package name: cliffordan.mac");
+print("author: ", get('cliffordan,'author));
+print("version:", get('cliffordan,'version));
+print("Recommended location: share/contrib");
+print("last update: 08 March 2016");

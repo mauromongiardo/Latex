@@ -1,0 +1,91 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+pathmaxima:file_search_maxima$
+pathmaxima[2];
+kill(all)$
+
+load("/Users/mauromongiardo/dropbox/2017/Maxwell-Pauli/wxmaxima/test_clifford/clifford.mac");
+load("/Users/mauromongiardo/dropbox/2017/Maxwell-Pauli/wxmaxima/test_clifford/cliffordan.mac");
+
+if get('clifford,'version)=false then load("clifford")$
+if get('cliffordan,'version)=false then load("cliffordan")$
+("Cliford implements Clifford algebra for Maxima.")$
+"Inner and outer products in G(3)"$
+ 	
+
+clifford(e, 3);
+/*
+EE:cons(1, %elements );
+mtable1o(%elements);
+*/
+print("try constructing a vector")$
+
+"initialize variables"; 	
+a1:cvect(a); 
+b1:cvect(b); 	
+c1:cvect(c);
+
+E1:cvect(E);
+
+print("A bivector obtained by multiplying i with a vector")$
+Bv : dotsimpc(expand(%iv . b1));
+print("The trivector")$
+%iv ;
+
+"basic products";
+adotb  :a1 | b1$
+awedgeb :a1 & b1$
+ab :a1 . b1$
+print("a dot b = ",'adotb," = ",adotb)$
+print("a wedge b = ",'awedgeb," = ",awedgeb)$
+print("a  b = ",'ab," = ",ab)$
+print("expand ab ", expand(ab))$
+
+print("_____________________________________")$
+
+print("Try mutliplication a1 dot Bv")$
+adB : a1 | Bv;
+/*
+print("expand")$
+adB : expand(adB);
+print("dotsimpc")$
+adB : dotsimpc(adB);
+*/
+print("grade")$
+gadB : grade(adB);
+gadB[1];
+
+print("The dot product of a vector and a bivector is anticommutative")$
+Bda : Bv  | a1;
+(adB + Bda);
+
+
+print("try %i a ^ b")$
+iab : %iv . (a1 & b1);
+iab : dotsimpc(expand(iab)) ; 
+adB - iab;
+print(" a  . B = a . (ib) = i (a ^ b)")$
+
+print("Try mutliplication a1 ^ Bv")$
+awB : a1 & Bv;
+/*
+
+"associativity of outer product"; 	
+L1:(a1 & b1 )& c1, factor; 	
+L2:a1 & (b1 & c1) ,factor;		
+L1-L2;
+
+L1:a1 | (b1 & c1); 	
+L2:(a1| b1).c1 - (a1 | c1) .b1,expand; 	
+L1-L2;
+
+e[1] &e[2] &e[3];	(1+e[1])&(1+e[1]);			(1+e[1])&(1-e[1]);	"outer product multiplication table"$			mtable2o();	
+*/
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

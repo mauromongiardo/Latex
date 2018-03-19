@@ -1,0 +1,25 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+print("_______________________________________________")$
+print("Program name:clambdaf")$
+print("_______________________________________________")$
+
+print("Computing the wavelength for a given frequency")$
+Mega : 10^6$
+print("speed of light c")$
+c_light: 2.99792458 * 10^8;
+print("Frequency f")$
+freq : 1575.42 * Mega;
+print("wavelength in meters")$
+%lambda : c_light/freq;
+print("in cm")$
+lambdacm : %lambda*100 ;
+print("_______________________________________________")$
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

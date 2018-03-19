@@ -1,0 +1,165 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+load(vect);
+ratprint:false$
+fpprintprec:5$
+
+print("vector a")$
+a1 : 1.0$ a2 : 0.0$ a3 : 1.0$
+avect :[a1,a2,a3];
+
+print("vector b")$
+b1 : 2.0$ b2 : 1.0$ b3 : 0.0$
+bvect :[b1,b2,b3];
+
+print("vector c")$
+c1 : 0.0$ c2 : 2.0$ c3 : 0.0$
+cvect :[c1,c2,c3];
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition")$
+print("_________________________________________________________")$
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+print('%sigma[0]," = ",%sigma[0])$
+print('%sigma[1]," = ",%sigma[1])$
+print('%sigma[2]," = ",%sigma[2])$
+print('%sigma[3]," = ",%sigma[3])$
+
+a : a1 . %sigma[1] + a2 . %sigma[2] + a3 . %sigma[3]$
+print("Express vector ",'a," as a Pauli matrix ",a)$
+
+b : b1 . %sigma[1] + b2 . %sigma[2] + b3 . %sigma[3]$
+print("Express vector ",'b," as a Pauli matrix ",b)$
+
+c : c1 . %sigma[1] + c2 . %sigma[2] + c3 . %sigma[3]$
+print("Express vector ",'c," as a Pauli matrix ",c)$
+
+
+print("_________________________________________________________")$
+print("geometric (Clifford) product bc (between two vectors)    ")$
+print("_________________________________________________________")$
+
+print("Find their product")$
+bc : ratsimp(b . c);
+
+print("The  scalar part (inner product) is the trace/2")$
+sbc : ratsimp((bc[1,1]+bc[2,2])/2);
+
+print("The external product ",'b ,"^", 'c)$
+bwc : ratsimp(bc - sbc . %sigma[0]);
+print("one recognizes that the above is %i b x c")$
+print("_________________________________________________________")$
+print(" The following identity holds b ^ c = %i b x c  ")$
+print("_________________________________________________________")$
+print("Now perform a (b ^ c)")$
+print("_________________________________________________________")$
+abwc : rectform(a . bwc);
+
+
+print("The  scalar part (inner product) is the trace/2")$
+sbc : factor(ratsimp((abwc[1,1]+abwc[2,2])/2));
+print("Note that the above is a trivector (a pseudoscalar)")$
+print("It corresponds to the volume element a ^ b ^ c")$
+
+
+print("If we consider the matrix ")$
+abc : matrix([a1,a2,a3],[b1,b2,b3],[c1,c2,c3])$
+print('abc," = ",abc)$
+print("its determinat is ")$
+dabc : determinant(abc);
+print("The determinant multiplied by i is equal to the scalar part,")$
+print("their difference being")$
+ratsimp(%i * dabc - sbc);
+
+print("_________________________________________________________")$
+print("Therefore we have a ^ b ^ c = i det(abc)")$
+print("_________________________________________________________")$
+
+print("The remaining part corresponds to a dot (b ^ c)")$
+awbwc : ratsimp(abwc - sbc . %sigma[0]);
+
+print("i.e. a vector with components")$
+ws : ratsimp((awbwc[1,1]+awbwc[2,2])/2)$
+wx : ratsimp((awbwc[2,1]+awbwc[1,2])/2)$
+wy : ratsimp((awbwc[2,1]-awbwc[1,2])/(2*%i))$
+wz : ratsimp((awbwc[1,1]-awbwc[2,2])/2)$
+
+print('ws, " = ",ws )$
+print('wx, " = ",wx )$
+print('wy, " = ",wy )$
+print('wz, " = ",wz )$
+
+print("_________________________________________________________")$
+print(" (a.b)c - (a.c)b  (identity bac- cab = a x b c )  ")$
+print("_________________________________________________________")$
+
+print("trying a different approach")$
+print("evaluating dot products e.g. a dot b as (ab + ba)/2")$
+adb : ratsimp((a . b + b . a)/2);
+adc : ratsimp((a . c + c . a)/2);
+w : adb . c - adc . b;
+
+as : ratsimp((w[1,1]+w[2,2])/2)$
+ax : ratsimp((w[2,1]+w[1,2])/2)$
+ay : ratsimp((w[2,1]-w[1,2])/(2*%i))$
+az : ratsimp((w[1,1]-w[2,2])/2)$
+
+print("i.e. a vector with components")$
+print('as, " = ",as )$
+print('ax, " = ",ax )$
+print('ay, " = ",ay )$
+print('az, " = ",az )$
+
+print("Proof that are equal")$
+ratsimp(wx-ax);
+ratsimp(wy-ay);
+ratsimp(wz-az);
+
+print("_________________________________________________________")$
+print("Therefore w = a . (b ^ c) = (a.b)c - (a.c)b")$
+print("_________________________________________________________")$
+
+print("======================GIBBS=======================")$
+a:[a1, a2, a3]; 
+b:[b1, b2, b3];
+c : [c1, c2, c3]; 
+
+print(" dot product a . b")$
+adb : a . b;
+
+print(" cross product")$
+ axb : a ~ b;
+ axb : express(axb);
+
+bxa : express(b ~ a);
+print("find the difference axb - bxa")$
+diff : axb + bxa;
+ /* */
+
+print("A X ( B X C ) = ")$
+r1 : express(a ~ express(b ~ c))$
+r1 :ratsimp(r1);
+
+print("The sum of these coefficients with")$
+print("those previously found gives zero ")$
+ratsimp(r1[1] + ax);
+ratsimp(r1[2] + ay);
+ratsimp(r1[3] + az);
+
+print("_________________________________________________________")$
+print("Therefore a . (b ^ c) = (a.b)c - (a.c)b = - a x b x c  ")$
+print("_________________________________________________________")$
+/* */
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

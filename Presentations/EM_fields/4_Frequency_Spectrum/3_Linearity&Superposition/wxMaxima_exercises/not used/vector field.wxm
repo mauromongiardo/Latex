@@ -1,0 +1,43 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+
+/* [ Created with wxMaxima version 0.8.5 ] */
+
+/* [wxMaxima: comment start ]
+Vector field plot
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+
+wxplotdf([2*x,-2*y]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Implicit surface
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxdraw3d(enhanced3d=true,
+        implicit(x^2-y^2+x*y*z=1,
+                 x,-5,5,y,-5,5,z,-5,5),
+        surface_hide=true);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Tangent plane to the surface
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxdraw3d(color=blue,
+        implicit(x^2-y^2+x*y*z=1,
+                 x,-5,5,y,-5,5,z,-5,5),
+       color=red,
+       explicit(3-3*x+y,x,0,2,y,0,2),
+        surface_hide=true);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

@@ -1,0 +1,60 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+/* example 3.7 */
+
+print("_________________________________________________________")$
+print("Numerical example (see example 3.7)")$
+print("_________________________________________________________")$
+
+fpprintprec :5$
+ratprint : false$ 
+print("For a given point P1")$
+P1[x] : 3.0$
+P1[y] : -4.0$
+P1[z] : 3.0$
+
+print("and a given vector A defined in cartesian coordinates")$
+A[x] : 2.0$
+A[y] : -3.0$
+A[z] : 4.0$
+
+print("_________________________________________________________")$
+print("Transformation of coordinates !!!")$
+print("_________________________________________________________")$
+
+print("phi value for P1")$
+phi : float(atan2(P1[y],P1[x]));
+
+print("point P1 as column vector")$
+P1xyz : matrix([P1[x]],[P1[y]],[P1[z]]);
+
+print("vector A as column vector")$
+Axyz : matrix([A[x]],[A[y]],[A[z]]);
+
+print("From rectangular to cylindrical ...")$
+print("Point P1 expressed in rectangular is transformed in point P1 in cylindrical")$
+
+P1rho : sqrt(P1[x]^2+P1[y]^2);
+P1phi : float(atan2(P1[y],P1[x]));
+P1z : P1[z];
+
+print("the phi component in degrees is",phi*180.0/float(%pi))$
+print(" or equivalently ", 360.0 + phi*180.0/float(%pi))$
+
+print("_________________________________________________________")$
+print("Transformation of vector components !!!")$
+print("_________________________________________________________")$
+
+print("A is considered as a vector")$
+print("transformation matrix from rect to cyl")$
+r2c : matrix([cos(phi),sin(phi),0],[-sin(phi),cos(phi),0],[0,0,1]);
+
+print("Vector in cylindrical coordinates")$
+Arpz : r2c . Axyz;
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

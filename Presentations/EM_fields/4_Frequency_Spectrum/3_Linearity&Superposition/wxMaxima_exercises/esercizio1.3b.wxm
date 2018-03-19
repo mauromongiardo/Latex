@@ -1,0 +1,33 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 12.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+
+fpprintprec:9$
+
+z[1] : (4 - 3 * %i)^2;
+polarform(z[1]);
+
+x : realpart(z[1]);
+y : imagpart(z[1]);
+
+zm :cabs(z[1]);
+
+angle_rad : atan(y/x);
+angle_deg : float(angle_rad*180 /%pi);
+
+z[2] : (4 - 3 * %i)^(1/2);
+polarform(z[2]);
+
+x : realpart(z[2]);
+y : imagpart(z[2]);
+
+zm :cabs(z[2]);
+
+angle_rad : atan(y/x);
+angle_deg : float(angle_rad*180 /%pi);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

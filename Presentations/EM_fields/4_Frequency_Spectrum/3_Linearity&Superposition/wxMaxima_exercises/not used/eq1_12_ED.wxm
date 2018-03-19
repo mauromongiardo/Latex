@@ -1,0 +1,21 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 13.04.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+
+E:matrix([E_x(x,y,z,t)],[E_y(x,y,z,t)],[E_z(x,y,z,t)]);
+
+declare([%epsilon_0,%epsilon_11,%epsilon_33],[constant,real,scalar])$
+ 
+%epsilon:matrix([%epsilon_11,0,0],[0,%epsilon_11,0],[0,0,%epsilon_33]);
+
+D:matrix([D_x(x,y,z,t)],[D_y(x,y,z,t)],[D_z(x,y,z,t)]);
+
+D0  : %epsilon_0 * E;
+
+D1 :  %epsilon . E;
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

@@ -1,0 +1,341 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+/* Code name: Pnabla_sph.wxm */
+
+kill(all)$
+assume(r>0);
+assume(sin(%theta) > 0);
+
+print("_________________________________________________________")$
+print("Conventional Vector Analysis")$
+print("_________________________________________________________")$
+
+print("the package vect allows to perform vector operations")$
+load(vect);
+
+print("select the coordinate system with the appropriate scalefactors")$
+print("Better to use phi since %phi is reserved")$
+
+scalefactors([[r*sin(%theta)*cos(phi),r*sin(%theta)*sin(phi),r*cos(%theta)]
+                ,r,%theta,phi]);
+
+depends(w,[r,%theta,phi]);
+depends([Ar,Atheta,Aphi],[r,%theta,phi]);
+
+print("SPHERICAL COORDINATES")$
+print("Gradient of w")$
+g : grad (w)$
+express (g)$
+gradw : ev (%, diff);
+
+print("Divergence")$
+d : div ([Ar,Atheta,Aphi])$ 
+express (d)$
+divA1 : expand(ev (%, diff));
+
+/* divergence according to Harrington 
+divA1r : 1/r^2 * diff(r^2*Ar,r)$
+divA1t : 1/(r * sin(%theta)) * diff(Atheta * sin(%theta),%theta)$
+divA1f : 1/(r * sin(%theta))  * diff(Aphi,phi)$
+divA2 : divA1r + divA1t + divA1f;
+print("test")$
+ratsimp(divA1 - divA2);
+*/
+
+print("Curl")$
+curl ([Ar,Atheta,Aphi])$
+express (%)$
+curl_A1 : ev (%, diff)$
+curl_A1_r : expand(curl_A1[1])$
+curl_A1_theta : expand(curl_A1[2])$
+curl_A1_phi   : expand(curl_A1[3])$
+print('curl_A1_r," = ",curl_A1_r)$
+print('curl_A1_theta," = ",curl_A1_theta)$
+print('curl_A1_phi," = ",curl_A1_phi)$
+
+/* curl according to Harrington pag 299 
+curl_A2_r : 1/(r * sin(%theta))  * (diff(Aphi*sin(%theta),%theta) 
+            - diff(Atheta,phi));
+ratsimp(curl_A1_r-curl_A2_r);
+curl_A2_theta : 1/(r )  * (1/sin(%theta) * diff(Ar,phi) 
+                - diff(Aphi*r,r));
+ratsimp(curl_A1_theta-curl_A2_theta);
+curl_A2_phi : 1/(r )  * ( diff(Atheta*r,r) - diff(Ar,%theta));
+ratsimp(curl_A1_phi-curl_A2_phi);
+*/
+
+/*  computation of grad div A - curl curl A */
+print("grad(divA1)")$
+g : grad (divA1)$
+express (g)$
+graddivA1 : factor(ev (%, diff))$
+graddivA1_r : graddivA1[1]$
+graddivA1_theta : graddivA1[2]$
+graddivA1_phi   : graddivA1[3]$
+print('graddivA1_r," = ",graddivA1_r)$
+print('graddivA1_theta," = ",graddivA1_theta)$
+print('graddivA1_phi,"   = ",graddivA1_phi)$
+
+print("curlcurlA1")$
+ccA1 : curl(curl_A1);
+express (%)$
+curlcurlA1 : ev (%, diff)$
+curlcurlA1_r : curlcurlA1[1]$
+curlcurlA1_theta : curlcurlA1[2]$
+curlcurlA1_phi   : curlcurlA1[3]$
+print('curlcurlA1_r," = ",curlcurlA1_r)$
+print('curlcurlA1_theta," = ",curlcurlA1_theta)$
+print('curlcurlA1_phi,"   = ",curlcurlA1_phi)$
+
+
+print("nabla^2 A = grad (div A) -nabla x nabla xA")$
+N2A_r : ratsimp(graddivA1_r - curlcurlA1_r)$
+N2A_theta : ratsimp(graddivA1_theta - curlcurlA1_theta)$
+N2A_phi : ratsimp(graddivA1_phi - curlcurlA1_phi)$
+N2A_r : expand(N2A_r)$
+N2A_theta : expand(N2A_theta)$
+N2A_phi : expand(N2A_phi)$
+print('N2A_r," = ",N2A_r)$
+print('N2A_theta," = ",N2A_theta)$
+print('N2A_phi,"   = ",N2A_phi)$
+
+
+
+print("_________________________________________________________")$
+print("End conventional Vector Analysis")$
+print("_________________________________________________________")$
+
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+/*
+print("_________________________________________________________")$
+print("Pauli Matrices Definition")$
+print("_________________________________________________________")$
+print('%sigma[0]," = ",%sigma[0])$
+print('%sigma[1]," = ",%sigma[1])$
+print('%sigma[2]," = ",%sigma[2])$
+print('%sigma[3]," = ",%sigma[3])$
+*/
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition Spherical")$
+print("_________________________________________________________")$
+
+
+ct : cos(%theta)$
+st : sin(%theta)$
+
+%sigma[r] : matrix([ct,st * %e^(-%i * phi)],[st * %e^(%i * phi),-ct])$
+%sigma[%theta] : matrix([-st,ct* %e^(-%i*phi)],[ct*%e^(%i * phi),st])$
+%sigma[phi] : matrix([0,-%i * %e^(-%i * phi)],[%i * %e^(%i * phi),0])$
+
+print('%sigma[r]," = ",%sigma[r])$
+print('%sigma[%theta]," = ",%sigma[%theta])$
+print('%sigma[phi]," = ",%sigma[phi])$
+
+[Ar,Atheta,Aphi];
+
+print("Nabla as Pauli matrix")$
+Np : dd[r] * %sigma[r] + dd[%theta]/r * %sigma[%theta] 
+    + dd[phi]/(r *sin(%theta)) * %sigma[phi];
+
+print("Nabla A from div + i*curl")$
+NablaA : %i * curl_A1_r * %sigma[r] 
+    + %i*curl_A1_theta * %sigma[%theta] 
+    + %i * curl_A1_phi * %sigma[phi] + divA1 * %sigma[0];
+
+print("vector A as Pauli matrix")$
+Ap : factor(Ar * %sigma[r] + Atheta * %sigma[%theta] + Aphi * %sigma[phi]);  
+
+
+/* computation of nabla A */
+n11ap11 : cos(%theta)*diff(Ap[1,1],r)-
+            sin(%theta)/r * diff(Ap[1,1],%theta)$
+n12ap21 : sin(%theta)*diff(Ap[2,1],r) 
+            + cos(%theta)/r * diff(Ap[2,1],%theta) -
+            %i/(r*sin(%theta))*diff(Ap[2,1],phi)$
+n12ap21 : n12ap21 * %e^(-%i*phi)$
+NEp11 : ratsimp(n11ap11 + n12ap21)$
+NEp11 : trigsimp(NEp11)$
+
+n21ap11 : sin(%theta)*diff(Ap[1,1],r) 
+            + cos(%theta)/r * diff(Ap[1,1],%theta) +
+            %i/(r*sin(%theta))*diff(Ap[1,1],phi)$
+n21ap11 : n21ap11 * %e^(%i*phi)$
+n22ap21 : -cos(%theta)*diff(Ap[2,1],r)
+            +sin(%theta)/r * diff(Ap[2,1],%theta)$
+NEp21 : ratsimp(n21ap11 + n22ap21)$
+NEp21 : trigsimp(NEp21)$
+
+
+n11ap12 : cos(%theta)*diff(Ap[1,2],r)
+            -sin(%theta)/r * diff(Ap[1,2],%theta)$
+n12ap22 : sin(%theta)*diff(Ap[2,2],r) 
+            + cos(%theta)/r * diff(Ap[2,2],%theta) -
+            %i/(r*sin(%theta))*diff(Ap[2,2],phi)$
+n12ap22 : n12ap22 * %e^(-%i*phi)$
+NEp12 : ratsimp(n11ap12 + n12ap22)$
+NEp12 : trigsimp(NEp12)$
+
+
+n21ap12 : sin(%theta)*diff(Ap[1,2],r) 
+            + cos(%theta)/r * diff(Ap[1,2],%theta) +
+            %i/(r*sin(%theta))*diff(Ap[1,2],phi)$
+n21ap12 : n21ap12 * %e^(%i*phi)$
+n22ap22 : -cos(%theta)*diff(Ap[2,2],r)
+            +sin(%theta)/r * diff(Ap[2,2],%theta)$
+NEp22 : ratsimp(n21ap12 + n22ap22)$
+NEp22 : trigsimp(NEp22)$
+
+print("Nabla A is")$
+
+NEp : expand((matrix([NEp11, NEp12],[NEp21, NEp22])));
+
+print("Verification of nabla A expression")$
+trigsimp(ratsimp(NEp - NablaA));
+
+
+print("The divergence is ")$
+divA : expand(1/2*(NEp[1,1]+NEp[2,2]));
+print("Test divergence")$
+ratsimp(divA-divA1);
+
+/* The external product is */
+NeEp : ratsimp(NEp -divA * %sigma[0])$
+
+print("The r component is ")$
+rr : NeEp.%sigma[r]$
+CurlA_r : trigsimp(expand(1/2*(rr[1,1]+rr[2,2])))$
+CurlA_r : expand(CurlA_r );
+print("Test curl_r")$
+trigsimp(ratsimp(CurlA_r - curl_A1_r*%i));
+
+print("The theta component is ")$
+rr : NeEp.%sigma[%theta]$
+CurlA_theta : trigsimp(expand(1/2*(rr[1,1]+rr[2,2])))$
+CurlA_theta : expand(CurlA_theta);
+print("Test curl_theta")$
+trigsimp(ratsimp(CurlA_theta - curl_A1_theta*%i));
+
+print("The phi component is ")$
+rr : NeEp.%sigma[phi]$
+CurlA_phi : trigsimp(expand(1/2*(rr[1,1]+rr[2,2])))$
+CurlA_phi : expand(CurlA_phi);
+print("Test curl_phi")$
+trigsimp(ratsimp(CurlA_phi - curl_A1_phi*%i));
+ /* */
+
+print("_________________________________________________________")$
+print("Second order operator")$
+print("_________________________________________________________")$
+
+print("vector N2A as Pauli matrix")$
+N2Ap : factor(N2A_r * %sigma[r] + N2A_theta * %sigma[%theta] 
+        + N2A_phi * %sigma[phi]);  
+
+print("Nabla Nabla A is")$
+
+nn11ap11 : cos(%theta)*diff(NEp[1,1],r) -
+             sin(%theta)/r * diff(NEp[1,1],%theta)$
+nn12ap21 : sin(%theta)*diff(NEp[2,1],r) 
+                + cos(%theta)/r * diff(NEp[2,1],%theta) -
+            %i/(r*sin(%theta))*diff(NEp[2,1],phi)$
+nn12ap21 : nn12ap21 * %e^(-%i*phi)$
+NNEp11 : ratsimp(nn11ap11 + nn12ap21)$
+NNEp11 : trigsimp(NNEp11)$
+
+nn21ap11 : sin(%theta)*diff(NEp[1,1],r) 
+            + cos(%theta)/r * diff(NEp[1,1],%theta) +
+            %i/(r*sin(%theta))*diff(NEp[1,1],phi)$
+nn21ap11 : nn21ap11 * %e^(%i*phi)$
+nn22ap21 : -cos(%theta)*diff(NEp[2,1],r)
+            + sin(%theta)/r * diff(NEp[2,1],%theta)$
+NNEp21 : ratsimp(nn21ap11 + nn22ap21)$
+NNEp21 : trigsimp(NNEp21)$
+
+nn11ap12 : cos(%theta)*diff(NEp[1,2],r) 
+            - sin(%theta)/r * diff(NEp[1,2],%theta)$
+nn11ap12 : ratsimp(nn11ap12/%e^(-%i*phi))$
+nn12ap22 : sin(%theta)*diff(NEp[2,2],r) 
+            + cos(%theta)/r * diff(NEp[2,2],%theta) -
+            %i/(r*sin(%theta))*diff(NEp[2,2],phi)$
+nn12ap22 : ratsimp(nn12ap22)$
+aaa: trigsimp(nn12ap22 + nn11ap12)$
+NNEp12 : aaa * %e^(-%i*phi)$
+
+nn21ap12 : sin(%theta)*diff(NEp[1,2],r) 
+            + cos(%theta)/r * diff(NEp[1,2],%theta) +
+            %i/(r*sin(%theta))*diff(NEp[1,2],phi)$
+nn21ap12 : nn21ap12 * %e^(%i*phi)$
+nn22ap22 : -cos(%theta)*diff(NEp[2,2],r)
+            +sin(%theta)/r * diff(NEp[2,2],%theta)$
+NNEp22 : ratsimp(nn21ap12 + nn22ap22)$
+NNEp22 : trigsimp(NNEp22)$
+
+NNEp : ratsimp(matrix([NNEp11, NNEp12],[NNEp21, NNEp22]));
+/* NNEp : expand(NNEp)$ */
+
+trigsimp(N2Ap - NNEp);
+
+print("The divergence is ")$
+NdivA : expand(1/2*(NNEp[1,1]+NNEp[2,2]));
+
+/* The external product is */
+NNeEp : ratsimp(NNEp -NdivA * %sigma[0])$
+
+print("The r component is ")$
+rr : NNeEp . %sigma[r]$
+NCurlA_r : trigsimp(expand(1/2*(rr[1,1]+rr[2,2])))$
+NCurlA_r : expand(NCurlA_r) ;
+print("Test ")$
+trigsimp(NCurlA_r - N2A_r) ;
+
+print("The theta component is ")$
+rr : NNeEp . %sigma[%theta]$
+NCurlA_theta : trigsimp(1/2*(rr[1,1]+rr[2,2]))$
+NCurlA_theta : expand(NCurlA_theta) ;
+print("Test ")$
+trigsimp(NCurlA_theta - N2A_theta) ;
+
+print("The phi component is ")$
+rr : NNeEp.%sigma[phi]$
+NCurlA_phi : trigsimp(1/2*(rr[1,1]+rr[2,2]))$
+NCurlA_phi : expand(NCurlA_phi) ;
+print("Test ")$
+trigsimp(NCurlA_phi - N2A_phi) ;
+
+print("Scalar Laplacian in spherical coordinates for Ar")$
+l_spher : express(laplacian(Ar))$
+l_spher : ev(l_spher,diff)$
+l_spher :ratexpand(l_spher)$
+
+print("Difference between NCurlA_r and laplacian")$
+expand(ratsimp(NCurlA_r - l_spher)) ;
+
+print("Scalar Laplacian in spherical coordinates for Atheta")$
+l_spher : express(laplacian(Atheta))$
+l_spher : ev(l_spher,diff)$
+l_spher :ratexpand(l_spher)$
+
+print("Difference between NCurlA_theta and laplacian")$
+expand(ratsimp(NCurlA_theta - l_spher)) ;
+
+print("Scalar Laplacian in spherical coordinates for Aphi")$
+l_spher : express(laplacian(Aphi))$
+l_spher : ev(l_spher,diff)$
+l_spher :ratexpand(l_spher)$
+
+print("Difference between NCurlA_phi and laplacian")$
+expand(ratsimp(NCurlA_phi - l_spher)) ;
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

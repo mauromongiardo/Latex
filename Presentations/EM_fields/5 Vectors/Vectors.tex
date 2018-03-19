@@ -1,0 +1,267 @@
+\documentclass[10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+%\usepackage{placeins} %%%
+\usepackage{subfig}
+\usepackage{physics}
+\usepackage{amssymb}
+
+
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+
+
+\usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage{slashed} % for the Feynman slash notation
+
+\usepackage{listings}
+
+\usepackage{balance}
+
+\input{definitions}
+
+\newcommand{\iGA}{{i}}
+\newcommand{\conjg}[1] {\ensuremath{#1}^*}
+
+\setbeamertemplate{bibliography item}{[\theenumiv]}
+
+
+\title{Vectors}
+
+\date{}
+
+%\subtitle{Maximizing efficiency and power at a fixed frequency}
+%\date{\today}
+%\author{Alessandra Costanzo, Franco Mastri, Mauro Mongiardo*, Giuseppina Monti}
+%\institute{*Department of Engineering,
+%University of Perugia, Italy}
+
+\author{ Mauro Mongiardo$^1$}
+
+\institute{ $^1$ Department of Engineering, University of Perugia, Perugia, Italy.
+}
+
+%
+\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo}}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Table of contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+
+\def\EMspectrum{\centering
+\includegraphics[width=0.75\textwidth]{EMspectrum}}
+
+\def\atmatt{\centering
+\includegraphics[width=0.75\textwidth]{atmatt3.eps}}
+
+
+%
+
+
+
+%=========================================================================
+\section{Vectors}
+%=========================================================================
+
+
+%=========================================================================
+\begin{frame}[fragile]{Vectors}
+%
+A \alert{linear space} is one upon which addition and scalar multiplication are defined. 
+
+Although such a space is often called a ``vector space'', we will use the term \alert{``vector'' for the geometric concept of a directed line segment}. 
+
+A \alert{\emph{vector}} is a quantity having both \alert{direction and magnitude} in space. 
+
+Examples of vector quantities are force, velocity, acceleration, etc.
+
+We require \alert{linearity}, so that for any vectors $\bf a$ and $\bf b$ we must be able to define their vector sum $ \bf a + b$. 
+
+We define \alert{the product of a scalar $\alpha$ and a vector  $\bf a$} as $\alpha {\bf a}$. The multiplication of a vector times a scalar leaves the direction unchanged and the resulting vector is simply with a different magnitude.
+
+
+\end{frame}
+
+\section{Inner product}
+%=========================================================================
+\begin{frame}[shrink=10]{Inner product}
+In order to express algebraically the geometric idea of magnitude, it is convenient to define an \alert{Inner product}.
+
+%
+\begin{figure}[tb]
+\centering
+\includegraphics[width=0.25\textwidth]{Dot_Product.png}
+\caption{Inner product.}
+\label{Dot_Product} 
+\end{figure}
+
+The \emph{inner product} ${\bf a} \cdot {\bf b}$
+\be
+{\bf a} \cdot {\bf b} = \abs{\bf a} \abs{\bf b} \cos \theta
+\label{innerp}
+\ee
+ is the scalar product of two vectors $\bf a$ and $\bf b$ and is a scalar with magnitude $\abs{\bf a} \abs{\bf b} \cos \theta$, where $\abs{\bf a}$ and $\abs{\bf b}$ are the
+ lengths of the vectors, and $\theta$ is the angle between them. 
+\end{frame}
+%%=========================================================================
+\begin{frame}[fragile]{Cross product}
+%
+The \emph{cross product} ${\bf a} \times {\bf b}$ of two vectors is
+\be
+{\bf a} \times {\bf b} = \abs{\bf a} \abs{\bf b} \sin \theta
+\label{outerp}
+\ee
+i.e. a vector of magnitude $\abs{\bf a} \abs{\bf b} \sin \theta$ in the direction perpendicular to $\bf a$ and $\bf b$, such that \alert{$\bf a$, $\bf b$ and ${\bf a} \times {\bf b}$  form a right-handed set}.
+
+However, \alert{the vector cross product exists only in our 3-dimensional world}; in two dimensions there is simply no direction perpendicular to $\bf a$ and $\bf b$, and in four or more dimensions that direction is ambiguous. 
+
+A more general concept is needed, so that full information about relative directions can still be encoded in all dimensions.
+Before introducing the external product we would like to summarize the vector identities. 
+\end{frame}
+
+%=========================================================================
+\section{Vector identities}
+%%=========================================================================
+%
+\begin{frame}[fragile]{Vector identities}
+%
+
+
+A summary of the vector identities is given in the following
+
+\bea
+a & = &  \sqrt{{\bf a} \cdot {\bf a}}  \\
+{\bf a} + {\bf b} & = & {\bf b}+ {\bf a}  \\
+{\bf a} \cdot {\bf b} & = & {\bf b} \cdot {\bf a}   \label{commutative}\\
+{\bf a} \times {\bf b} & = & - {\bf b} \times {\bf a} \label{anticommutative} \\
+({\bf a} + {\bf b}) \cdot {\bf c} & = & {\bf a} \cdot {\bf c} +  {\bf b} \cdot {\bf c}   \label{distributive} \\
+{\bf a} \cdot {\bf b} \times  {\bf c} & = &  {\bf b}  \cdot  {\bf c} \times {\bf a} =  {\bf c}  \cdot  {\bf a}   \times {\bf b} \label{puntocroce} \\
+{\bf a} \times ( {\bf b} \times  {\bf c}) & = &  ({\bf a}  \cdot  {\bf c})  {\bf b} -  ({\bf a}  \cdot  {\bf b})    {\bf c} \label{bacmcab}
+\eea
+%
+
+\end{frame}
+%%=========================================================================
+\begin{frame}[fragile]{}
+%
+Equation (\ref{commutative}) is called the \emph{commutative law}
+
+ while (\ref{distributive}) is the \emph{distributive law}.
+ 
+It is seen from (\ref{anticommutative}) that the cross product is \emph{anticommutative}. 
+
+In (\ref{puntocroce}) it is stated that it is possible to exchange the dot with the cross (naturally the cross product has to be performed first).
+
+In the last equation (\ref{bacmcab}) it is reported a well known identity (often memorized as bac minus cab).
+
+\end{frame}
+%%=========================================================================
+\begin{frame}[fragile]{}
+%
+It is noted that the above expressions are \alert{independent from the coordinate system}. If one identity is proved in a coordinate system, it is valid in all the coordinate systems.
+
+\alert{Computation of vector expression may often become quite tedious} and it is of considerable advantage to be able to perform such computations, either symbolically and numerically, with a computer algebra system.
+
+\end{frame}
+%
+%
+
+%%%=========================================================================
+%\begin{frame}[shrink=40]{}
+%
+%The  code clf.wxm computes wavelength from frequency.
+%% The file 
+%%\small
+%%\begin{verbatim}
+%%clf.wxm
+%%\end{verbatim}
+%%\normalsize
+%%
+%%is listed in the following.
+%
+%\small
+%\lstinputlisting{clf.wxm}
+%\normalsize
+%
+%
+%\end{frame}
+
+\section{Vector identities with Computer Algebra Systems }
+
+%=========================================================================
+\begin{frame}[fragile]{}
+%
+Several Computer Algebra Systems (CAS) are presently available. 
+
+In the following we will make use of \alert{\emph{wxMaxima}} for three reasons: 
+%
+\begin{itemize}
+\item it is freely available; 
+\item it runs on several operating systems, 
+\item it allows to copy the result as a {\LaTeX}  expression. 
+\end{itemize}
+%
+%We will write simple lines of code that can be cut and past in a  \emph{wxMaxima} window and are ready to run. 
+%
+The first example will refer to  a segment of code for performing the dot and cross product. The file is: 
+%vectors underline v02.wxm.
+%%\small
+\begin{verbatim}
+vectors_v02.wxm
+\end{verbatim}
+%%\normalsize
+%
+%%is listed in the following.
+%
+%\small
+
+%\normalsize
+\end{frame}
+%%=========================================================================
+\begin{frame}[shrink=70]{}
+%
+\lstinputlisting{vectors_v02.wxm}
+\end{frame}
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%\end{frame}
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%\end{frame}
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%\end{frame}
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%\end{frame}
+%
+
+
+
+
+\end{document}

@@ -1,0 +1,31 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+load(vect)$
+/* c2s.wxm */
+
+/* numerical
+fpprintprec:5$
+ratprint : false$
+%rho :5.0 ;
+phi :4.6 ;
+z :2.0;
+*/
+
+/* cylindrical to spherical */
+r : sqrt(%rho^2 + z^2)$
+theta  :atan2(%rho,z) $
+phi : phi$
+
+print("cylindrical to spherical")$
+print('r, " = ",r)$
+print('theta, " = ",theta)$
+print('phi, " = ",phi)$
+
+print("bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

@@ -1,0 +1,93 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+
+print("Introduce functional dependence")$
+depends([a11,a12,a21,a22],[x,y,z]);
+
+Ap : matrix([a11,a12],[a21,a22]); 
+
+/*_________________________________________________*/
+/* This part is the function that compute the nabla
+of a Pauli matrix in rectangular coordinates */
+
+Nablarect(Ap) := 
+block([],
+
+print("performing Nabla"),
+
+NAp11 : diff(Ap[1,1],z)+diff(Ap[2,1],x)-%i*diff(Ap[2,1],y),
+NAp12 : diff(Ap[1,2],z)+diff(Ap[2,2],x)-%i*diff(Ap[2,2],y),
+NAp21 :-diff(Ap[2,1],z)+diff(Ap[1,1],x)+%i*diff(Ap[1,1],y),
+NAp22 :-diff(Ap[2,2],z)+diff(Ap[1,2],x)+%i*diff(Ap[1,2],y),
+
+NAp11 : factor(NAp11),
+NAp12 : factor(NAp12),
+NAp21 : factor(NAp21),
+NAp22 : factor(NAp22),
+
+NAp : (matrix([NAp11, NAp12],[NAp21, NAp22]))
+)$
+/*_________________________________________________*/
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition")$
+print("_________________________________________________________")$
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+print('%sigma[0]," = ",%sigma[0])$
+print('%sigma[1]," = ",%sigma[1])$
+print('%sigma[2]," = ",%sigma[2])$
+print('%sigma[3]," = ",%sigma[3])$
+
+/*_________________________________________________*/
+
+/* problem starts */
+
+/* specific values */
+/* in this case we are considering a vector A with only the z component */
+
+r:sqrt(x^2+y^2+z^2)$
+A[x]:0$
+A[y]:0$
+A[z]:1/r$
+/* A[z]:%e^(-%i * k * r)/r$ */
+
+Axyz : A[x] * %sigma[1] + A[y] * %sigma[2]+ A[z] * %sigma[3]$
+
+print("Pauli matrix of vector A "," = ",Axyz)$
+
+Ap : Axyz$
+
+NA  : Nablarect(Ap);
+print("finding the divergence")$
+divA : 1/2*(NA[1,1]+NA[2,2]);
+
+print("external product matrix")$
+NAmd : NA - divA* %sigma[0];
+
+print("retrieving the components")$
+print("x component")$
+NA1 : NAmd . %sigma[1]$
+NAx : factor(1/2*(NA1[1,1] + NA1[2,2]));
+
+print("y component")$
+NA1 : NAmd . %sigma[2]$
+NAy : factor(1/2*(NA1[1,1] + NA1[2,2]));
+
+print("z component")$
+NA1 : NAmd . %sigma[3]$
+NAz : factor(1/2*(NA1[1,1] + NA1[2,2]));
+
+/* NNA : Nablarect(NA); */
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

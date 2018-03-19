@@ -1,0 +1,76 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+load(vect);
+
+A : [A[x],A[y],A[z]];
+modA : sqrt(A . conjugate(A));
+
+print("versor a")$
+
+a : A /modA;
+
+/* define another vector B */
+B : [B[x],B[y],B[z]];
+modB : sqrt(B . conjugate(B));
+
+print("versor b")$
+
+b : B /modB;
+
+
+print("now make the sum of A + B (vectorial sum)")$
+C : A + B;
+print("or the difference A - B (vectorial sum)")$
+D : A - B ;
+
+
+print(" now sum A+B+C+D and see what happens")$
+T : A+ B+ C + D;
+
+
+print("position vector R1")$
+R[1] : [x[1], y[1], z[1]];
+print("position vector R2")$
+R[2] : [x[2], y[2], z[2]];
+
+print("distance vector R2 - R1 ")$
+R[12] : R[2] - R[1];
+d : sqrt(R[12] . (R[12]));
+
+print("product of a vector A times a scalar k")$
+kA :A * k;
+
+print("scalar product of a vector A and a vector B")$
+AB :A . B;
+print("is the scalar product commutative? A.B = B.A ?")$
+BA : B . A;
+res : AB- BA;
+print("the answer is yes!")$
+
+
+print("now try the vector (cross) product")$
+
+C : A ~ B;
+express(C);
+
+print("define the versors")$
+x[0] : [1,0,0];
+y[0] : [0,1,0];
+z[0] : [0,0,1];
+
+
+print("let us try to make x cross y")$
+express(x[0]~y[0] );
+
+print("and x cross x")$
+express(x[0]~x[0] );
+
+
+print("bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

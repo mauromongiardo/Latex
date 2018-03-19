@@ -1,0 +1,63 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+
+/* Pauli_ba */
+
+declare([a1,a2,a3],scalar)$
+declare([b1,b2,b3],scalar)$
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+a : a1 . %sigma[1] + a2 . %sigma[2] + a3 . %sigma[3]$
+print("Express vector ",'a," as a Pauli matrix ",a)$
+b : b1 . %sigma[1] + b2 . %sigma[2] + b3 . %sigma[3]$
+print("Express vector ",'b," as a Pauli matrix ",b)$
+
+print("Find the product ba")$
+ba : ratsimp(b . a);
+
+print("The compoments of ba are found as follows")$
+print("The  scalar part (inner product) is the trace/2")$
+sba : ratsimp((ba[1,1]+ba[2,2])/2);
+
+print("_________________________________________________________")$
+print("The above is the dot product b . a = a . b")$
+print("      and it is the trace/2 of the matrix ")$
+print("_________________________________________________________")$
+
+print("The  x component is given by ",('ba[2,1]+'ba[1,2])/2)$
+bax : factor(ratsimp((ba[2,1]+ba[1,2])/2));
+
+print("The  y component is given by ", ('ba[2,1]-'ba[1,2])/(2*%i))$
+bay : factor(ratsimp((ba[2,1]-ba[1,2])/(2*%i)));
+
+print("The  z component is given by ", ('ab[1,1]-'ab[2,2])/2)$
+baz : factor(ratsimp((ba[1,1]-ba[2,2])/2));
+
+print("the above components are the same of - i(a x b)")$
+
+print("This new part is called external product")$
+print("The external product ",'b ,"^", 'a)$
+bwa : factor(ratsimp(ba - sba.%sigma[0]));
+
+print("_________________________________________________________")$
+print("Note that the external product b ^ a = - a ^ b")$
+print("The external product is anticommutative")$
+print("_________________________________________________________")$
+
+print("_________________________________________________________")$
+print("Therefore the dot product a . b can be obtained as (ab + ba)/2")$
+print("While the external product a ^ b can be obtained as (ab - ba)/2")$
+print("_________________________________________________________")$
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

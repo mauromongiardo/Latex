@@ -1,0 +1,30 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+load(vect)$
+/* r2s.wxm */
+
+/* numerical 
+fpprintprec:5$
+ratprint : false$
+x :5.0 ;
+y :2.0 ;
+z :4.6 ;
+*/
+
+r : sqrt(x^2+y^2+z^2)$
+theta : atan2(sqrt(x^2 +y^2),z)$
+phi : atan2(y,x)$
+
+print("rectangular to spherical")$
+print('r, " = ",r)$
+print('theta, " = ",theta)$
+print('phi, " = ",phi)$
+
+print("bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

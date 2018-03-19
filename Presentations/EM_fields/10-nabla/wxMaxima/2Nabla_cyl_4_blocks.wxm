@@ -1,0 +1,142 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+
+/* Nabla_cyl */
+print("Introduce functional dependence")$
+depends([a11,a12,a21,a22],[%rho,phi,z]);
+
+Ap : matrix([a11,a12],[a21,a22]); 
+
+/*_________________________________________________*/
+/* This part is the function that compute the nabla
+of a Pauli matrix in cylindrical coordinates */
+
+Nablacyl(Ap) := 
+block([],
+
+print("performing Nabla"),
+emp : %e^(- %i * phi),
+epp : %e^( %i * phi),
+
+NAp11 : diff(Ap[1,1],z)+emp*diff(Ap[2,1],%rho)-%i*emp/%rho*diff(Ap[2,1],phi),
+NAp12 : diff(Ap[1,2],z)+emp*diff(Ap[2,2],%rho)-%i*emp/%rho*diff(Ap[2,2],phi),
+NAp21 :-diff(Ap[2,1],z)+epp*diff(Ap[1,1],%rho)+%i*epp/%rho*diff(Ap[1,1],phi),
+NAp22 :-diff(Ap[2,2],z)+epp*diff(Ap[1,2],%rho)+%i*epp/%rho*diff(Ap[1,2],phi),
+
+NAp11 : factor(NAp11),
+NAp12 : factor(NAp12),
+NAp21 : factor(NAp21),
+NAp22 : factor(NAp22),
+
+NAp : (matrix([NAp11, NAp12],[NAp21, NAp22]))
+)$
+/*_________________________________________________*/
+
+print("_________________________________________________________")$
+print("Pauli Matrices Rectangular")$
+print("_________________________________________________________")$
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+print("_________________________________________________________")$
+print("Pauli MatricesCylindrical")$
+print("_________________________________________________________")$
+
+%sigma[%rho] : matrix([0,%e^(-%i * phi)],[%e^(%i * phi),0])$
+%sigma[phi] : matrix([0,-%i * %e^(-%i * phi)],[%i * %e^(%i * phi),0])$
+%sigma[z] : matrix([1,0],[0,-1])$
+
+depends([Arho,Aphi,Az],[%rho,phi,z]);
+Arpz : Arho*%sigma[%rho] + Aphi * %sigma[phi] + Az * %sigma[z];
+
+NArpz :Nablacyl(Arpz);
+
+Gradecyl(M) := 
+block([],
+
+/* print("finding the scalar part")$ */
+NdivA : expand(trigsimp(1/2*(M[1,1]+M[2,2]))),
+a0 :realpart(NdivA ),
+t0 :imagpart(NdivA ),
+
+/* print("finding the rho component")$ */
+NArho : M . %sigma[%rho],
+NAr : expand(trigsimp(1/2*(NArho[1,1]+NArho[2,2]))),
+arho : realpart(NAr),
+Brho : imagpart(NAr),
+
+/* print("finding the phi component")$ */
+NAphi : M . %sigma[phi],
+NAp : expand(trigsimp(1/2*(NAphi[1,1]+NAphi[2,2]))),
+ap : realpart(NAp),
+Bp : imagpart(NAp),
+
+/* print("finding the z component")$ */
+NAz : M . %sigma[3],
+NAzz : expand(trigsimp(1/2*(NAz[1,1]+NAz[2,2]))),
+az : realpart(NAzz),
+Bz : imagpart(NAzz),
+
+print("_________________________________________________________"),
+print("Grade structure"),
+print("Grade 0"),
+print('a0," = ",a0),
+print("_________________________________________________________"),
+print("Grade 1"),
+print('arho," = ",arho),
+print('ap," = ",ap),
+print('az," = ",az),
+print("_________________________________________________________"),
+print("Grade 2"),
+print('Brho," = ",Brho),
+print('Bp," = ",Bp),
+print('Bz," = ",Bz),
+print("_________________________________________________________"),
+print("Grade 3"),
+print('t0," = ",t0)
+
+)$
+
+M:NArpz$
+Gradecyl(M) $
+
+print("_________________________________________________________")$
+print("Second order")$
+print("_________________________________________________________")$
+NNArpz : Nablacyl(NArpz);
+M:NNArpz$
+Gradecyl(M) $
+
+/*
+print("_________________________________________________________")$
+print("An example")$
+print("_________________________________________________________")$
+print("Electric charge distribution along a line (z) Harrington pag. 107")$
+print("Potential given as ")$
+V : log(%rho);
+AV : V*%sigma[0];
+NAV :Nablacyl(AV);
+M : NAV$
+Gradecyl(M) $
+
+print("_________________________________________________________")$
+print("Another example")$
+print("_________________________________________________________")$
+/* Harrington pag. 136 eq. 6-44 */
+Az : log(%rho);
+PotA :  Az * %sigma[z];
+NAV :Nablacyl(PotA);
+M : NAV$
+Gradecyl(M) $
+ */
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

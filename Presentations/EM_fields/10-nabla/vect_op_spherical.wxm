@@ -1,0 +1,104 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+assume(r>0);    /* Arghh */
+assume(%rho>0); /* Arghh */
+
+print("the package vect allows to perform vector operations")$
+load(vect);
+
+print("select the coordinate system by using the appropriate scalefactors")$
+
+scalefactors(spherical);
+
+/*  this allow to select the desired scalefactors 
+scalefactors(cartesian3d);
+scalefactors(polar);
+scalefactors(spherical);
+*/
+
+/* give either the w expression or its dependence */
+
+  w : 1/r; /*   example of scalar function */
+ /*  depends(w,[x,y,z]);  */
+
+/*  specific function * %e^{-%i * k * r} */
+A[r] : 1/r * cos(%theta)  $   
+A[%theta] : - 1/r * sin(%theta)  $
+A[%phi] : 0$
+
+A[%theta] : - 1/r * sin(%theta) *sin(phi)  $
+A[%phi] : cos(phi) + sin(phi)$
+
+
+
+/* set the first secon and third component */
+F[x] : A[r];   
+F[y] : A[%theta];
+F[z] : A[%phi];
+
+Avect: matrix([A[r], F[y], F[z]]); 
+
+/* depends(f,[r,theta,phi]) */
+
+print(" SPHERICAL COORDINATES")$
+print("Gradient of w")$
+g : grad (w);
+express (g);
+gradw : ev (%, diff);
+
+
+print("Divergence")$
+d : div ([F[x], F[y], F[z]]); 
+express (d);
+ev (%, diff);
+
+print("Curl")$
+curl ([F[x], F[y], F[z]]);
+express (%);
+curl_F : ev (%, diff);
+
+print("second order operators")$
+print("Expression of the Laplacian in rectangular coordinates")$
+aa:laplacian w;
+/* scalefactors(cartesian3d); */
+express(aa);
+ev (%, diff);
+
+print("laplacian is div(grad(w))")$
+
+g : grad (w);
+express (g);
+gradw : ev (%, diff);
+
+d : div (gradw); 
+express (d);
+ev (%, diff);
+
+print("Now evaluate curl curl of a vector")$
+print("Curl")$
+curl ([F[x], F[y], F[z]]);
+express (%);
+curlF : ev (%, diff);
+
+curl(curlF);
+express (%);
+curlcurlF : ev (%, diff);
+print("--------------------------------------")$
+
+print("curl of gradient is always zero")$
+curl (gradw);
+express (%);
+curlgradw : ev (%, diff);
+
+print("--------------------------------------")$
+print("divergence of a curl is always zero");
+d_curl_F : div (curl_F); 
+express (d);
+ev (%, diff);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

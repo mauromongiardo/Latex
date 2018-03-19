@@ -1,0 +1,1354 @@
+\documentclass[10pt]{beamer}
+%\documentclass[handout,10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+%\usepackage{placeins} %%%
+\usepackage{subfig}
+\usepackage{physics}
+\usepackage{amssymb}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+
+
+\usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage{slashed} % for the Feynman slash notation
+
+\usepackage{listings}
+
+\usepackage{balance}
+
+\input{definitions}
+
+\newcommand{\iGA}{{i}}
+\newcommand{\conjg}[1] {\ensuremath{#1}^*}
+
+\setbeamertemplate{bibliography item}{[\theenumiv]}
+
+
+\title{Clifford Algebra}
+
+\date{}
+
+
+\author{ Mauro Mongiardo$^1$}
+
+\institute{ $^1$ Department of Engineering, University of Perugia, Perugia, Italy.
+}
+
+%
+\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo}}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Table of contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+%=========================================================================
+%\section{Introduction}
+ \section{Clifford Algebra Definition}
+%=========================================================================
+
+%Definition of Clifford's or geometric algebra (GA) 
+%
+
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%This non-commutative product and the additional axiom of \textit{associativity} generate the $2^n$-dimensional Clifford geometric algebra $Cl(p,q,r)$.
+%The definition of Clifford's GA is fundamentally \textit{coordinate system independent}, i.e. \textit{coordinate free}.
+%
+
+
+%\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Clifford basis}
+Let us first introduce $Cl_n$ in the following way.
+We consider an \alert{orthonormal} basis $e_1, e_2, \ldots, e_n$ such that for $ j=1,\ldots,n$
+
+\alert{
+\be
+e_j^2 = 1 
+\ee
+}
+\pause
+and for $i \ne j$
+
+\alert{
+\be
+e_i \, e_j +  e_j \, e_i =0
+\ee
+}
+anti--commutativity.
+\pause
+
+This basis is a Clifford basis of order $n$.
+
+This is all we need for defining the Clifford algebra!
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Three--dimensional case}
+
+For the three-dimensional case let us introduce the correspondence (for $i=1,2,3$)
+
+\be
+e_i = \sigma_i 
+\ee
+
+with $\sigma_i$ denoting the Pauli matrices.
+
+\pause
+
+\alert{The Pauli matrices are a basis for the Clifford algebra in 3D}.
+
+Therefore if you know how to operate with the Pauli matrices, you know the Clifford algebra of dimension 3!
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{A more general definition $Cl(n,m)$}
+
+A more general definition is obtained by considering, in addition to the $n$ elements of the basis 
+$e_1, e_2, \ldots, e_n$ other $m$ elements which \alert{squares to $-1$} 
+
+\be
+e_j^2 = -1 
+\ee
+
+for $j=n+1,\ldots,n+m$.
+
+An even more general definition can include also elements that square to zero (but we will not use it).
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Formal definition (*)}
+
+
+Let $\{e_1, e_2, \ldots , e_p, e_{p+1}, \ldots , e_{p+q}, e_{p+q+1}, \ldots, e_n \}$, with $n=p+q+r$, $e_k^2=\varepsilon_k$, $\varepsilon_k = +1$ for $k=1, \ldots , p$, $\varepsilon_k = -1$ for $k=p+1, \ldots , p+q$, $\varepsilon_k = 0$ for $k=p+q+1, \ldots , n$,  be an \textit{orthonormal base} of the inner product vector space $\R^{p,q,r}$ with a geometric product according to the multiplication rules 
+\be
+  e_k e_l + e_l e_k = 2 \varepsilon_k \delta_{k,l}, 
+  \qquad k,l = 1, \ldots n,
+\label{eq:mrules}
+\ee
+where $\delta_{k,l}$ is the Kronecker symbol with $\delta_{k,l}= 1$ for $k=l$, and $\delta_{k,l}= 0$ for $k\neq l$. 
+
+
+\end{frame}
+
+\section{Clifford's GA in two dimensions $Cl(2,0)$}
+%=========================================================================
+\begin{frame}[fragile]{Clifford's GA in two dimensions $Cl(2,0)$}
+%\subsection{Clifford's GA in two dimensions}
+
+%In order to demonstrate how to compute with Clifford numbers, we begin with a low dimensional example. 
+
+%\subsubsection{Example of $Cl(2,0)$}
+A Euclidean plane 
+%$\R^2=\R^{2,0}=\R^{2,0,0}$ 
+is spanned by $e_1, e_2 $ with 
+\begin{gather}
+  e_1\cdot e_1 = e_2\cdot e_2 = 1, \quad e_1\cdot e_2 = 0.
+\end{gather}
+$\{e_1, e_2\}$ is an \textit{orthonormal} vector basis.
+% of $\R^2$. 
+
+\pause
+
+Under Clifford's \textit{associative} geometric product we set
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{gather}
+  e_1^2=e_1e_1 := e_1\cdot e_1=1, 
+  \nonumber \\ 
+  e_2^2=e_2e_2 := e_2\cdot e_2=1, 
+  \\
+  \hspace*{-12mm}\text{and}\quad 
+  (e_1+e_2)(e_1+e_2) 
+  = e_1^2+e_2^2+e_1e_2 + e_2e_1 \\
+  = 2 + e_1e_2 + e_2e_1
+  := (e_1+e_2)\cdot(e_1+e_2) = 2.
+  \nonumber 
+\end{gather}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pause
+and
+\pause
+\be 
+  e_1e_2 + e_2e_1 = 0 
+  \,\,\,\Leftrightarrow \,\,\,
+  e_1e_2 = - e_2e_1,
+\ee 
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+The geometric product of orthogonal vectors forms a new entity, called unit \alert{bivector} $e_{12}=e_1e_2$ by Grassmann, and is \alert{anti-symmetric}. 
+\pause
+General bivectors in $Cl(2,0)$ are e.g. $\beta e_{12}$.
+%, $\forall \, \beta \in \R \setminus \{0\}$. 
+For orthogonal vectors the geometric product equals Grassmann's anti-symmetric outer product (exterior product, symbol $\wedge$) 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{align} 
+  e_{12} &= e_1e_2 = e_1 \wedge e_2 
+  \nonumber \\
+  &= - e_2 \wedge e_1 = -e_2e_1 = -e_{21}.
+\end{align} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pause
+Using associativity, we can compute the products
+\be   
+  e_1 e_{12} = e_1 e_1 e_2 = e_1^2 e_2 = e_2, \quad
+  e_2 e_{12} = - e_2 e_{21} = - e_1,
+\ee 
+which \alert{represent a mathematically \textit{positive} (anti-clockwise) $90^{\circ}$ \textit{rotation}}. 
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+The opposite order gives
+\be 
+  e_{12}e_1 = -e_{21}e_1 = -e_2, \quad e_{12}e_2 = e_1,
+\ee 
+\alert{which represents a mathematically \textit{negative} (clockwise) $90^{\circ}$ \textit{rotation}}. 
+
+\pause
+
+\alert{The bivector $e_{12}$ acts like a \textit{rotation operator}}, and we observe the general anti--commutation property
+\be 
+  a e_{12} = - e_{12} a, \quad \forall a=a_1e_1+a_2e_2 \in \R^2, \,\,\,a_1,a_2 \in \R.
+\ee 
+\pause
+
+The square of the unit bivector is $-1$,
+\be 
+  e_{12}^2 = e_1 e_2 e_{12} = e_1 (-e_1) = -1,
+\ee 
+just like the imaginary unit $j$ of complex numbers $\C$. 
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Multiplication table}
+
+Table \ref{tb:Cl2mtable} is the complete multiplication table of the Clifford algebra $ Cl(2,0)$ with algebra basis elements $\{1, e_1, e_2, e_{12}\}$. 
+
+\alert{The even subalgebra spanned by $\{1,e_{12}\}$ (closed under geometric multiplication), consisting of even grade scalars (0-vectors) and bivectors (2-vectors), is isomorphic to $\mathbb{C}$. }
+
+\begin{table}
+\caption{Multiplication table of plane Clifford algebra $Cl(2,0)$.}
+\label{tb:Cl2mtable}
+\begin{center}
+\begin{tabular}{c|cccc}
+       & 1 & $e_1$ & $e_2$ & $e_{12}$\\
+ \hline
+ 1     & 1 & $e_1$ & $e_2$ & $e_{12}$\\
+ $e_1$ & $e_1$ & 1 & $e_{12}$ & $e_{2}$\\
+ $e_2$ & $e_2$ & $-e_{12}$ & 1 & $-e_{1}$\\
+ $e_{12}$ & $e_{12}$ & $-e_{2}$ & $e_1$ & $-1$ 
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+%\subsubsection{Algebraic unification and vector inverse}
+
+The general geometric product of two vectors $a,b \in \R^2$ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{gather}
+  ab=(a_1e_1+a_2e_2)(b_1e_1+b_2e_2) \nonumber \\
+  = a_1b_1 + a_2b_2 + (a_1b_2 - a_2b_1) e_{12} \\
+  = \frac{1}{2}(ab+ba) + \frac{1}{2}(ab-ba)
+  = a \cdot b + a\wedge b,
+  \nonumber 
+\end{gather} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pause
+has therefore a scalar \textit{symmetric} inner product part
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{align} 
+  \frac{1}{2}(ab+ba) 
+  &= a \cdot b  
+  =a_1b_1 + a_2b_2 
+  \nonumber \\
+  &= |a| |b| \cos \theta_{a,b},
+\end{align} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pause
+and a bi-vector \textit{skew-symmetric} outer product part
+\be 
+  \frac{1}{2}(ab-ba)=a\wedge b 
+  =(a_1b_2 - a_2b_1) e_{12} = |a| |b| e_{12}\sin \theta_{a,b}. 
+\ee
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+We observe that parallel vectors $(\theta_{a,b}=0)$ commute, $ab = a\cdot b = ba$, and orthogonal vectors $(\theta_{a,b}=90^{\circ})$ anti-commute, $ab = a \wedge b = -ba$.  \pause
+The outer product part $a\wedge b$ represents the \textit{oriented area} of the parallelogram spanned by the vectors $a,b$ in the plane of $\R^2$, with oriented magnitude 
+\be 
+\det(a,b) = |a| |b| \sin \theta_{a,b} = (a\wedge b) e_{12}^{-1},
+\ee
+where $e_{12}^{-1} = -e_{12}$, because $e_{12}^2=-1$.  
+
+\end{frame}
+
+
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+
+With the \textit{Euler} formula we can rewrite the geometric product as
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{align} 
+  ab &= |a| |b| (\cos \theta_{a,b} + e_{12}\sin \theta_{a,b}) 
+  \nonumber \\
+  &= |a| |b| e^{\theta_{a,b} e_{12}} \,,
+  \label{eq:Euler}
+\end{align} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+again because $e_{12}^2=-1$. 
+\pause
+
+The geometric product of vectors is \textit{invertible} for all vectors with non-zero square 
+$a^2 \neq 0$
+\begin{gather}
+  a^{-1} := a/a^2, \quad 
+  a a^{-1} = a a/a^2 = 1, \nonumber \\
+  a^{-1} a = \frac{a}{a^2}a = a^2/a^2 = 1. 
+\end{gather} 
+\pause
+
+The inverse vector $a/a^2$ is a rescaled version (reflected at the unit circle) of the vector $a$. 
+
+\pause
+This invertibility leads to significant simplifications and ease in computations. 
+
+
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Projection and Rejection}
+
+\subsection{Geometric operations and transformations}
+
+For example, the \textit{projection} of one vector $x\in\R^2$ onto another $a \in \R^2$ is
+\be 
+  x_{\parallel} = | x \,| \cos\theta_{a,x}\frac{a}{|a|} 
+  = (x \cdot \frac{a}{|a|})\frac{a}{|a|}
+  = (x \cdot a)\frac{a}{|a|^2} 
+  = (x \cdot a)a^{-1}.
+\ee 
+The \textit{rejection} (perpendicular part) is
+\begin{gather} 
+  x_{\perp} = x-x_{\parallel}
+  = x aa^{-1} - (x \cdot a)a^{-1} 
+  \nonumber \\
+  = (xa-x \cdot a)a^{-1}
+  = (x\wedge a)a^{-1}.
+\end{gather}
+
+
+
+\end{frame}
+
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+We can now use $x_{\parallel}, x_{\perp}$ to compute the reflection\footnote{Note that reflections at hyperplanes are nothing but the \textit{Householder transformations} of matrix analysis.} of $x=x_{\parallel}+ x_{\perp}$ at the line (hyperplane\footnote{A hyperplane of a $n$D space is a $(n-1)$D subspace, thus a hyperplane of $\R^2$, $n=2$, is a 1D ($2-1=1$) subspace, i.e. a line. Every hyperplane is characterized by a vector normal to the hyperplane.}) with normal vector $a$, which means to reverse $x_{\parallel}\rightarrow -x_{\parallel}$
+\begin{gather}
+  x' = -x_{\parallel} + x_{\perp} 
+  = -a^{-1}a\,x_{\parallel} + a^{-1}a\,x_{\perp} 
+  \nonumber \\
+  = -a^{-1}x_{\parallel}a - a^{-1}\,x_{\perp}a
+  = -a^{-1}(x_{\parallel} +\,x_{\perp})a
+  = -a^{-1} x a .
+  \label{eq:refl}
+\end{gather}
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Rotor}
+
+The combination of two reflections at two lines (hyperplanes) with normals $a,b$
+\be 
+  x'' = -b^{-1} x' b = b^{-1} a^{-1} x ab = (ab)^{-1} x ab = R^{-1} x R ,
+\ee 
+gives a rotation. The rotation angle is $\alpha = 2 \theta_{a,b}$ and the \textit{rotor}
+\be
+  R = e^{\theta_{a,b} e_{12}} = e^{\frac{1}{2}\alpha e_{12}},
+\ee 
+where the lengths $|a||b|$ of $ab$ cancel against 
+$|a|^{-1}|b|^{-1}$ in $(ab)^{-1}$.
+The rotor $R$ gives the \textit{spinor} form of rotations, fully replacing rotation matrices, and introducing the same elegance to \textit{real} rotations in $\R^2$, like in the complex plane. 
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Reflections and Rotations}
+In 2D, the product of three reflections, i.e. of a rotation and a reflection, leads to another reflection. 
+
+\pause
+In 2D the product of an \textit{odd} number of reflections always results in a \textit{reflection}. 
+
+\pause
+That the product of an \textit{even} number of reflections leads to a \textit{rotation} is true in general dimensions. 
+
+\pause
+These transformations are in Clifford algebra simply described by the products of the vectors normal to the lines (hyperplanes) of reflection and called versors. 
+
+\end{frame}
+
+\section{Geometric algebra in 3D}
+
+%=========================================================================
+\begin{frame}[fragile]{Geometric algebra of 3D Euclidean space}
+
+%\subsection{Geometric algebra of 3D Euclidean space}
+
+\alert{The Clifford algebra $Cl(\R^3) = Cl(3,0)$ is  probably the most thoroughly studied and applied GA}.
+
+ In physics it is also known as \textit{Pauli algebra}, since Pauli's spin matrices provide a $2\times 2$ matrix representation. This shows how GA unifies \textit{classical} and \textit{quantum} mechanics and electromagnetism. 
+\pause
+
+Given an orthonormal vector basis $\{e_1, e_2, e_3\}$ of $\R^3$, the eight-dimensional ($2^3=8$) Clifford algebra $Cl(\R^3) = Cl(3,0)$ has a basis of one scalar, three vectors, three bivectors and one trivector
+\be 
+  \{1, e_1, e_2, e_3, e_{23}, e_{31}, e_{12}, e_{123}\},
+  \label{eq:Cl3basis}
+\ee 
+where as before $e_{23}=e_2e_3, e_{123} = e_1e_2e_3$, etc. All basis bivectors square to $-1$, and the product of two basis bivectors gives the third
+\be 
+  e_{23} e_{31} = e_{21} = - e_{12}, \,\,\, \text{etc.}
+\ee 
+%
+
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Quaternions}
+
+\alert{
+Therefore the even subalgebra $Cl^+(3,0)$ with basis\footnote{The minus signs are only chosen, to make the product of two bivectors identical to the third, and not minus the third.} $\{1, -e_{23}, -e_{31}, -e_{12}\}$ is indeed found to be isomorphic to quaternions $\{1, \mathbf{i}, \mathbf{j}, \mathbf{k}\}$. 
+}
+\pause
+
+This isomorphism is not incidental. As we have learned already for $Cl(2,0)$, also in $Cl(3,0)$, the even subalgebra is the algebra of rotors (rotation operators) or spinors, and describes rotations in the same efficient way as do quaternions. 
+
+\pause
+We therefore gain a \textit{real geometric} interpretation of quaternions, as the oriented bi-vector side faces of a unit cube, with edge vectors $\{e_1, e_2, e_3\}$. 
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Reflections and rotations in 3D}
+In $Cl(3,0)$ a reflection at a plane (=hyperplane) is specified by the plane's normal vector $a\in\R^3$
+\be 
+  x' = -a^{-1} x a,
+\ee 
+the proof is identical to the one in (\ref{eq:refl}) for $Cl(2,0)$. 
+
+The combination of two such reflections leads to a rotation by $\alpha = 2 \theta_{a,b}$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{align} 
+  x'' &= R^{-1} x R, 
+  \\ 
+  R &= ab = |a||b| e^{\theta_{a,b}\mathbf{i}_{a,b}}
+  = |a||b| e^{\frac{1}{2}\alpha \mathbf{i}_{a,b}},
+  \nonumber
+\end{align} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+where $\mathbf{i}_{a,b}={a \wedge b}/({|a\wedge b|})$ specifies the oriented unit bivector of the plane spanned by $a,b \in \R^3$. 
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{The unit trivector $i=e_{123}$}
+
+\alert{The unit trivector $i=e_{123}$ also squares to $-1$}
+
+\begin{align}
+  i^2 &= e_1e_2e_3e_1e_2e_3 
+  = - e_1e_2e_1e_3e_2e_3 \nonumber \\
+  &= e_1e_2e_1e_2 e_3e_3 = (e_1e_2)^2 (e_3)^2 = -1,
+\end{align}
+where we only used that the permutation of two orthogonal vectors in the geometric product produces a minus sign. 
+Hence $i^{-1} = - i$. 
+\pause
+We further find, that $i$ commutes with every vector, e.g.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{align} 
+  e_1 i &= e_1 e_1e_2e_3 = e_{23}, 
+  \\
+  i e_1 &= e_1e_2e_3 e_1 = - e_1e_2e_1e_3 = e_1e_1 e_2e_3 = e_{23}, 
+  \nonumber 
+\end{align} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pause
+and the like for $e_2 i = i e_2$, $e_3 i = i e_3$. 
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{$i$ changes bivectors into orthogonal vectors}
+If $i$ commutes with every vector, it also commutes with every bivector $a\wedge b = \frac{1}{2}(ab-ba)$.
+
+ Hence $i$ commutes with every element of $Cl(3,0)$.
+ \pause
+%, a property which is called \textit{central} in mathematics. The central subalgebra spanned by $\{1,i\}$ is isomorphic to complex numbers $\C$. 
+
+\alert{$i$ changes bivectors into orthogonal vectors}
+\be 
+  e_{23} i = e_2e_3e_1e_2e_3 = e_1 e_{23}^2 = -e_1\,, \,\,\, \text{etc.}
+\ee 
+
+Writing the basis in the simple product form (\ref{eq:Cl3basis}), fully preserves the \textit{geometric interpretation} in terms of \alert{scalars, vectors, bivectors and trivectors}, and allows to \textit{reduce} all products to elementary geometric products of basis vectors.
+
+
+
+\end{frame}
+
+
+%=========================================================================
+\begin{frame}[fragile]{Multiplication table and subalgebras of $Cl(3,0)$}
+\begin{table}
+\caption{Multiplication table of Clifford algebra $Cl(3,0)$ of Euclidean 3D space $\R^3$.}
+\label{tb:Cl3mtable}
+\begin{center}
+\begin{tabular}{c|cccccccc}
+       & $1$ & $e_1$ & $e_2$ & $e_3$ & $e_{23}$ & $e_{31}$ & $e_{12}$ & $e_{123}$\\
+ \hline
+ $1$     & $1$ & $e_1$ & $e_2$ & $e_3$ & $e_{23}$ & $e_{31}$ & $e_{12}$ & $e_{123}$\\
+ $e_1$ & $e_1$ & 1 & $e_{12}$ & $-e_{31}$ & $e_{123}$ & $-e_3$ & $e_{2}$ & $e_{23}$\\
+ $e_2$ & $e_2$ & $-e_{12}$ & 1 & $e_{23}$ & $e_3$ & $e_{123}$ & $-e_1$ & $e_{31}$ \\
+ $e_3$ & $e_3$ & $e_{31}$ & $-e_{23}$ & $1$ & $-e_2$ & $e_1$ & $e_{123}$ & $e_{12}$\\
+ $e_{23}$ & $e_{23}$ & $e_{123}$ & $-e_3$ & $e_2$ & $-1$ & $-e_{12}$ & $e_{31}$ & $-e_1$\\
+ $e_{31}$ & $e_{31}$ & $e_3$ & $e_{123}$ & $-e_1$ & $e_{12}$ & $-1$ & $-e_{23}$ & $-e_2$\\
+ $e_{12}$ & $e_{12}$ & $-e_{2}$ & $e_1$ & $e_{123}$ & $-e_{31}$ & $e_{23}$ & $-1$ & $-e_3$\\
+ $e_{123}$ & $e_{123}$ & $e_{23}$ & $e_{31}$ & $e_{12}$ & $-e_1$ & $-e_2$ & $-e_3$ & $-1$
+\end{tabular}
+\end{center}
+\end{table}
+
+
+%\subsubsection{Multiplication table and subalgebras of $Cl(3,0)$ }
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+For the full multiplication table of $Cl(3,0)$ we still need the geometric products of vectors and bivectors. By changing labels in Table \ref{tb:Cl2mtable} ($1 \leftrightarrow 3$ or $2 \leftrightarrow 3$), we get that
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{align} 
+  e_2 e_{23} &= - e_{23}e_2 = e_3, 
+  \nonumber \\
+  e_3 e_{23} &= - e_{23}e_3 = -e_2
+  \\
+  e_1 e_{31} &= - e_{31}e_1 = -e_3, 
+  \nonumber \\
+  e_3 e_{31} &= - e_{31}e_3 = e_1,
+\end{align} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Reformatted equation %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+which shows that in general a vector and a bivector, which includes the vector, anti-commute. 
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+The products of a vector with its orthogonal bivector always gives the trivector $i$
+\begin{gather} 
+  e_1 e_{23} = e_{23}e_1 = i, \quad
+  e_2 e_{31} = e_{31}e_2 = i,
+  \nonumber \\
+  e_3 e_{12} = e_{12}e_3 = i,
+\end{gather} 
+which also shows that in general vectors and orthogonal bivectors necessarily commute. 
+
+Commutation relationships therefore clearly depend on both \textit{orthogonality} properties and on the \textit{grades} of the factors, which can frequently be exploited for computations even without the explicit use of coordinates. 
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{The grade structure of $Cl(3,0)$ and duality}
+%\subsubsection{The grade structure of $Cl(3,0)$ and duality}
+
+
+A general multivector in $Cl(3,0)$, can be represented as
+\begin{gather}
+  M = m_0 + m_1 e_1 + m_2 e_2 + m_3 e_3 + m_{23} e_{23}
+  + m_{31} e_{31}+ m_{12} e_{12}   \nonumber \\
+  + m_{123} e_{123}, \quad
+  m_0, \ldots , m_{123} \in \R. 
+\end{gather}
+\pause
+We have 
+a scalar part $\langle M \rangle_0$ of grade $0$, 
+a vector part $\langle M \rangle_1$ of grade $1$, 
+a bivector part $\langle M \rangle_2$ of grade $2$,
+and a trivector part $\langle M \rangle_3$ of grade $3$
+\begin{align}
+  M &= \langle M \rangle_0 + \langle M \rangle_1 + \langle M \rangle_2 + \langle M \rangle_3,
+  \\
+   \langle M \rangle_0 &= m_0, \quad
+  \langle M \rangle_1 = m_1 e_1 + m_2 e_2 + m_3 e_3, \nonumber \\
+  \langle M \rangle_2 &= m_{23} e_{23} + m_{31} e_{31}+ m_{12} e_{12},   
+  \quad
+  \langle M \rangle_3 = m_{123} e_{123}.
+  \nonumber 
+\end{align}
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+The set of all grade $k$ elements, $0 \leq k \leq 3$, is denoted $Cl^k(3,0)$.
+
+The multiplication table of $Cl(3,0)$, Table \ref{tb:Cl3mtable}, reveals that multiplication with $i$ (or $i^{-1}=-i$) consistently changes an element of grade $k$, $0 \leq k \leq 3$, into an element of grade $3-k$, i.e. scalars to trivectors (also called pseudoscalars) and vectors to bivectors, and vice versa. 
+
+
+
+\end{frame}
+
+
+\section{The Telegrapher's equations: an example of $Cl(1,1)$}
+
+
+%=========================================================================
+\begin{frame}[fragile]{Telegrapher equations}
+
+%\subsubsection{Telegrapher equations}
+%
+Let us consider the voltage $V$ and the current $I$ along a transmission line in the $x$ direction.
+The  telegrapher's equations, for a lossless line,
+%\verb!\href{https://en.wikipedia.org/wiki/Telegrapher%27s_equations}{\textcolor{blue}{telegrapher's equations }} !
+are
+\bea
+\partial_ x V & = & - L \, \partial_t I \nonumber \\
+\partial_ x I & = & - C \, \partial_t V 
+\label{telegrapher}
+\eea
+where $L$ and $C$ are the inductances and capacitances per unit length.
+\pause
+It is convenient to introduce the velocity $v$ and the impedance $\eta$ defined as
+%
+\bea 
+v & = & \frac{1}{\sqrt{LC}} \nonumber \\
+\eta & = &  \sqrt{\frac{L}{C}}
+\eea
+%
+\pause
+or, equivalently
+%
+\bea 
+L & = & \frac{\eta}{v} \nonumber \\
+C & = & \frac{1}{\eta v} \,.
+\label{LCetav}
+\eea
+%
+
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+By substituting (\ref{LCetav}) into (\ref{telegrapher}) we get
+%
+\bea
+\partial_ x V & = & -\frac{1}{v} \, \partial_t  \left( \eta \,  I \right) \nonumber \\
+\partial_ x \left( \eta \,  I \right) & = & -\frac{1}{v} \, \partial_t V 
+\label{telegrapher}
+\eea
+%
+
+\pause
+It is also convenient to introduce the two variables $x_0,x_1$ as 
+%
+\bea
+x_0 & = & v \, t \nonumber \\
+x_1 & = & x \label{x0x1}
+\eea
+%
+\pause
+so that
+%
+\bea
+\frac{1}{v}  \partial_t & = & \frac{\partial}{\partial x_0} = \partial_0 \nonumber \\
+\partial_x  & = & \frac{\partial}{\partial x_1} = \partial_1 \,.
+\label{tele01}
+\eea
+%
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+The  equations in (\ref{telegrapher}) can be written in matrix form as
+%
+\be
+\begin{pmatrix}
+\partial_0\, & \,\partial_1 \cr
+\partial_1 \,& \,\partial_0
+\end{pmatrix}
+%
+\begin{pmatrix} 
+V \cr
+\eta I  
+\end{pmatrix}
+= \begin{pmatrix} 
+0 \cr
+0 
+\end{pmatrix}
+\label{te_matrix_form}
+\ee
+%
+\pause
+or, equivalently, by changing the sign in the second row, as
+%
+\be
+\begin{pmatrix}
+\partial_0\, & \,\partial_1 \cr
+-\partial_1 \,& \,-\partial_0
+\end{pmatrix}
+%
+\begin{pmatrix} 
+V \cr
+\eta I  
+\end{pmatrix}
+= \begin{pmatrix} 
+0 \cr
+0 
+\end{pmatrix} \,.
+\label{minus_second_row}
+\ee
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+By making use of Pauli matrices we can therefore write the telegrapher equations in (\ref{minus_second_row}) as
+%
+\be
+\left( \sigma_3 \partial_0 + i\, \sigma_2 \partial_1 \right)
+\psi
+= 0
+\label{sigma3_sigma2}
+\ee
+%
+where we have introduced the quantity $\psi$ defined as
+\be
+\psi = \begin{pmatrix} 
+V \cr
+\eta I  
+\end{pmatrix} \, .
+\ee
+%
+\pause
+It is convenient, when the time variable is considered as in this case, to denote the elements of the Clifford basis starting from zero instead of one.
+We can now identify the elements of the basis $\{e_0, e_1\}$ as
+%
+\bea
+e_0 & = & \sigma_3  \nonumber \\
+e_1 & = & i \, \sigma_2
+\label{basesigma2sigma3}
+\eea
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+by noting that
+%
+\bea
+e_0^2=\sigma_3 \sigma_3  & = &  \, \sigma_0 \nonumber \\
+e_1^2= - \sigma_2 \sigma_2  & = & -  \, \sigma_0 \nonumber \\
+e_0 e_1 = \sigma_3 \, i \, \sigma_2 & = & - i \, \sigma_2 \,  \sigma_3  = - e_1 e_0\,.
+\eea
+we have therefore realized an example of $Cl(1,1)$.
+\pause
+
+Therefore, the Clifford algebra $Cl(1,1)$  with the identification of the basis as in (\ref{basesigma2sigma3}), is well suited to describe the telegrapher's equation.
+
+The telegrapher's equation, in a geometric algebra form, is:
+\be
+\left( e_0 \partial_0 + e_1 \partial_1 \right) \psi = 0
+\ee
+
+This is in a form similar to the Dirac equation.
+
+\end{frame}
+
+
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+Naturally, since $e_0$ squares to $1\sigma_0$ and $e_1$ squares to $-1\sigma_0$ and they anticommute we also have
+%
+\be
+\left( e_0 \partial_0 + e_1 \partial_1 \right) \left( e_0 \partial_0 + e_1 \partial_1 \right)  = \left(\partial_0^2 - \partial_1^2 \right) \sigma_0 \label{proctowaveeq}
+\ee
+
+\pause
+which provides the operator of the wave equation
+\be
+ \left( \partial_0^2 - \partial_1^2 \right) \sigma_0 \psi = 0 \, . \label{waveeqtl}
+\ee
+
+\alert{With GA we have found the square root of the operator of the wave equation! This is not possible in conventional vector algebra.}
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Conventional procedure compared to GA}
+%\subsubsection{Conventional procedure compared to GA}
+The conventional procedure to find the wave equation corresponding to (\ref{waveeqtl}) is the following. One starts
+from
+
+\bea
+\partial_0 V + \partial_1 (\eta I)& = &0  \label{feqVI}\\
+-\partial_1 V - \partial_0 (\eta I)& = & 0 \label{seqVI}
+\eea
+\pause
+perform a derivative of the first equation (\ref{feqVI}) w.r.t. $\partial_0$. 
+\pause
+Then perform a derivative of (\ref{seqVI}) w.r.t. $\partial_1$ and then substitute $\partial_0\partial_1 (\eta I)$ so as to obtain the equation in $V$. 
+\pause
+Then repeat again the procedure for obtaining the other second order equation in $I$.
+\pause
+
+\alert{With (\ref{proctowaveeq}) in just one passage we have obtained (\ref{waveeqtl})!}
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Equivalent equations}
+
+\subsubsection{Equivalent equations}
+As an alternative we could have considered (\ref{te_matrix_form}) and write it in terms of Pauli matrices as:
+%
+\be
+\left( \sigma_0 \partial_0 +  \sigma_1 \partial_1 \right)
+\psi
+= 0 \,.
+\label{sigma0_sigma1}
+\ee
+%
+\pause
+\alert{Note, however, that the $\sigma_0$ matrix is not anti--commutative and therefore cannot be used to create the geometric algebra basis.}
+\pause
+
+Nonetheless, it is still feasible  to obtain the operator of the wave equation in the following way:
+\be
+\left( \sigma_0 \partial_0 - \sigma_1 \partial_1 \right) \left( \sigma_0 \partial_0 + \sigma_1 \partial_1 \right)  = \partial_0^2 - \partial_1^2 \, .
+\ee
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Systematic way to generate Dirac--like equations}
+
+But there is one more systematic way to generate Dirac--like equation when $\sigma_0$ is present.
+
+\pause
+
+The expression appearing in (\ref{sigma0_sigma1}) can be transformed without needing to change the sign at one equation, as we did before.
+
+In fact, we can multiply  (\ref{sigma0_sigma1}) by one of the sigma not appearing in the equation (therefore either $\sigma_2$ or $\sigma_3$) and obtain a different equation composed exclusively by anti--commuting matrices.
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{An example}
+As an example, by pre mutltiplying (\ref{sigma0_sigma1}) with $\sigma_3$ one obtains
+%
+\be
+\sigma_3 \, \left( \sigma_0 \partial_0 +  \sigma_1 \partial_1 \right)
+\psi
+=  \left( \sigma_3 \partial_0 +  i \sigma_2 \partial_1 \right)
+\psi \,.
+%\label{sigma3_sigma2}
+\ee
+%
+i.e. (\ref{sigma3_sigma2}). 
+
+\pause
+
+Pre and post multiplication of (\ref{sigma0_sigma1}) with $\sigma_2$ leads to other possible equations as
+%
+\bea
+\sigma_2 \, \left( \sigma_0 \partial_0 +  \sigma_1 \partial_1 \right) & = & \sigma_2 \partial_0 - i  \sigma_3 \partial_1 \nonumber \\
+\left( \sigma_0 \partial_0 +  \sigma_1 \partial_1 \right)  \, \sigma_2 & = & \sigma_2 \partial_0 + i  \sigma_3 \partial_1 \, .
+\eea
+%
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+It is left as an exercise to perform the following computation:
+%
+\be
+\frac{1}{2}
+\left( \sigma_0  +  i \, \sigma_2 \right)
+\left( \sigma_2 \partial_0 +  i \, \sigma_3 \partial_1 \right)
+\left( \sigma_1 +  \sigma_3 \right) 
+= 
+i \, \sigma_1 \partial_0 - \sigma_2 \partial_1
+\ee
+%
+and to recognize that the result is an anti--diagonal matrix, thus leading to two separated problems.
+
+\pause
+
+Similarly, if an expression is formed only by employing $\sigma_0$ and $\sigma_3$ will lead again to two separated problems.
+
+\pause
+\alert{The technique to obtain such diagonalization is called Weyl decomposition.}
+
+
+
+\end{frame}
+
+
+
+%=========================================================================
+\begin{frame}[fragile]{The Weyl decomposition}
+
+%\subsection{The Weyl decomposition}
+Let us introduce the quantities $a,b$ defined as
+%
+\be
+\begin{pmatrix} 
+a+b \cr
+a-b 
+\end{pmatrix} =
+\psi = \begin{pmatrix} 
+V \cr
+\eta I  
+\end{pmatrix} \, .
+\label{a_b_intro}
+\ee
+%
+\pause
+By using (\ref{a_b_intro}) in (\ref{minus_second_row}) we obtain the following two equations
+%
+\bea
+ \partial_0 \left( a+b \right) + \partial_1 \left( a-b \right) &=& 0 \label{a_b_first} \\
+  - \partial_1 \left( a+b \right) - \partial_0 \left( a-b \right) &=& 0 \label{a_b_second} \,.
+\eea
+%
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+By summing and subtracting (\ref{a_b_first}) and (\ref{a_b_second})
+we obtain two independent expressions as
+%
+\bea
+\partial_0  a + \partial_1  a &=& 0 \label{a_second}
+\nonumber    \\
+ \partial_0 b - \partial_1b  &=& 0 \label{b_first}  
+\eea
+%
+\pause
+or, in matrix form,
+%
+\be
+\begin{pmatrix}
+\partial_0   + \partial_1 &0 \cr
+0& \,\partial_0  - \partial_1
+\end{pmatrix}
+%
+\begin{pmatrix} 
+a \cr
+b 
+\end{pmatrix}
+= 0 \,.
+\label{ab_matrix}
+\ee
+%
+\pause
+The $a$ and $b$ correspond to progressive and regressive waves, respectively.
+
+
+\end{frame}
+
+
+
+%=========================================================================
+\begin{frame}[fragile]{}
+\alert{What we have obtained here is of \emph{considerable importance}. }
+\pause
+
+If we consider our original problem (\ref{minus_second_row}) we have a \emph{system of two coupled equations of the first order}. 
+
+\pause
+By contrast, when considering (\ref{ab_matrix}) we have two \emph{independent} first order equations.
+
+\pause
+Therefore, the traveling waves (both progressive and regressive) are the natural basis for having uncoupled equations!
+
+
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Time--harmonic solution}
+
+%\subsection{Time--harmonic solution}
+We have seen that propagation along the transmission line can be described by the equations (\ref{ab_matrix}) here repeated for convenience:
+%
+\be
+\begin{pmatrix}
+\partial_0   + \partial_1 &0 \cr
+0& \,\partial_0  - \partial_1
+\end{pmatrix}
+%
+\begin{pmatrix} 
+a \cr
+b 
+\end{pmatrix}
+= 0 \,.
+%\label{ab_matrix}
+\ee
+%
+\pause
+\alert{The $a$ and $b$ correspond to progressive and regressive waves, respectively.}
+In order to find a solution it is advantageous to apply separation of variables and to consider a time--harmonic solution.
+%
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Separation of variables}
+
+%\subsubsection{Separation of variables}
+The solution for the propagating wave $a$ can be written in terms of two different functions $a_0,a_1$ as
+%
+\be
+a(x_0,x_1) = a_0(x_0) \, a_1(x_1) \, .
+\ee
+%
+\pause
+In addition we can assume a time--harmonic behavior for the $a_0$ part. In particular, it is typically chosen the following expansion
+%
+\be
+a_0(x_0) = A_0 e^{j\omega t} = A_0 e^{j k x_0}
+\ee
+%
+with $k=\omega/v$ and $x_0=vt$ defined in (\ref{x0x1}).
+\pause
+It is noted that the derivative w.r.t. $x_0$ of $a$ gives
+\be
+\partial_0 a(x_0,x_1)= j k \, a_0(x_0) a_1(x_1)\, ,
+\ee
+\pause
+
+and therefore the equation becomes
+%
+\be
+ j k \, a_0(x_0) a_1(x_1) + \partial_1 a_0(x_0) a_1(x_1) =0 \, .
+\ee
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+Since $a_0(x_0)$ is present in all members can be factored out, obtaining the following equation
+%
+\be
+ \partial_1  a_1(x_1) = -  j k \,  a_1(x_1) 
+\ee
+%
+with  solution
+%
+\be
+a_1(x_1) = A_1 e^{-jkx_1} \,.
+\ee
+%
+\pause
+
+Therefore the waves $a$ can be written as
+%
+\be
+a(x_0,x_1) = A_0 e^{j k x_0}  
+A_1 e^{-jkx_1} = A e^{jk(x_0 -x_1)}
+\ee
+% 
+with $A=A_0\, A_1$. This solution represent a progressive wave. 
+\pause
+By a similar procedure the solution for $b$ can be obtained as
+%
+\be
+b(x_0,x_1) = B e^{jk(x_0 + x_1)} \, .
+\ee
+%
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Interface between two media}
+
+%\subsection{Interface between two media}
+Let us consider the case when we have two different transmission lines, the one on the left with an impinging wave denoted by $a_0$ and reference impedance $\eta_0$. 
+\pause
+
+The medium on the right has an impedance $\eta_1$. 
+
+\pause
+In terms of waves the discontinuity gives rise to a progressive wave in medium 1 (on the right) $a_1$ and to a reflected wave $b_0$ in medium 0 on the left.
+\pause
+
+ By placing the discontinuity at $x_1=0$ we have
+%
+\bea
+V_0 & = & a_0+ b_0 \nonumber \\
+\eta_0 \, I_0 & = & a_0 - b_0
+\eea
+%
+and
+%
+\bea
+V_1 & = & a_1 \nonumber \\
+\eta_1 \, I_1 & = & a_1 \,.
+\eea
+%
+
+\end{frame}
+
+
+
+%=========================================================================
+\begin{frame}[fragile]{}
+The continuity conditions tell us that
+%
+\bea
+V_1&=&V_0 \nonumber \\
+I_1 & = & I_0 \, .
+\eea
+%
+After solving for $a_1, b_0$ we get 
+%
+\bea
+b_0 & = & \Gamma \, a_0 \nonumber \\
+a_1 & = & \tau \, a_0
+\eea
+%
+
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+with
+%
+\bea
+\Gamma & = & \frac{{\eta}_{1}-{\eta}_{0}}{{\eta}_{1}+{\eta}_{0}} \nonumber \\
+\tau & = & \frac{2\,{\eta}_{1}}{{\eta}_{1}+{\eta}_{0}}
+\eea
+%
+as shown in the code reported next.
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[shrink=50]{}
+\newpage
+\small
+\lstinputlisting{bc1.wxm}
+\normalsize
+%\newpage
+
+
+
+\end{frame}
+
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%
+%\end{frame}
+
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%
+%\end{frame}
+%
+
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%
+%\end{frame}
+%
+
+
+
+\end{document}

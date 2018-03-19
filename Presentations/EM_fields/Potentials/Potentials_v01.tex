@@ -1,0 +1,921 @@
+%\documentclass[10pt]{beamer}
+\documentclass[handout,10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+%\usepackage{placeins} %%%
+\usepackage{subfig}
+\usepackage{physics}
+\usepackage{amssymb}
+
+
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+
+
+\usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage{slashed} % for the Feynman slash notation
+
+\usepackage{listings}
+
+\usepackage{balance}
+
+\input{definitions}
+
+\newcommand{\iGA}{{i}}
+\newcommand{\conjg}[1] {\ensuremath{#1}^*}
+
+\setbeamertemplate{bibliography item}{[\theenumiv]}
+
+
+\title{Field Potentials}
+
+\date{}
+
+%\subtitle{Maximizing efficiency and power at a fixed frequency}
+%\date{\today}
+%\author{Alessandra Costanzo, Franco Mastri, Mauro Mongiardo*, Giuseppina Monti}
+%\institute{*Department of Engineering,
+%University of Perugia, Italy}
+
+\author{ Mauro Mongiardo$^1$}
+
+\institute{
+ $^1$ Department of Engineering, University of Perugia, Perugia, Italy.
+}
+
+%
+\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo}}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Table of contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+
+%=========================================================================
+\section{The Field Multivector}
+%=========================================================================
+\begin{frame}[fragile]{The Field Multivector}
+
+%
+We have introduced the multivector $\cal{F}$, composed by a vector  and a bivector part
+\be
+%\cal{F} = \BE + \eta \, \hat{\BH} \label{Fpassage:20} \, .
+{\cal{F}} = \BE +i \,  \eta \, {\BH} \label{Fpassage:20} \, .
+\ee
+%
+\pause
+and we have written the four Maxwell equation as a single one:
+\be
+\left(\nabla + \frac{1}{v}\partial_t\right) {\cal{F}} =  \eta  \, \left( v \rho  -  \BJ \right) \label{Fpassage:30a} \, .
+\ee
+By using the operator $\partial^+$ as
+\be
+\partial^+ = \nabla + \frac{1}{v}\partial_t
+\ee
+and the source multivector $\cal{J} $
+\be
+{\cal{J}} = \eta  \, \left( v \rho  -  \BJ \right)
+\ee
+which allows to write (\ref{Fpassage:30a}) as
+\be
+\partial^+ {\cal{F}}  = {\cal{J}} \, .
+\ee
+
+\end{frame}
+
+
+%=========================================================================
+\begin{frame}[shrink=10]{Operators Summary}
+
+%\newpage
+\begin{table}[]
+\centering
+\caption{Table summarizing operator definitions. The symbols with a tilde refer to 2 by 2 matrices, while the symbols with a bar refer to combination of 4 by 4 Dirac matrices. The underlined symbols refer to frequency domain operators.}
+\label{operators_definitions}
+\begin{tabular}{lllll}
+\hline
+\hline
+\rule{0pt}{3ex} 
+$ \partial^\pm$  & = & $\nabla \pm \frac{1}{v}\,\partial_t$ & 
+%$\wavep \wavem$ 
+&  
+\\
+\rule{0pt}{3ex} 
+$\tilde{\partial}^\pm$ & =  & $\tnabla \pm \frac{1}{v}\,\partial_t \, \sigma_0$  &
+%$\wavepp \wavemp$
+  & 
+   \\
+\rule{0pt}{3ex}
+$\bar{\partial}^\pm$ & = & 
+$\begin{pmatrix}
+ \pm \frac{1}{v}\,\partial_t \, \sigma_0 & \tnabla \cr 
+\tnabla & \pm \frac{1}{v}\,\partial_t \, \sigma_0 \end{pmatrix}$ &
+%$\wavepd \wavemd$
+  &  
+  \\
+\rule{0pt}{3ex} 
+  $\bar{\partial}_d$& =  & 
+  $ \begin{pmatrix}\tilde{\partial}^+ &0 \cr 0& \tilde{\partial}^-  \end{pmatrix}$ &
+  %$\pbd$
+    &  \\
+ \hline  
+ \hline
+ \rule{0pt}{3ex}  
+% 
+${\underline{\partial}}^\pm $ & =  & $ \nabla \pm j\, k\,$  &
+%$\helmp \helmm$
+  &  \\
+\rule{0pt}{3ex} 
+${\underline{\tilde{\partial}}}^\pm$  & = & $\tnabla \pm j\, k \, \sigma_0 $  &
+%$\helmpp \helmmp$
+  &  \\
+\rule{0pt}{3ex} 
+${\underline{\bar{\partial}}}^\pm$   & =  & $\begin{pmatrix}
+ \pm j\, k\, \sigma_0 & \tnabla \cr 
+\tnabla & \pm j\, k\, \sigma_0 \end{pmatrix}$ &
+%$\helmpd \helmmd$
+  &  \\
+\rule{0pt}{3ex} 
+ ${\underline{\bar{\partial}}}_d$   & = &  $\begin{pmatrix}
+{\underline{\tilde{\partial}}}^+ & 0\cr 
+0 & {\underline{\tilde{\partial}}}^- \end{pmatrix}$
+&  
+%$\pbfd$
+&  \\
+\hline
+\hline
+\rule{0pt}{3ex} 
+$\Box^2$      & = & $\wavep \wavem$ =  $\nabla^2 - \frac{1}{v^2}\partial_t^2$ & &   \\
+$\partial^2$ & = & $\helmp \helmm$ = $\nabla^2 +\, k^2$&  & \\
+\hline
+\hline
+\end{tabular}
+\end{table}
+
+
+\end{frame}
+
+
+
+%=========================================================================
+
+
+%=========================================================================
+\section{Field Potentials: GA approach}
+%=========================================================================
+
+
+\begin{frame}[fragile]{Field Potentials}
+
+
+%
+It is assumed that the field $\cal{F}$ can be recovered from a scalar potential $\phi$ and a vector potential $\BA$, using the following expression:
+\be
+{\cal{F}} = \left(\nabla - \frac{1}{v}\partial_t\right)\left( - \phi + v \, \BA \right) \label{Fpassage:40} \, 
+\ee
+\pause
+or, equivalently, by introducing the multivector ${\cal A}$ defined as
+\be
+{\cal A} = - \phi + v \, \BA
+\ee
+we can write
+\be
+{\cal{F}} = \wavem {\cal A}
+\ee
+
+
+\end{frame}
+
+
+
+%=========================================================================
+\begin{frame}[fragile]{Potential equation}
+\pause
+When (\ref{Fpassage:40}) is inserted into (\ref{Fpassage:30a}) we recover the following equation:
+\be
+ \left(\nabla^2 - \frac{1}{v^2}\partial_t^2 \right)\left( - \phi + v \, \BA \right)  = \frac{\rho}{\epsilon} - \eta  \, \BJ\label{Fpassage:40a} \, 
+\ee
+which may be synthetically expressed as
+\be
+\Box{\cal A} = \cal{J} \, .
+\ee
+
+\pause
+By separating the scalar and the vector part, we recover respectively the scalar and vector wave equations
+\bea
+\left(\nabla^2 - \frac{1}{v^2}\partial_t^2 \right) \phi & = & - \frac{\rho}{\epsilon} \label{scalwave} \\
+\left(\nabla^2 - \frac{1}{v^2}\partial_t^2 \right) \BA & = & - \mu \BJ \label{vectwave} \,.
+\eea
+%
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Potential equations}
+
+Finally, by equating (\ref{Fpassage:40}) and (\ref{Fpassage:20}) we get:
+\bea
+{\cal{F}} & = & \BE + \eta \, \hat{\BH}  = \wavem {\cal A} \nonumber\\
+& = & \left(\nabla - \frac{1}{v}\partial_t\right)\left( - \phi + v \, \BA \right) \nonumber \\
+& = & \frac{1}{v} \partial_t \phi + v \nabla \cdot \BA - \nabla \wedge \phi - \partial_t \BA + v \, \nabla \wedge \BA 
+ \,.
+\eea
+Considering the scalar part one gets
+\bea
+0 & = & \partial_t \phi + v^2 \, \nabla \cdot \BA \label{glorenz}  
+%\nonumber
+\\
+\BE & = & - \nabla \wedge \phi - \partial_t \BA  \label{EfromPotA}
+%\nonumber
+\\
+\eta \, \hat{\BH} & = & v \, \nabla \wedge \BA \label{HfromPotA}
+\eea
+\end{frame}
+
+
+%=========================================================================
+
+
+%=========================================================================
+\begin{frame}[fragile]{Lorenz gauge }
+We have obtained
+\bea
+0 & = & \partial_t \phi + v \, \nabla \cdot \BA \label{glorenz}
+\eea
+This is the Lorenz gauge and has been obtained simply by equating the grades.
+
+\pause
+To summarize we have expressed Maxwell's equations as
+\be
+\partial^+ \cal{F}  = \cal{J} \, ,
+\ee
+and we have then expressed the field in terms of the potential as
+\be
+{\cal{F}} = \wavem {\cal A}
+\ee
+obtaining the following equation
+\be
+ \cal{J} = \wavep \cal{F} = \wavep \wavem {\cal A} = \Box{\cal A}
+\ee
+
+\end{frame}
+
+%=========================================================================
+\section{Potentials in spinor form in time--domain}
+%=========================================================================
+\begin{frame}[fragile]{Potentials in spinor form in time--domain}
+
+%
+We start by rewriting (\ref{EfromPotA}) as 
+\be
+\BE  =  - \nabla \wedge \phi - \partial_t \BA = - \nabla  \phi - \partial_0 v \, \BA 
+\ee
+where we have used (\ref{glorenz}) and denoted with $\partial_0$
+\be
+\partial_0 = \frac{1}{v} \partial_t \, .
+\ee
+%
+It is also convenient to express (\ref{HfromPotA}) in a different form noting that
+\be
+ \nabla \wedge \BA =  \nabla  \BA  - \nabla \cdot \BA = \nabla \, \BA  + \frac{1}{v} \partial_0 \phi
+\ee
+%
+and therefore
+\be
+i \, \eta \, {\BH} = v \, \nabla \wedge \BA = v \, \nabla  \BA + \partial_0  \phi \,.
+\ee
+%
+
+
+\end{frame}
+
+
+%=========================================================================
+\begin{frame}[fragile]{Potentials in terms of Dirac matrices}
+So far we have therefore expressed the field in terms of the potentials, taking into account Lorenz condition, as
+\bea
+\BE & = & \partial_0 \left( - v \BA \right) + \nabla  \left( - \phi \right)\nonumber \\
+i \, \eta \, {\BH} & = & -\nabla \left( -v \BA \right) - \partial_0 \left( - \phi \right) 
+\label{symmpot_time}
+\eea
+Is apparent that (\ref{symmpot_time}) exhibit a symmetry suitable for expressing it by means of Dirac matrices.
+Let us introduce the following notation:
+\bea
+\Be & = & 
+\begin{pmatrix}  {E}_{z}\cr i\,{E}_{y}+{E}_{x} \end{pmatrix} \nonumber \\
+\Bh & = &  
+\begin{pmatrix}   \eta\,i\,{H}_{z}\cr \eta\,\left( i\,{H}_{x}-{H}_{y}\right)\end{pmatrix} 
+\label{ehvect2t}
+\eea
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Field from Potentials in matrix form}
+
+By using  (\ref{ehvect2t}) we have
+\bea
+ \begin{pmatrix}\Be\cr \Bh \end{pmatrix} & = &
+\begin{pmatrix}
+\partial_0 \sigma_0 & \tnabla \cr 
+- \tnabla & - \partial_0, \sigma_0 \end{pmatrix} \,  \begin{pmatrix} - v\tA \cr -\tphi  \end{pmatrix} \nonumber \\
+& = & -
+\begin{pmatrix}
+\partial_0 \sigma_0 & \tnabla \cr 
+- \tnabla & - \partial_0, \sigma_0 \end{pmatrix} \,  \begin{pmatrix}  v\tA \cr \tphi  \end{pmatrix}
+\label{MaxDirac4t}
+\eea
+
+with the position
+\bea
+\tA &=&  \begin{pmatrix}A_z \cr A_x + i \, A_y \end{pmatrix} \nonumber \\
+\tphi &=&  \begin{pmatrix} {\phi} \cr 0 \end{pmatrix} \, .
+\eea
+%
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{Potential quadrivector}
+By introducing the quadrivector for the potential
+\bea
+\barA & = & \begin{pmatrix}v {A}_{z}\cr v\left( i\,{A}_{y}+{A}_{x}\right) \cr \phi \cr 0 \end{pmatrix} 
+\eea
+%
+and noting that the matrix appearing in (\ref{MaxDirac4t}) is the same appearing in Maxwell's equations we have
+%
+\be
+\barF = - {\slashed \partial} \barA
+\ee
+
+\end{frame}
+
+
+
+
+%=========================================================================
+\begin{frame}[shrink=20]{Expanded version of (\ref{MaxDirac4t})}
+
+The expanded version of (\ref{MaxDirac4t}), in rectangular coordinates, is:
+%\small
+\be
+\begin{pmatrix}{E}_{z}\cr i\,{E}_{y}+{E}_{x}\cr \eta\,i\,{H}_{z}\cr \eta\,\left( i\,{H}_{x}-{H}_{y}\right) \end{pmatrix} = -
+\begin{pmatrix} \partial_0 & 0 & {\partial}_{z} & {\partial}_{x}-i\,{\partial}_{y}\cr 
+0 & \partial_0 & i\,{\partial}_{y}+{\partial}_{x} & -{\partial}_{z}\cr
+- {\partial}_{z} & -{\partial}_{x}+i\,{\partial}_{y} &- \partial_0 & 0\cr 
+- i\,{\partial}_{y}-{\partial}_{x} & {\partial}_{z} & 0 & - \partial_0\end{pmatrix}
+%
+\begin{pmatrix} v{A}_{z}\cr v \left( i\,{A}_{y}+{A}_{x}\right) \cr \phi \cr 0 \end{pmatrix} \nonumber
+\label{MaxDirac50}
+\ee
+\normalsize
+
+It is thus noted that we can write a single equation containing the sources the field and the potential as
+\be
+-\Box^2 \barA = - {\slashed \partial}^2 \barA = {\slashed \partial} \barF = - \eta \barJ
+\ee
+
+
+\end{frame}
+
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Frequency--domain}
+
+
+%=========================================================================
+\begin{frame}[fragile]{Time--domain Maxwell's equations}
+
+Time--domain Maxwell's equations are commonly expressed as:
+\bea 
+%\label{Maxwell--time}
+\nabla \times \BE & = & - \frac{\partial \, \BB}{\partial t} \label{curlE} \\
+\nabla \times \BH & = &  \frac{\partial \, \BD}{\partial t} + \BJ \label{curlH} \\
+\nabla \cdot \BD & = & \rho \label{divD} \\
+\nabla \cdot \BH & = & 0 \label{divH} 
+\eea
+%
+
+\end{frame}
+
+
+%=========================================================================
+\begin{frame}[fragile]{Maxwell's equations: frequency domain}
+
+In the following, we make use of equivalence theorems which introduce
+magnetic current density,
+${\BM}({\Br})$, and magnetic charge distributions,
+$\rho_{m}({\Br})$. These quantities, although not
+physically present, help in the solution of several boundary
+value problems. When considering also magnetic
+currents and charges, the frequency--domain Maxwell's equations become
+%
+\begin{subequations}
+\begin{align}
+ \nabla \times {\BE}({\Br})  & =    - j\omega {\BB}({\Br})
+- {\BM}({\Br})\,,
+  \label{fFaraday}
+\\[1mm]
+ \nabla \times {\BH}({\Br})  & =     j\omega {\BD}({\Br})
++ {\BJ}({\Br})\,,
+  \label{fAmpere}
+\\[1mm]
+  \nabla \cdot {\BD}({\Br})  & =     \rho_e({\Br})\,,
+  \label{fGausse}
+\\[1mm]
+  \nabla \cdot {\BB}({\Br})  & =   - \rho_{m}({\Br})\,.
+  \label{fGaussm}
+\end{align}
+\end{subequations}
+ %
+
+\end{frame}
+
+
+
+
+%=========================================================================
+\begin{frame}[fragile]{Frequency--domain Maxwell's Equation in compact form}
+% \section{Frequency--domain Maxwell's Equation in compact form}
+
+ In the following we initially consider only electric sources and an homogeneous region of space of constant  permittivity and permeability, so that we can use $\BB = \mu \BH$ and $\BD = \epsilon \BE$.
+ 
+We multiply both sides of  (\ref{fFaraday}) times $i$ and applying ($\nabla \wedge \BE  =  i \, \nabla \cross \BE$) obtaining:
+\be
+\nabla \wedge \BE = - j \omega \mu   i  \,\BH \, . \label{epassage:15}
+%+ \frac{\rho}{\epsilon}
+\ee
+By summing together (\ref{epassage:15}) and the divergence equation one gets
+\be
+\nabla \,  \BE = - j \omega \mu  \,  i  \,\BH  
++ \frac{\rho}{\epsilon} \label{epassage:25} \, .
+\ee
+One may rewrite the above eq. as
+\be
+\nabla \,  \BE = - j \omega \mu  \,   \,\hat{\BH}  
++ \frac{\rho}{\epsilon} \label{epassage:27} \, .
+\ee
+
+
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{Frequency--domain Maxwell's Equation in compact form}
+We can now consider (\ref{fAmpere}) multiply by $i \, i = -1$ and summing with (\ref{divH}) obtaining
+\be
+\nabla \,  \hat{\BH }= - j \omega \epsilon     \,\BE  
+- \BJ \label{Hpassage:25} \, .
+\ee
+%
+
+Equations (\ref{epassage:27}) and (\ref{Hpassage:25}) can be expressed as
+\bea 
+%\label{Maxwell--time}
+\nabla \, \BE & = & - j \, k \, \eta \, \hat{\BH}  + \frac{\rho}{\epsilon} \label{nablaEf} \\
+\nabla  \eta \, \hat{\BH} & = & -   j \, {k}  \, {\BE}  - \eta  \, \BJ \label{nablaHf} 
+\eea
+%
+%The multivector $F$, composed by a vector  and a bivector part, is now introduced with the following definition:
+%\be
+%F = \BE + \eta \, \hat{\BH} \label{Fpassage:20f} \, .
+%\ee
+
+\end{frame}
+
+
+
+
+
+%=========================================================================
+\begin{frame}[fragile]{Frequency--domain Maxwell's Equation: GA}
+By summing together (\ref{nablaEf}) and (\ref{nablaHf}) and using (\ref{Fpassage:20}), the well known results that allows to express the four Maxwells' equation as a single one in the frequency--domain is recovered:
+\be
+\left(\nabla +  j\, k\,\right) \cal{F} =  \frac{\rho}{\epsilon} - \eta  \, \BJ \label{Fpassage:30f} \, 
+\ee
+or, synthetically,
+\be
+\helmp \cal{F} = \cal{J}
+\ee
+
+
+
+\end{frame}
+
+\section{Frequency--domain potentials: GA approach}
+
+%=========================================================================
+\begin{frame}[fragile]{Frequency--domain potentials: GA approach}
+
+%
+It is assumed that the field $\cal{F}$ can be recovered from a scalar potential $\phi$ and a vector potential $\BA$, using the following expression:
+\be
+{\cal{F}} = \left(\nabla - j\, k\, \right)\left( v \, \BA  - \phi \right) \label{Fpassage:40f} \, .
+\ee
+When (\ref{Fpassage:40f}) is inserted into (\ref{Fpassage:30f}) we recover the following equation:
+\be
+ \left(\nabla^2 + k^2 \right)\left( v \, \BA  - \phi \right)  = \frac{\rho}{\epsilon} - \eta  \, \BJ\label{Fpassage:43f} \, .
+\ee
+and, by separating the scalar and the vector part, we recover respectively the scalar and vector wave equations
+\bea
+\left(\nabla^2 +k^2 \right) \phi & = & - \frac{\rho}{\epsilon} \label{scalwavef} \\
+\left(\nabla^2 + k^2 \right) \BA & = & - \mu \BJ \label{vectwavef} \,.
+\eea
+%
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{The grade structure}
+Finally, by equating (\ref{Fpassage:40f}) and (\ref{Fpassage:20}) we get:
+\bea
+\cal{F} & = & \BE + \eta \, \hat{\BH} \\
+& = & \left(\nabla - j \, k \,\right)\left( v \, \BA  - \phi \right) \\
+& = & j \, k \, \phi + v \nabla \cdot \BA - \nabla \wedge \phi - j \, k \, v \, \BA + v \, \nabla \wedge \BA 
+ \,.
+\eea
+Considering the scalar, vector and bivectors  parts one gets
+\bea
+0 & = & j \, k \, \phi + v \, \nabla \cdot \BA \label{glorenz}  \\
+\BE & = & - \nabla \wedge \phi - j \, k \, v \, \BA \\
+\eta \, \hat{\BH} & = & v \, \nabla \wedge \BA
+\eea
+
+\end{frame}
+
+
+
+
+%=========================================================================
+\begin{frame}[fragile]{Potentials: GA}
+
+To summarize:
+\bea
+\left(\nabla^2 +k^2 \right) \phi & = & - \frac{\rho}{\epsilon} 
+%\label{scalwavef} 
+\\
+\left(\nabla^2 + k^2 \right) \BA & = & - \mu \BJ 
+%\label{vectwavef} 
+\,.
+\eea
+\pause
+and 
+\bea
+\phi & = & -\frac{v\, \nabla \cdot \BA}{j\, k} \label{glorenzf} \\
+\BE & = &- j \, k \, v \, \BA - \nabla \phi \\
+ \hat{\BH}& = & \frac{1}{\mu} \nabla \wedge \BA 
+ \eea
+ %
+Note that the Lorenz condition is not imposed, but it is derived directly from the assumption in (\ref{Fpassage:40f}). 
+
+
+
+\end{frame}
+
+
+\section{Potentials in spinor form}
+%=========================================================================
+\begin{frame}[fragile]{Potentials in spinor form}
+
+We have seen that in frequency domain the potentials are given by:
+\bea
+\phi & = & -\frac{v\, \nabla \cdot \BA}{j\, k} \label{glorenzf} \\
+\BE & = &- j \, k \, v \, \BA - \nabla \phi \\
+ i \, {\BH}& = & \frac{1}{\mu} \nabla \wedge \BA  \label{Hpot}\, .
+ \eea
+ %
+It is convenient to express (\ref{Hpot}) in a different form noting that
+\be
+ \nabla \wedge \BA =  \nabla  \BA  - \nabla \cdot \BA = \nabla \, \BA  +j \, \frac{k}{v} \phi
+\ee
+and therefore
+\be
+i \, \eta \, {\BH} = v \, \nabla  \BA + j\, k \, \phi \,.
+\ee
+%
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{Symmetric form}
+
+So far we have therefore expressed the field in terms of the potentials, taking into account Lorenz condition, as
+\bea
+\BE & = & v \left(-j\, k  \, \BA - \frac{1}{v}   \nabla \phi \right) \nonumber \\
+i \, \eta \, {\BH} & = & v \left[ \nabla  \BA  + \left(- j\,k \right)  \left( - \frac{\phi}{v} \right) \right]
+\label{symmpot}
+\eea
+Is apparent that (\ref{symmpot}) exhibit a symmetry suitable for expressing it by means of Dirac matrices.
+Let us introduce the following notation:
+\bea
+\Be & = & 
+\begin{pmatrix}  {E}_{z}\cr i\,{E}_{y}+{E}_{x} \end{pmatrix} \nonumber \\
+\Bh & = &  
+\begin{pmatrix}   \eta\,i\,{H}_{z}\cr \eta\,\left( i\,{H}_{x}-{H}_{y}\right)\end{pmatrix} 
+\label{ehvect2}
+\eea
+
+\end{frame}
+
+
+%=========================================================================
+
+%=========================================================================
+\begin{frame}[fragile]{Potentials as quadrivectors}
+By using  (\ref{ehvect2}) we have
+\be
+ \begin{pmatrix}\Be\cr \Bh \end{pmatrix} = v
+\begin{pmatrix}
+-j \, k\, \sigma_0 & \tnabla \cr 
+\tnabla & -j \, k\, \sigma_0 \end{pmatrix} \,  \begin{pmatrix} \tA \cr \tphi  \end{pmatrix} .
+\label{MaxDirac4}
+\ee
+with the position
+\bea
+\tA &=&  \begin{pmatrix}A_z \cr A_x + i \, A_y \end{pmatrix} \nonumber \\
+\tphi &=&  \begin{pmatrix} - \frac{\phi}{v} \cr 0 \end{pmatrix} \, .
+\eea
+
+\end{frame}
+
+
+%=========================================================================
+
+
+%=========================================================================
+\begin{frame}[shrink=20]{Expanded version}
+
+The expanded version of (\ref{MaxDirac4}), in rectangular coordinates, is:
+
+%\small
+\be
+\begin{pmatrix}{E}_{z}\cr i\,{E}_{y}+{E}_{x}\cr \eta\,i\,{H}_{z}\cr \eta\,\left( i\,{H}_{x}-{H}_{y}\right) \end{pmatrix} = v
+\begin{pmatrix} - j k & 0 & {\partial}_{z} & {\partial}_{x}-i\,{\partial}_{y}\cr 
+0 & - j k & i\,{\partial}_{y}+{\partial}_{x} & -{\partial}_{z}\cr
+ {\partial}_{z} & {\partial}_{x}-i\,{\partial}_{y} &- j k & 0\cr 
+ i\,{\partial}_{y}+{\partial}_{x} & -{\partial}_{z} & 0 & - j k \end{pmatrix}
+%
+\begin{pmatrix}{A}_{z}\cr i\,{A}_{y}+{A}_{x}\cr  - \frac{\phi}{v} \cr 0 \end{pmatrix}
+\label{MaxDirac50}
+\ee
+
+\end{frame}
+
+
+%=========================================================================
+\begin{frame}[shrink=20]{Magnetic sources }
+Sometimes it is convenient to consider also magnetic sources 
+%summary 
+and, in a piecewise constant medium, we obtain
+ the following local form of Maxwell's equations:
+\begin{subequations}
+\begin{align}
+\nabla \cdot \BE &=  \frac{\rho_e}{\epsilon}  \, , &&\text{grade 0} \label{GausseGA} \\
+\nabla \cdot \left(i \eta \BH\right) &= - \frac{1}{v}\,  \partial_t \BE - \eta \,\BJ  \, , &&\text{grade 1} \label{AmpereGA} \\
+\nabla \wedge \BE &= - \frac{1}{v}\,  \partial_t \, \left(i \eta \BH\right) \, -i \, \BM , &&\text{grade 2}  \label{FaradayGA} \\
+\nabla \wedge \left(i \eta \BH\right) &=  - i \, v \, \rho_m \, , &&\text{grade 3} \label{GaussmGA}
+\end{align}
+\end{subequations}
+
+The spinor containing the excitations is therefore given by:
+\be
+\begin{pmatrix} 
+- \eta {J}_{z} - i \, v \, \rho_m \cr
+- \eta \left( i\,{J}_{y}+{J}_{x}\right)\cr 
+ \frac{\rho_e}{\epsilon} - i\,{M}_{z}\cr
+ - i\,\left( i\,{M}_{y}+{M}_{x}\right) \end{pmatrix}
+ =
+ \begin{pmatrix}  
+\BJ_e \cr\BJ_m
+  \end{pmatrix}
+\ee
+with the vector $\BJ_e$ containing the first two rows and the vector $\BJ_m$ containing the third  and fourth rows.
+
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[shrink=20]{Potential for magnetic sources only}
+By application of superposition it is convenient to consider the case when only  magnetic sources are present. In  frequency domain we have 
+%\begin{subequations}
+%\begin{align}
+\bea
+\nabla \cdot \BE &=&  0  \nonumber\\
+i \eta  \nabla \cdot \left(\BH\right) &=& -i v \rho_m    \nonumber \\
+\nabla \wedge \BE &=& - jk \left(i \eta \BH\right) \, -i \, \BM \nonumber \\
+i \eta \nabla  \left(  \BH\right) &=&  - j \, k \, \BE 
+\eea
+%\end{align}
+%\end{subequations}
+which can be condensed as
+%
+\bea 
+\nabla \BE &=& - jk \left(i \eta \BH\right) \, -i \, \BM  \nonumber\\
+ \nabla  \left(i \eta \BH\right) &=&  - j \, k \, \BE -i v \rho_m
+\eea
+or, by using the multivector form, yields:
+\be
+\left(\nabla + j\,k\right) {\cal{F}} =  -i \left(v \rho_m  + \BM\right) \label{FMpassage:30FD} \, .
+\ee
+%
+
+\end{frame}
+
+
+%=========================================================================
+\begin{frame}[shrink=20]{Potentials for magnetic sources only}
+It is assumed that the field $\cal{F}$ can be recovered from a scalar potential $\psi$ and a vector potential $\BF$, using the following expression:
+\be
+{\cal{F}} = i \left(\nabla - j\, k\, \right)\left( v \, \BF  + \psi \right) \label{FMpassage:40f} \, .
+\ee
+When (\ref{FMpassage:40f}) is inserted into (\ref{FMpassage:30FD}) we recover the following equation:
+\be
+ \left(\nabla^2 + k^2 \right)\left( v \, \BF  + \psi \right)  = - \left(v \rho_m  + \BM\right) \label{FMpassage:43f} \, .
+\ee
+and, by separating the scalar and the vector part, we recover, respectively, the scalar and vector wave equations:
+\bea
+\left(\nabla^2 +k^2 \right) \psi & = & - v\, \rho_m  \label{Mscalwavef} \nonumber\\
+\left(\nabla^2 + k^2 \right) \BF & = & - \frac{1}{v}\, \BM  \label{Mvectwavef} \,.
+\eea
+%
+Finally,  we get:
+\bea
+\cal{F} & = & \BE + i \, \eta \, {\BH} \nonumber \\
+& = &i  \left(\nabla - j \, k \,\right)\left( v \, \BF  + \psi \right) \nonumber \\
+& = & i \left( -j \, k \, \psi + v\,  \nabla \cdot \BF + \nabla  \psi - j \, k \, v \, \BF + v \, \nabla \wedge \BF  \right)
+ \,.
+\eea
+
+\end{frame}
+
+
+%=========================================================================
+
+
+%=========================================================================
+\begin{frame}[fragile]{Grade separation}
+Considering the scalar, vector and bivectors  parts one gets
+\bea
+0 & = & - j \, k \, \psi + v \, \nabla \cdot \BF \label{Mglorenz}  \nonumber \\
+\BE & = & i \left( v \, \nabla \wedge \BF  \right)  \nonumber \\
+i \, \eta \, {\BH} & = & i \left( \nabla  \psi - j \, k \, v \, \BF \right)
+\eea
+and therefore:
+\bea
+\psi & = & \frac{v\, \nabla \cdot \BF}{j\, k} \label{Mglorenzf} \nonumber \\
+\BE & = &i \left( v \, \nabla  \BF - jk \psi  \right) \nonumber \\
+ i \eta \, {\BH}& = & i\left( \nabla \psi  - j \, k \, v \, \BF \right)\label{MHpot}\, .
+ \eea
+ %
+The Lorenz condition (\ref{Mglorenzf}) is  derived directly from the assumption in (\ref{FMpassage:40f}). 
+
+
+\end{frame}
+
+\section{Potentials for magnetic sources in spinor form}
+
+%=========================================================================
+\begin{frame}[fragile]{Potentials for magnetic sources in spinor form}
+%
+It is apparent that (\ref{MHpot}) exhibit a symmetry suitable for expressing it by means of Dirac matrices.
+By using  (\ref{ehvect2}) we have
+%
+\be
+ \begin{pmatrix}\Be\cr \Bh \end{pmatrix} = i\,v
+\begin{pmatrix}
+ j \, k\, \sigma_0 & \tnabla \cr 
+- \tnabla & -j \, k\, \sigma_0 \end{pmatrix} \,  \begin{pmatrix}  -\frac{1}{v}\tpsi \cr \tF  \end{pmatrix} .
+\label{MaxDirac60}
+\ee
+with the position
+\bea
+\tF &=&  \begin{pmatrix}F_z \cr F_x + i \, F_y \end{pmatrix} \nonumber \\
+\tpsi &=&  \begin{pmatrix} {\psi} \cr 0 \end{pmatrix} \, .
+\eea
+
+\end{frame}
+
+%=========================================================================
+\begin{frame}[fragile]{}
+
+
+\end{frame}
+
+
+%=========================================================================
+
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+
+
+%=========================================================================
+
+
+%
+%%=========================================================================
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+
+
+%=========================================================================
+
+
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+%
+%%=========================================================================
+%\begin{frame}[fragile]{}
+%
+%
+%\end{frame}
+
+
+%=========================================================================
+
+
+
+
+
+
+\end{document}

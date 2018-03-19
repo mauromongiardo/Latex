@@ -1,0 +1,50 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+
+/* bc1 */
+/* we  find the boundary conditions for a wave */
+
+print("Let us consider a transmission line with an incident wave", a[0], " in medium 0")$
+print("when a discontinuity is present a reflected wave ", b[0]," is generated")$
+print("and also a transmitted wave", a[1], " in medium 1 is generated. ")$
+
+print("")$
+print("In medium 0")$
+print("The incident and reflected waves in medium 0 are related to valtages as")$
+
+print('V[0]," = ", a[0] + b[0])$
+print("and the current is" )$
+print(%eta[0]*I[0]," = ",a[0] - b[0])$
+
+print("")$
+print("In medium 1")$
+print("The transmitted waves in medium 1 are related to valtages as")$
+
+print('V[1]," = ", a[1] )$
+print("and the current is" )$
+print(%eta[1]*I[1]," = ",a[1] )$
+
+print("")$
+print("By equating the voltages and currents at the interface we obtain")$
+print('V[0], " = ",'V[1])$
+print('I[0], " = ",I[1])$
+
+print("which gives the following equations")$
+
+eq1 : a[1] - b[0] -a[0];
+eq2 : %eta[0]* a[1] + %eta[1] * b[0] -a[0]* %eta[1];
+
+print("with solutions")$
+sol : solve([eq1,eq2],[a[1],b[0]]);
+print("Transmission coefficient")$
+T : rhs(sol[1][1])/a[0];
+print("Reflection coefficient")$
+%Gamma : rhs(sol[1][2])/a[0];
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

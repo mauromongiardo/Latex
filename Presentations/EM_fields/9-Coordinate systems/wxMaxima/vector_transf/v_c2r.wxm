@@ -1,0 +1,41 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+load(vect)$
+/* V_r2c.wxm */
+
+print(" from the cylindrical expression of a vector pass to the cartesian representation")$ 
+/* numerical  */
+fpprintprec:5$
+ratprint : false$
+Arho :1.0 ;
+Aphi : 3.14/4.0 ;
+Az : 1.0 ;
+print("in order to evaluate phi we need to know where the vector is to be evaluated!!!")$
+x :1.0; y :1.0 ; phi : float(atan2(y,x));
+
+
+/* for unit vectors the following holds: 
+A%rho : %rho[0]; 
+Aphi : phi[0]; 
+Az : z[0]; 
+*/
+
+print("Transformation matrix r2cmat")$
+r2cmat :matrix([cos(phi),sin(phi),0],[-sin(phi),cos(phi),0],[0,0,1])$
+c2rmat:trigsimp(invert(r2cmat));
+c2rmat:float(c2rmat);
+
+print("vector A in cylindrical coordinates")$
+Acyl : [Arho,Aphi,Az];
+
+print("cylindrical to rectangular")$
+Arect : c2rmat . Acyl ;
+
+print("bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

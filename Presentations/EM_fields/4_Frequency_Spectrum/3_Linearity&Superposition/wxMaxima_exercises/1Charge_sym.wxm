@@ -1,0 +1,48 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+/* express the position of a charge */
+
+print(%mu," is given a value")$
+%mu : 4 * float(%pi) * 10^(-7);
+print("speed light")$
+clight : 2.997 * 10 ^8;  /*m/s*/ 
+print(%epsilon[0]," is obtained")$
+%epsilon[0] : 1 / (%mu * clight^2);
+
+print("The factor 1.0 / ( 4 * (%pi) * %epsilon[0]) numerically is")$
+fact : float(1.0 / ( 4 * (%pi) * %epsilon[0]));
+
+print("or symbolically")$
+kill(%epsilon[0])$
+fact :(1 / ( 4 * (%pi) * %epsilon[0]));
+
+print("charge position")$
+Pc : matrix([P[x],P[y],P[z]]);
+
+print("observation point")$
+Po : matrix([Po[x],Po[y],Po[z]]);
+
+print("distance between charge and observation point")$
+R[1] : sqrt((Pc[1,1] - Po[1,1])^2 + (Pc[1,2] - Po[1,2])^2 + (Pc[1,3] - Po[1,3])^2);
+
+print("Electric field amplitude in Po")$
+E[1] : fact * q[1]/R[1]^2;
+
+print("vector components for the distance between source and observator")$
+Rc0[1] : Pc - Po;
+
+print("versor between source and observator")$
+versorRc[1] : Rc0[1] / R[1];
+
+print("Electric field vector in Po")$
+Evect[1] : E[1] * versorRc[1] ;
+
+
+print("Bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

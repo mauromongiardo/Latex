@@ -1,0 +1,48 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+/* code name : Pauli_nabla */
+/*  Vector function definition*/
+/*
+print("Consider an Electric Field of the form")$
+Ex :  %e^(-%i * k * z)$   
+Ey : 0$
+Ez : 0$
+*/
+depends([Ex,Ey,Ez],[x,y,z]);
+
+[Ex, Ey, Ez];
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+print("Nabla as Pauli matrix")$
+Np : dx * %sigma[1] + dy * %sigma[2] + dz * %sigma[3];
+
+print("vector E as Pauli matrix")$
+Ep : Ex * %sigma[1] + Ey * %sigma[2] + Ez * %sigma[3];
+
+print("Nabla E is")$
+NEp11 : diff(Ep[1,1],z)+diff(Ep[2,1],x)-%i*diff(Ep[2,1],y)$
+NEp12 : diff(Ep[1,2],z)+diff(Ep[2,2],x)-%i*diff(Ep[2,2],y)$
+NEp21 :-diff(Ep[2,1],z)+diff(Ep[1,1],x)+%i*diff(Ep[1,1],y)$
+NEp22 :-diff(Ep[2,2],z)+diff(Ep[1,2],x)+%i*diff(Ep[1,2],y)$
+
+NEp : ratsimp(matrix([NEp11, NEp12],[NEp21, NEp22]));
+
+print("Nabla Nabla E is")$
+NNEp11 :diff(NEp[1,1],z)+diff(NEp[2,1],x)-%i*diff(NEp[2,1],y)$
+NNEp12 :diff(NEp[1,2],z)+diff(NEp[2,2],x)-%i*diff(NEp[2,2],y)$
+NNEp21 :-diff(NEp[2,1],z)+diff(NEp[1,1],x)+%i*diff(NEp[1,1],y)$
+NNEp22 :-diff(NEp[2,2],z)+diff(NEp[1,2],x)+%i*diff(NEp[1,2],y)$
+
+NNEp : ratsimp(matrix([NNEp11, NNEp12],[NNEp21, NNEp22]));
+print("Bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

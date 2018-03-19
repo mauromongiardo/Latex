@@ -1,0 +1,45 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+load(vect)$
+/* V_c2s.wxm */
+
+print(" from the cartesian expression of a vector express the spherical representation")$ 
+/* numerical  
+fpprintprec:5$
+ratprint : false$
+Ax :1.0 ;
+Ay : 0.0 ;
+Az : 0.0 ;
+print("coordinates where the vector is evaluated")$
+Px: 0.0;
+Py: 1.0;
+Pz: 0.0;
+phi : float(atan2(Py,Px));
+theta : float(atan2(sqrt(Px^2+Py^2),Pz));
+*/
+
+/* for unit vectors the following holds: 
+Ax : x0; 
+Ay : y0; 
+Az : z0; 
+*/
+
+print("Transformation matrix s2rmat")$
+r2smat :matrix([sin(theta)* cos(phi),sin(theta)*sin(phi),cos(theta)],
+               [cos(theta)*cos(phi),cos(theta)*sin(phi),-sin(theta)],
+               [-sin(phi),cos(phi),0]);
+
+print("vector A in rectangular coordinates")$
+Arect : [Ax,Ay,Az];
+
+print("rectangular to spherical")$
+Aspher : r2smat . Arect ;
+
+print("bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

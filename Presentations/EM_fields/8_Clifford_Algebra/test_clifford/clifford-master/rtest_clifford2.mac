@@ -1,0 +1,123 @@
+/*******************************
+Clifford algebra
+a lightweight package for performing Geometric Algebra calculations
+
+tests for version
+ v 2.0
+ 
+usage:
+file_search_maxima: append (file_search_maxima,["/path/to/clifford.mac"]);
+batch("rtest_clifford", test);
+
+@depends clifford.mac
+
+**********************************
+ * @license This library is free software; you can redistribute it and/or
+ *      modify it under the terms of the GNU Lesser General Public
+ *      License as published by the Free Software Foundation; either
+ *      version 2.1 of the License, or (at your option) any later version.
+ *
+ *      This library is distributed in the hope that it will be useful,
+ *      but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *       Lesser General Public License for more details.
+ *
+ *      You should have received a copy of the GNU Lesser General Public
+ *      License along with this library; if not, write to the Free Software
+ *      Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ (kill(all),
+  %start : absolute_real_time(),
+    %path:"C:/Dropbox/maxima/$$$.{mac,mc}",
+  file_search_maxima:append (file_search_maxima , [%path]),
+  load("clifford"),
+  'done);
+'done$
+get('clifford,'version);
+v20$
+block(
+	"init clifford complex",
+	clifford(e,0,1,0),
+	mtable2()
+);
+matrix([1,e[1]],[e[1],-1])$
+block(
+	"init clifford split-complex",
+	clifford(e,1,0,0),
+	mtable2()
+);
+matrix([1,e[1]],[e[1],1])$
+block(
+	"init clifford dual",
+	clifford(e,0,0,1),
+	mtable2()
+);
+matrix([1,e[1]],[e[1],0])$
+block(
+	"init clifford quaternion",
+	clifford(e,0,2,0),
+	mtable2()
+);
+matrix([1,e[1],e[2],e[1] . e[2]], 
+[e[1],-1,e[1] . e[2],-e[2]],
+[e[2],-e[1] . e[2],-1,e[1]],
+[e[1] . e[2],e[2],-e[1],-1])$
+/* clifford simplification tests" */
+e[1] . e[2] . e[1] . e[2], dotsimpc;
+-1$
+e[2] . e[1] . e[1] . e[2], dotsimpc;
+1$
+/*inverses*/
+1/e[2],dotinvsimp;
+-e[2]$
+1/e[1] . e[2], dotinvsimp;
+-e[1] . e[2]$
+1/(1+e[1]),cliffsimpall,expand;
+1/2-e[1]/2$
+(e[1]- e[2])^^2,expand;
+-2$
+(e[1]- e[2])^2,expand;
+-2$
+block(
+	"init clifford geom/pauli",
+	clifford(e,3),
+	mtable1()
+);
+matrix([1,e[1],e[2],e[3]],
+[e[1],1,e[1] . e[2],e[1] . e[3]],
+[e[2],-e[1] . e[2],1,e[2] . e[3]],
+[e[3],-e[1] . e[3],-e[2] . e[3],1])$
+1/(e[1] . e[2]. e[3]), dotinvsimp;
+-e[1] . e[2] . e[3]$
+5/(e[1] .   e[3]), dotinvsimp;
+-5*(e[1] . e[3])$
+1/e[1]-e[1],cliffsimpall;
+0$
+/* tripple product tests" */
+e[1]| (-%iv. (e[2]&e[3]));
+1$
+e[2]| (-%iv. (e[3]&e[1]));
+1$
+e[3]| (-%iv. (e[1]&e[2])),dotsimpc;
+1$
+e[1]| ( (e[2]&e[3]));
+0$
+-%iv.(e[1]& (-%iv. (e[2]&e[3]))),dotsimpc;
+0$
+e[2]. (e[1]|e[3])+e[3]. (e[1]|e[2]);
+0$
+-(%iv.e[1]) & (-%iv. e[2]&e[3]),dotsimpc;
+-e[1] . e[2] . e[3]$
+-dotsimpc(%iv.e[1]) ~ (-%iv. e[2]~e[3]),dotsimpc;
+-e[1] . e[2] . e[3]$
+dual(e[1] &e[2]),dotsimpc;
+e[3]$
+dual(e[3] &e[1]),dotsimpc;
+e[2]$
+dual(e[2] &e[3]),dotsimpc;
+e[1]$
+block(
+	jacobprod(a,b,c):= ( a & b & c + b & c & a + c & a & b),
+	ev(jacobprod(e[1] ,e[2], e[3]), dotsimpc)
+);
+3*(e[1] . e[2] . e[3])$

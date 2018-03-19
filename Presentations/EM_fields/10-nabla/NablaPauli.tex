@@ -1,0 +1,1317 @@
+%\documentclass[10pt]{beamer}
+\documentclass[handout,10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+\usepackage{comment}
+
+
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+%\usepackage{placeins} %%%
+\usepackage{subfig}
+\usepackage{physics}
+\usepackage{amssymb}
+
+\usepackage{esint}
+
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+\usepackage{tikz-3dplot} %requires 3dplot.sty to be in same directory, or in your LaTeX installation
+
+
+\usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage{slashed} % for the Feynman slash notation
+
+\usepackage{listings}
+
+\usepackage{balance}
+\usepackage{verbatim}
+
+\input{definitions}
+
+\newcommand{\iGA}{{i}}
+\newcommand{\conjg}[1] {\ensuremath{#1}^*}
+
+\setbeamertemplate{bibliography item}{[\theenumiv]}
+
+
+\title{Nabla operator with Pauli matrices}
+
+\date{}
+
+%\subtitle{Maximizing efficiency and power at a fixed frequency}
+%\date{\today}
+%\author{Alessandra Costanzo, Franco Mastri, Mauro Mongiardo*, Giuseppina Monti}
+%\institute{*Department of Engineering,
+%University of Perugia, Italy}
+
+\author{ Mauro Mongiardo$^1$}
+
+\institute{ $^1$ Department of Engineering, University of Perugia, Perugia, Italy.
+}
+
+%
+\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo}}
+
+
+ \includecomment{comment} 
+% \excludecomment{comment}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Table of contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+
+%
+\section{Vectors}
+%
+\begin{frame}[shrink=00]{Vectors}
+Vector are generally represented in the various coordinate system as
+\bea
+\BA & = &  A_x \Bx_0 + A_y \By_0 + A_z \Bz_0 \nonumber \\
+& = &  A_\rho \boldsymbol{\rho}_0 + A_\phi \boldsymbol{\phi}_0 + A_z \Bz_0  \nonumber \\
+& = &  A_r \boldsymbol{r}_0 + A_\theta \boldsymbol{\theta}_0 + A_\phi \boldsymbol{\phi}_0 
+\eea
+
+Let us now represent them with the following form
+\be
+\BA = A_1 \Be_1 +A_2 \Be_2 +A_3 \Be_3
+\ee
+and let us impose that for $i=1,2,3$
+\be
+\left(\Be_i\right)^2 = 1
+\label{Clii}
+\ee
+and that for $i \ne j$
+\be
+\Be_i \Be_j  = - \Be_j \Be_i 
+\label{Clij}
+\ee
+These two conditions are sufficient to establish a Clifford algebra $Cl(3)$.
+
+\end{frame}
+
+
+%
+\begin{frame}[shrink=00]{Disadvantages of the vector representation with versors}
+\begin{itemize}
+\item Vectors cannot be multiplied
+\item it is not possible to find the inverse 
+\item given two vectors $\Ba$ and $\Bb$ it is not possible to find the transformation which leads from $\Ba$ to $\Bb$ 
+\item the cross product is misleading; instead, a bivector which is an oriented surface should be used.
+\item no volume elements are present.
+\item As we have seen the representation of a vector with Pauli matrices is the same in all coordinate systems, while with versors we only have the components.
+\end{itemize}
+
+\end{frame}
+%
+%
+
+%
+\begin{frame}[shrink=00]{Relation with Pauli matrices}
+By using the  correspondence in Table \ref{sigmai_table2} the conditions (\ref{Clii}) and (\ref{Clij}) are realized.
+\begin{table}[]
+\centering
+\caption{Basis vector in rectangular, cylindrical and spherical coordinate systems. The $\Be_i$ are a Clifford basis and correspond to the appropriate Pauli matrices.}
+%\hspace*{2.0cm}
+\label{sigmai_table2}
+%\begin{tabular}{l c l c  l  l  l }
+\begin{tabular}{| c | c | c | c | }
+\hline
+ & $\Be_1$ & $\Be_2$  & $\Be_3$  \\
+\hline
+rectangular & $\sigma_1$ & $\sigma_2$  &  $\sigma_3$ \\ \hline
+cylindrical & $\sigma_\rho$ & $\sigma_\phi$  &  $\sigma_3$    \\ \hline
+spherical & $\sigma_r$ & $\sigma_\theta$  &  $\sigma_\phi$   \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Vector $\BA$ equivalence for rectangular, cylindrical and spherical coordinate systems. }
+%\hspace*{2.0cm}
+\label{Avect_table}
+%\begin{tabular}{l c l c  l  l  l }
+\begin{tabular}{| c | c | c | c | }
+\hline
+ & $A_1$ & $A_2$  & $A_3$  \\
+\hline
+rectangular & $A_x$ & $A_y$  & $A_z$ \\ \hline
+cylindrical &$A_\rho$ & $A_\phi$  & $A_z$    \\ \hline
+spherical & $A_r$ & $A_\theta$  & $A_\phi$   \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+%
+
+\begin{frame}[shrink=00]{Pauli matrices in Rectangular  coordinates}
+
+\bea
+\sigma_1 & = &  \begin{pmatrix}0 & 1\cr 1 & 0\end{pmatrix} \nonumber \\
+\sigma_2& = & \begin{pmatrix}0 & -i \cr i & 0\end{pmatrix} \nonumber \\
+\sigma_3 & = & \begin{pmatrix}1 & 0\cr 0 & -1\end{pmatrix} \, .
+\label{sigma_cyl}
+\eea
+
+\end{frame}
+\begin{frame}[shrink=00]{Pauli matrices in Cylindrical coordinates}
+
+\bea
+\sigma_\rho & = &  \begin{pmatrix}0 & {e}^{-i\,\phi}\cr {e}^{i\,\phi} & 0\end{pmatrix} \nonumber \\
+\sigma_\phi & = & \begin{pmatrix}0 & -i\,{e}^{-i\,\phi}\cr i\,{e}^{i\,\phi} & 0\end{pmatrix} \nonumber \\
+\sigma_3 & = & \begin{pmatrix}1 & 0\cr 0 & -1\end{pmatrix} \, .
+\label{sigma_cyl}
+\eea
+
+\alert{Attention! The Pauli matrices in Cylindrical coordinates depend on $\phi$!}
+\end{frame}
+
+\begin{frame}[shrink=0]{Pauli matrices in Spherical coordinates}
+
+We have the following three matrices in spherical coordinates
+\bea
+\sigma_r & = &  \begin{pmatrix}\cos \theta  & {e}^{-i\,\phi}\, \sin \theta \cr {e}^{i\,\phi}  \, \sin \theta & -\cos \theta \end{pmatrix} \nonumber \\
+\sigma_\theta & = &  \begin{pmatrix}-\sin\theta & {e}^{-i\,\phi}\, \cos \theta \cr {e}^{i\,\phi}  \, \cos \theta& \sin \theta \end{pmatrix} \nonumber \\
+\sigma_\phi & = & \begin{pmatrix}0 & -i\,{e}^{-i\,\phi}\cr i\,{e}^{i\,\phi} & 0\end{pmatrix} \, .
+\label{sigma_sph}
+\eea
+
+\alert{Attention! The Pauli matrices in spherical coordinates depend on $\theta, \phi$!}
+\end{frame}
+
+\begin{frame}[shrink=30]{Summary of Pauli matrices}
+% Table summarizing the basis with Pauli matrices
+\begin{table}[]
+\centering
+\caption{Basis vector in rectangular, cylindrical and spherical coordinate systems. 
+%
+The $\Be_i$ are a Clifford basis and correspond to the appropriate Pauli matrices.}
+%\hspace*{2.0cm}
+\label{sigmai_table2}
+%\begin{tabular}{l c l c  l  l  l }
+\begin{tabular}{| c | c | c | c | }
+\hline
+ & $\Be_1$ & $\Be_2$  & $\Be_3$  \\
+\hline
+ & & & \\
+rectangular 
+& $\sigma_1 = \begin{pmatrix}0 & 1\cr 1 & 0\end{pmatrix}$ 
+& $\sigma_2 = \begin{pmatrix}0 & -i\cr i & 0\end{pmatrix}$  
+& $\sigma_3 = \begin{pmatrix}1 & 0\cr 0 & -1\end{pmatrix} $ \\ 
+ & & & \\
+ \hline
+ & & & \\
+cylindrical 
+&  $\sigma_\rho =  \begin{pmatrix}0 & {e}^{-i\,\phi}\cr {e}^{i\,\phi} & 0\end{pmatrix}$ 
+&  $\sigma_\phi = \begin{pmatrix}0 & -i\,{e}^{-i\,\phi}\cr i\,{e}^{i\,\phi} & 0\end{pmatrix} $  
+&  $\sigma_3 = \begin{pmatrix}1 & 0\cr 0 & -1\end{pmatrix}$    \\
+ & & & \\
+ \hline
+ & & & \\
+spherical 
+&  $\sigma_r =  \begin{pmatrix}\cos \theta  & {e}^{-i\,\phi}\, \sin \theta \cr {e}^{i\,\phi}  \, \sin \theta & -\cos \theta \end{pmatrix}$ 
+&  $\sigma_\theta = \begin{pmatrix}-\sin\theta & {e}^{-i\,\phi}\, \cos \theta \cr {e}^{i\,\phi}  \, \cos \theta& \sin \theta \end{pmatrix}$  
+&  $\sigma_\phi  =  \begin{pmatrix}0 & -i\,{e}^{-i\,\phi}\cr i\,{e}^{i\,\phi} & 0\end{pmatrix}$  \\ 
+ & & & \\
+ \hline
+ \end{tabular}
+\end{table}
+\end{frame}
+
+
+\section{Gradient}
+\begin{frame}[shrink=00]{Gradient}
+Let us consider a scalar  function $\phi(\Br)$, which is single valued and continuous in a volume $V$. 
+Physically, the function $\phi$ may represent an electric potential, a temperature, etc. 
+\pause
+
+At a point $P$ the function will take the value $\phi_P$. 
+Now suppose to draw a sphere of radius $\Delta s$ centered in $P$. 
+We can check the values of $\phi(\Br)$ on this sphere and, in general, there will be a point $Q$ on which the variation $\Delta \phi = \phi_P - \phi_Q$ is maximum. 
+\pause
+
+This defines also the direction from $P$ to $Q$. This direction is taken as the direction of a new vector which is called the \alert{gradient}. The magnitude of the gradient is defined as the value $\Delta \phi/\Delta s$ in this preferred direction. 
+
+\pause
+Thus the gradient of a scalar may be defined as 
+\be \label{gradient}
+grad \phi = \nabla \phi = \Ba_{max} \lim_{\Delta s \to 0} \left( \frac{\Delta \phi}{\Delta s}\right)_{max}
+\ee
+%
+where $\Ba_{max}$ is a unit vector pointing in the direction of maximum $\frac{\Delta \phi}{\Delta s}$.
+
+%It is noted that the definition (\ref{gradient}) is not dependent on a a particular coordinate system.
+
+
+\end{frame}
+
+\begin{frame}[shrink=00]{Gradient expression}
+It is noted that the definition (\ref{gradient}) is not dependent on a a particular coordinate system.
+\pause
+
+
+In \alert{rectangular coordinates}, (\ref{gradient}) reduces to
+%
+\be \label{gradientrect}
+ \nabla \phi = \Ba_{x}  \frac{\partial \phi}{\partial x} + \Ba_{y}  \frac{\partial \phi}{\partial y} + \Ba_{z}  \frac{\partial \phi}{\partial z} \, .
+\ee
+%
+\pause
+
+
+In \alert{circular--cylinder coordinates} , $\Delta s$ in the angular direction $\psi$ is not equal to $\Delta \psi$ but $\delta s = \rho \Delta \psi$. Thus we have
+%
+\be \label{gradientrect}
+ \nabla \phi = \Ba_{\rho}  \frac{\partial \phi}{\partial \rho} + \frac{\Ba_{\psi}}{\rho}  \frac{\partial \phi}{\partial \psi} + \Ba_{z}  \frac{\partial \phi}{\partial z} \, .
+\ee
+%
+\pause
+
+
+Similarly, in \alert{spherical coordinates}, 
+%
+\be \label{gradientrect}
+ \nabla \phi = \Ba_{r}  \frac{\partial \phi}{\partial r} + \frac{\Ba_{\psi}}{r \sin \theta}  \frac{\partial \phi}{\partial \psi} + \frac{\Ba_{\theta}}{r}  \frac{\partial \phi}{\partial \theta} \, .
+\ee
+%
+
+\end{frame}
+
+\section{Nabla definition}
+\begin{frame}[shrink=00]{Nabla definition}
+
+The \alert{nabla operator is defined} as
+\be
+\nabla = \sum_{i=1
+%,2,3
+}^3  c_i  \, \Be_i  \, \partial_i
+\ee
+%
+where we have introduced appropriate \alert{scaling coefficients $c_i$}, a \alert{Clifford vector base composed by $\Be_i$}, and the \alert{partial derivatives $\partial_i$}.
+
+Note that the $\Be_i$ are a \emph{Clifford basis} and they satisfy the properties of a Clifford basis, i.e. the $\Be_i \Be_i = 1$ and $\Be_i \Be_j = - \Be_j \Be_i$ for $i \ne j$.
+Depending on the coordinate system we will identify the basis vector as reported in Table \ref{sigmai_table}.
+
+\begin{table}[]
+\centering
+\caption{Basis vector in rectangular, cylindrical and spherical coordinate systems. The $\Be_i$ are a Clifford basis and correspond to the appropriate Pauli matrices.}
+%\hspace*{2.0cm}
+\label{sigmai_table}
+%\begin{tabular}{l c l c  l  l  l }
+\begin{tabular}{| c | c | c | c | }
+\hline
+ & $\Be_1$ & $\Be_2$  & $\Be_3$  \\
+\hline
+rectangular & $\sigma_1$ & $\sigma_2$  &  $\sigma_3$ \\ \hline
+cylindrical & $\sigma_\rho$ & $\sigma_\phi$  &  $\sigma_3$    \\ \hline
+spherical & $\sigma_r$ & $\sigma_\theta$  &  $\sigma_\phi$   \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+\end{frame}
+
+\begin{frame}[shrink=00]{Nabla definition}
+
+The scaling coefficients are reported in  Table \ref{Ci_table}. The partial derivatives symbols $\partial_i$ assume the meaning reported in Table \ref{partiali_table}
+
+\begin{table}[]
+\centering
+\caption{Scaling coefficients in rectangular, cylindrical and spherical coordinate systems. }
+%\hspace*{2.0cm}
+\label{Ci_table}
+%\begin{tabular}{l c l c  l  l  l }
+\begin{tabular}{| c | c | c | c | }
+\hline
+ & $c_1$ & $c_2$  & $c_3$  \\
+\hline
+rectangular & 1 & 1  &  1 \\ \hline
+cylindrical &1 & $1/\rho$  &  1    \\ \hline
+spherical & 1 & $1/r$  &  $1/(r \sin(\theta))$   \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Partial derivatives for rectangular, cylindrical and spherical coordinate systems. }
+%\hspace*{2.0cm}
+\label{partiali_table}
+%\begin{tabular}{l c l c  l  l  l }
+\begin{tabular}{| c | c | c | c | }
+\hline
+ & $\partial_1$ & $\partial_2$  & $\partial_3$  \\
+\hline
+rectangular & $\partial_x$ & $\partial_y$  & $\partial_z$ \\ \hline
+cylindrical &$\partial_\rho$ & $\partial_\phi$  & $\partial_z$    \\ \hline
+spherical & $\partial_r$ & $\partial_\theta$  & $\partial_\phi$   \\ \hline
+\end{tabular}
+\end{table}
+
+
+\end{frame}
+
+\begin{frame}[shrink=00]{Fundamental identity (the geometric product)}
+
+From the fundamental identity (the geometric product) we have:
+%
+\begin{eqnarray}
+ \nabla \, {\bf F}  & = &   \nabla \cdot \BF + \nabla \wedge \BF   \, .
+\end{eqnarray}
+%
+The term $\BF$ can be a multivector composed, in general, by a scalar part (grade 0), a vector part (grade 1), a bivector part (grade 2) and a trivector or pseudo scalar (grade 3). 
+In Table \ref{nabla_scalar} it  is reported the application of the nabla operator to a scalar function.
+
+
+\begin{table}[]
+\centering
+\caption{ For a scalar function $\phi$ application of the nabla operator gives a vector  (i.e. the gradient), here assumed equal to the external product of $\nabla$ and $\phi$. Note that in the geometric product expansion of $\phi$ also a term of the type $\nabla \cdot \phi$ is present, but this term is equal to zero.
+Further application of the nabla operator provides the Laplacian (which is of 0 grade) and the term $\nabla \wedge \nabla \wedge \phi =0$.}
+%\hspace*{2.0cm}
+\label{nabla_scalar}
+%\begin{tabular}{l c l c  l  l  l }
+\begin{tabular}{| c | c | c | c | c |}
+%
+\hline
+Grade & $0$ & $1$  & $2$ & $3$ \\
+\hline
+quantity & $\phi$ &   &  &  \\ \hline
+$\nabla \phi$ & 0 &  $\nabla \wedge \phi = \nabla \phi$ &  &  \\ \hline
+$\nabla \nabla \phi= \nabla^2 \phi$ & $\nabla \cdot \nabla \phi$ &   & $\nabla \wedge \nabla \wedge \phi =0$ &  \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+\end{frame}
+
+\begin{frame}[shrink=10]{Grade structure}
+
+In Table \ref{A_vector}  the nabla operator has been applied to a vector function.
+\begin{table}[]
+\centering
+\caption{ For a vector function $\BA$ application of the nabla operator gives a scalar  (i.e. the divergence), and a bivector. 
+From $\nabla \cdot \BA$ a further application of the nabla operator gives the vector term $\nabla \nabla \cdot \BA$, while the nabla operator applied to
+$\nabla \wedge \BA$ gives the term $\nabla \cdot \nabla \wedge \BA $ and the term $\nabla \wedge \nabla \wedge \BA $ which is equal to zero.
+}
+%\hspace*{2.0cm}
+\label{A_vector}
+%\begin{tabular}{l c l c  l  l  l }
+\begin{tabular}{| c | c | c | c | c |}
+%
+\hline
+Grade & $0$ & $1$  & $2$ & $3$ \\
+\hline
+quantity &  & $\BA$   &  &  \\ \hline
+$\nabla \BA$ & $\nabla \cdot \BA$ &    & $\nabla \wedge \BA$ &  \\ \hline
+$\nabla \nabla \BA= \nabla^2 \BA$ & & $\nabla \nabla \cdot \BA + \nabla \cdot \nabla \wedge \BA $  &  & $\nabla \wedge \nabla \wedge \BA =0$  \\ \hline
+\end{tabular}
+\end{table}
+
+It is noted that by substituting the vector $\BA$ with $i \BB$ we have the corresponding table for nabla operating on a bivector. Similarly, by substituting $\phi$ with $i \psi$ we have nabla operating on a pseudoscalar.
+
+\end{frame}
+
+%\begin{frame}[shrink=00]{}
+%\end{frame}
+
+
+
+\section{Nabla operator in rectangular coordinates}
+\begin{frame}[shrink=00]{Nabla operator in rectangular coordinates}
+
+
+By using Pauli matrices a field vector $\BF$ may be written as
+%
+\begin{eqnarray}
+ \tF  & = &  \sigma_1 F_x + \sigma_2 F_y  + \sigma_3 F_z \nonumber \\
+       & = &  \begin{pmatrix}{F}_{z} & {F}_{x}-i\,{F}_{y}\cr i\,{F}_{y}+{F}_{x} & -{F}_{z}\end{pmatrix}  
+% H  & = &    \begin{pmatrix}{H}_{z} & {H}_{x}-j\,{H}_{y}\cr j\,{H}_{y}+{H}_{x} & -{H}_{z}\end{pmatrix} 
+\end{eqnarray}
+
+%
+\pause
+Similarly, the Pauli matrix representation of the $\nabla$ operator takes the form
+%
+\begin{eqnarray}
+\tnabla  & = &  
+ \sigma_1 \partial_x + \sigma_2 \partial_y  + \sigma_3 \partial_z \nonumber \\
+  & = &  
+ \begin{pmatrix}{\partial}_{z} & {\partial}_{x}-i\,{\partial}_{y}\cr i\,{\partial}_{y}+{\partial}_{x} & -{\partial}_{z}\end{pmatrix} \, .
+  %
+\end{eqnarray}
+%
+From the fundamental identity (the geometric product) we have:
+%
+\begin{eqnarray}
+ \nabla \, {\bf F}  & = &   \nabla \cdot \BF + \nabla \wedge \BF   \, .
+\end{eqnarray}
+%
+
+
+\end{frame}
+
+\begin{frame}[shrink=20]{Matrix product evaluation}
+When evaluating $\nabla \, {\bf F}$ via Pauli matrices we simply need to perform the following matrix product:
+\small
+\bea
+\tnabla \, \tF & = & 
+\begin{pmatrix}{\partial}_{z} & {\partial}_{x}-i\,{\partial}_{y}\cr i\,{\partial}_{y}+{\partial}_{x} & -{\partial}_{z}\end{pmatrix} \, 
+\begin{pmatrix}{F}_{z} & {F}_{x}-i\,{F}_{y}\cr i\,{F}_{y}+{F}_{x} & -{F}_{z}\end{pmatrix} \nonumber  \\
+% & = & \begin{pmatrix}
+%\partial_z\,{F}_{z}+\partial_y\,{F}_{y}+i\,\left(\partial_x\,{F}_{y}\right) -i\,\left(\partial_y\,{F}_{x}\right) +\partial_x\,{F}_{x} & i\,\left(\partial_y\,{F}_{z}\right) -\partial_x\,{F}_{z}-i\,\left(\partial_z\,{F}_{y}\right) +\partial_z\,{F}_{x}\cr i\,\left(\partial_y\,{F}_{z}\right) +\partial_x\,{F}_{z}-i\,\left(\partial_z\,{F}_{y}\right) -\partial_z\,{F}_{x} &\partial_z\,{F}_{z}+\partial_y\,{F}_{y}-i\,\left(\partial_x\,{F}_{y}\right) +i\,\left(\partial_y\,{F}_{x}\right) +\partial_x\,{F}_{x}\end{pmatrix} \nonumber \\
+& = & \begin{pmatrix}\partial_z\,{F}_{z}+\partial_y\,{F}_{y}+\partial_x\,{F}_{x} & 0\cr 0 & \partial_z\,{F}_{z}+\partial_y\,{F}_{y}+\partial_x\,{F}_{x}\end{pmatrix} +\nonumber \\
+& + & 
+\begin{pmatrix}i\,\left( \partial_x\,{F}_{y}-\partial_y\,{F}_{x}\right)  & i\,\left( \partial_y\,{F}_{z}\right) -\partial_x\,{F}_{z}-i\,\left( \partial_z\,{F}_{y}\right) +\partial_z\,{F}_{x}\cr i\,\left( \partial_y\,{F}_{z}\right) +\partial_x\,{F}_{z}-i\,\left( \partial_z\,{F}_{y}\right) -\partial_z\,{F}_{x} & -i\,\left( \partial_x\,{F}_{y}-\partial_y\,{F}_{x}\right) \end{pmatrix} \,. \label{nablaF}
+%
+\eea
+\normalsize
+In (\ref{nablaF}) we have separated the scalar part corresponding to $\nabla \cdot \BF$ (diagonal matrix) from the external product $ \nabla \wedge \BF$.
+
+In the following code it is shown how to compute, for a vector $\BE$, the two geometric products $\nabla \BE$ and $\nabla \nabla \BE$.
+
+\end{frame}
+
+\begin{frame}[shrink=00]{}
+
+\small
+\lstinputlisting{wxMaxima/1Pauli_nabla3rect.wxm}
+\normalsize
+
+\end{frame}
+
+\begin{frame}[shrink=00]{Code}
+
+Instead of programming several times the nabla operation it is more convenient to use the block function.
+
+We have one block called Nablarect that performs the nabla operator on a given Pauli matrix.
+
+Then we have another block, called Gradesep, which for a given Pauli matrix separate the different grades.
+\end{frame}
+
+%\begin{frame}[shrink=00]{}
+%
+%\small
+%\lstinputlisting{Pauli_nabla2rect.wxm}
+%\normalsize
+%
+%\end{frame}
+
+\begin{frame}[shrink=20]{Second order expressions}
+In several instances it is necessary to form the second order expressions, e.g. $\nabla \nabla \, {\bf F}$. Computation of this quantity via Pauli matrices is embarrassing simple, since only matrix multiplication is  required
+%
+\small
+\bea
+\tnabla \, \tnabla \,\tF & = & 
+\begin{pmatrix}{\partial}_{z} & {\partial}_{x}-i\,{\partial}_{y}\cr i\,{\partial}_{y}+{\partial}_{x} & -{\partial}_{z}\end{pmatrix} \, 
+\begin{pmatrix}{\partial}_{z} & {\partial}_{x}-i\,{\partial}_{y}\cr i\,{\partial}_{y}+{\partial}_{x} & -{\partial}_{z}\end{pmatrix} \, 
+\begin{pmatrix}{F}_{z} & {F}_{x}-i\,{F}_{y}\cr i\,{F}_{y}+{F}_{x} & -{F}_{z}\end{pmatrix} \nonumber  \\
+& = & 
+\begin{pmatrix}{\partial}_{z}^{2}+\left( {\partial}_{x}-i\,{\partial}_{y}\right) \,\left( i\,{\partial}_{y}+{\partial}_{x}\right)  & 0\cr 0 & {\partial}_{z}^{2}+\left( {\partial}_{x}-i\,{\partial}_{y}\right) \,\left( i\,{\partial}_{y}+{\partial}_{x}\right) \end{pmatrix}
+\begin{pmatrix}{F}_{z} & {F}_{x}-i\,{F}_{y}\cr i\,{F}_{y}+{F}_{x} & -{F}_{z}\end{pmatrix} \nonumber  \\
+% & = & 
+% \begin{pmatrix}
+% \left( {\partial}_{z}^{2}+{\partial}_{y}^{2}+{\partial}_{x}^{2}\right) \,{F}_{z} 
+% & {\partial}_{z}^{2} \, \left( {F}_{x}-i\,{F}_{y}\right) +\left( -i\,{\partial}_{y}^{2}-i\,{\partial}_{x}^{2}\right) \,{F}_{y}+ {\partial}_{y}^{2} \, {F}_{x}+{\partial}_{x}^{2}\,{F}_{x}\cr 
+% \,{\partial}_{z}^{2} \, \left( i\,{F}_{y}+{F}_{x}\right) + \left( i\,{\partial}_{y}^{2}+i\,{\partial}_{x}^{2}\right) \,{F}_{y}+ {\partial}_{y}^{2} \, {F}_{x}\,+{\partial}_{x}^{2}\,{F}_{x} & \left( -{\partial}_{z}^{2}-{\partial}_{y}^{2}-{\partial}_{x}^{2}\right) \,{F}_{z}\end{pmatrix} \nonumber \\
+ & = & 
+ \begin{pmatrix}
+ \Delta \,{F}_{z} 
+ &  \Delta \, {F}_{x} - i \, \Delta \, {F}_{y} \cr 
+  i \, \Delta \, {F}_{y} + \Delta \, {F}_{x}
+ & \Delta \,{F}_{z}\end{pmatrix} \nonumber  \\
+ & = & \Delta \,\tF
+ \label{nablanablaF}
+%
+\eea
+\normalsize
+where we have introduced the laplacian $\Delta$ defined as
+\be
+\Delta = {\partial}_{z}^{2}+{\partial}_{y}^{2}+{\partial}_{x}^{2}
+\ee
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Nabla operator in circular cylindrical coordinates using Pauli matrices}
+
+\begin{frame}[shrink=00]{Nabla operator in circular cylindrical coordinates}
+The gradient operator of a scalar function $w$ in circular cylindrical coordinates has the following form:
+%
+\be \label{gradcyl}
+\nabla w = \Bu_\rho \, \frac{\partial\,w}{\partial\,\rho} 
++ \Bu_\phi \,\frac{ 1 }{\rho} \frac{\partial\,w}{\partial\,\phi}  + \Bu_z\frac{\partial\,w}{\partial\,z} \, ,
+\ee
+%
+from which we can infer the Pauli matrix representation of the nabla operator $\tilde{\nabla}$ in cylindrical coordinates.
+\pause
+
+By substituting the unit versors with the matrices in Table \ref{sigmai_table}, and using the abbreviated  notation e.g. $\partial_\rho = \partial / \partial \rho$, we obtain
+%
+\bea
+\tilde{\nabla} & = & \sigma_\rho \, \partial_\rho + \frac{ 1 }{\rho}\sigma_\phi \, \partial_\phi + \sigma_z \, \partial_z \nonumber \\
+& = & \begin{pmatrix} \partial_z & 
+\frac{{e}^{-i\,\phi}}{\rho}\,\left(\rho\,{\partial}_{\rho} - i\,{\partial}_{\phi}\right) \cr 
+\frac{{e}^{i\,\phi}}{\rho}\,\left(\rho\,{\partial}_{\rho} + i\,{\partial}_{\phi}\right)  & -\partial_z \end{pmatrix} \nonumber \\
+& = & 
+ \begin{pmatrix}
+ \partial_z & \nabla_t^* \cr
+\nabla_t & -\partial_z
+ \end{pmatrix} \label{nablaPcyl}
+\eea
+
+\end{frame}
+
+\begin{frame}[shrink=00]{Nabla operator in circular cylindrical }
+where we have introduced the operator $\nabla_t$ and its complex conjugate $\nabla_t^*$ defined as 
+%
+\bea
+\nabla_t &=& \frac{{e}^{i\,\phi}}{\rho}\, \left(\rho\,{\partial}_{\rho} + i\,{\partial}_{\phi}\right) \nonumber \\
+\nabla_t^* &=& \frac{{e}^{-i\,\phi}}{\rho}\, \left(\rho\,{\partial}_{\rho} - i\,{\partial}_{\phi}\right) \, .
+\eea
+%
+\pause
+
+Let us now consider a vector $\BA$ expressed in terms of cylindrical Pauli matrices as:
+\be \label{Acyl}
+\tilde{A} = \begin{pmatrix}A_z & {e}^{-i\,\phi} \, \left( A_\rho-i\,A_\phi\right) \cr {e}^{i\,\phi} \, \left( A_\rho+i\,A_\phi\right)  & -A_z\end{pmatrix}
+\ee
+and let us recall that, due to the fundamental identity of geometric algebra, we also have:
+\be
+\nabla \BA = \nabla \cdot \BA + \nabla \wedge \BA \, .
+\ee
+%
+
+
+\end{frame}
+
+\begin{frame}[shrink=20]{vector $\BA$ expressed in terms of cylindrical Pauli matrices}
+%
+By performing the matrix multiplication of (\ref{nablaPcyl}) with (\ref{Acyl}), and by denoting with $\left(\tilde{\nabla}\,\tilde{A}\right)_{ij} $ the $ij$ element of the matrix, we obtain:
+\bea
+\left(\tilde{\nabla}\,\tilde{A}\right)_{11} & = & \nabla \cdot \BA +  i \left[ \frac{A_\phi}{\rho} + \frac{\partial \, A_\phi}{\partial\,\rho} -\frac{1}{\rho} \frac{\partial \, A_\rho}{\partial\,\phi} \right]
+\nonumber \\
+%
+\left(\tilde{\nabla}\,\tilde{A}\right)_{12} & = & \left[ - \left(
+\frac{\partial \,A_z}{\partial\,\rho}-\frac{\partial \,A_\rho}{\partial \,z} \right)
++ i \left(  \frac{1}{\rho}\frac{\partial \, A_z}{\partial\,\phi}       - \frac{\partial \, A_\phi}{\partial\,z}\, \right) \right]\, {e}^{-i\,\phi}
+\nonumber \\
+%
+\left(\tilde{\nabla}\,\tilde{A}\right)_{21} & = & \left[ \left(
+\frac{\partial \,A_z}{\partial\,\rho}-\frac{\partial \,A_\rho}{\partial \,z} \right)
++ i \left(  \frac{1}{\rho}\frac{\partial \, A_z}{\partial\,\phi}       - \frac{\partial \, A_\phi}{\partial\,z}\, \right) \right]\, {e}^{i\,\phi}
+\nonumber \\
+%
+\left(\tilde{\nabla}\,\tilde{A}\right)_{22} & = & \nabla \cdot \BA -  i \left[ \frac{A_\phi}{\rho} + \frac{\partial \, A_\phi}{\partial\,\rho} -\frac{1}{\rho} \frac{\partial \, A_\rho}{\partial\,\phi} \right] \, .
+\label{nablaAcylcomp}
+\eea
+%
+In (\ref{nablaAcylcomp}), the divergence term
+\be
+\nabla \cdot \BA =  \frac{\partial \, A_\rho}{\partial\,\rho} +  \frac{ A_\rho}{\rho} + \frac{1}{\rho}\frac{\partial \, A_\phi}{\partial\,\phi} + \frac{\partial \, A_z}{\partial\,z}
+\ee
+has been singled out.
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}[shrink=00]{The matrix $\tilde{\nabla}\,\tilde{A}$}
+The matrix $\tilde{\nabla}\,\tilde{A}$ contains therefore the divergence term, which can be obtained by dividing by two the matrix trace, and contains also all the terms relative to the external product o$\tilde{\nabla}$ and $\tilde{A}$. 
+
+The specific component of the part corresponding to the external product, i.e. to the bivector, is obtained in the following manner.
+
+First the matrix $\tilde{\nabla} \wedge \tilde{A}$ is obtained as
+\be
+\tilde{\nabla} \wedge \tilde{A} = \tilde{\nabla}\,\tilde{A} - \left( \nabla \cdot \BA \right)\, \sigma_0 \,.
+\ee
+Then the component are retrieved by dot multiplication for the appropriate Pauli matrix. 
+The dot multiplication is obtained from the multiplication of the matrices and then by taking half of the trace. 
+
+\end{frame}
+
+\begin{frame}[shrink=00]{Curl cylindrical coordinates}
+As an example for the $\rho$ component we have
+\bea
+\left(\nabla \times \BA\right)_\rho & = & \frac{1}{2\, i} trace\left\{\left( \tilde{\nabla} \wedge \tilde{A} \right) \sigma_\rho\right\} 
+\nonumber \\
+& = & \frac{1}{\rho} \frac{\partial \, A_z}{\partial\,\phi} - \frac{\partial \, A_\phi}{\partial\,z} \label{retrieve_rho}
+\eea
+while for the $\phi$ component one has
+\bea
+\left(\nabla \times \BA\right)_\phi & = & \frac{1}{2\, i} trace\left\{\left( \tilde{\nabla} \wedge \tilde{A} \right) \sigma_\phi\right\} 
+\nonumber \\
+& = &  \frac{\partial \, A_\rho}{\partial\,z} - \frac{\partial \, A_z}{\partial\,\rho} \label{retrieve_phi}
+\eea
+and, finally, for the $z$ component we obtain
+\bea
+\left(\nabla \times \BA\right)_z & = & \frac{1}{2\, i} trace\left\{\left( \tilde{\nabla} \wedge \tilde{A} \right) \sigma_z\right\} 
+\nonumber \\
+& = & \frac{A_{\phi}}{\rho} + \frac{\partial \, A_\phi}{\partial\,\rho} + \frac{1}{\rho} \frac{\partial \, A_\rho}{\partial\,\phi} \, .
+ \label{retrieve_z}
+\eea
+
+\end{frame}
+
+\begin{frame}[shrink=00]{Second order operators}
+
+%\subsubsection{Second order operators}
+Further application of the nabla operator allows to obtain
+\be 
+\tilde{\nabla}\, \tilde{\nabla}\,\tilde{A} = \tilde{\nabla}^2\,\tilde{A} 
+\ee
+which, in terms of Pauli matrices, can be be computed by matrix multiplication. 
+\pause
+In vector terms the second order operator gives the vector Laplacian 
+$\nabla^2 \BA$:
+\be 
+\nabla\left( \nabla \BA\right) =  \nabla^2 \BA = \nabla \cdot \nabla \wedge \BA + \nabla \wedge \nabla \cdot \BA
+\label{vectorLaplacian}
+\ee
+which shows that the final result is a vector.
+
+It is convenient to introduce the scalar Laplacian operator $\nabla_s^2 $ defined as:
+\be \label{laplacianscyl}
+\nabla_s^2 = \frac{\partial^2 \, }{\partial\,\rho^2} + \frac{1}{\rho^2} \frac{\partial^2 \, }{\partial\,\phi^2} + \frac{\partial^2 \, }{\partial\,z^2} +
+\frac{1}{\rho} \frac{\partial \, }{\partial\,\rho}
+\ee
+%
+
+
+\end{frame}
+
+\begin{frame}[shrink=00]{Differences between the scalar Laplacian (\ref{laplacianscyl}) and the vector Laplacian (\ref{vectorLaplacian})}
+As a result of the matrix multiplication, and by identifying the various components, the following results are obtained:
+%
+\bea 
+%
+\left( \tilde{\nabla}^2\,\tilde{A} \right)_\rho  & = &  \nabla_s^2 A_\rho  - \frac{A_\rho} {\rho^2}  - \frac{2}{\rho^2} \frac{\partial \, A_\phi}{\partial \, \phi}
+\nonumber \\
+%
+\left( \tilde{\nabla}^2\,\tilde{A} \right)_\phi  & = &  \nabla_s^2 A_\phi  - \frac{A_\phi} {\rho^2}  + \frac{2}{\rho^2} \frac{\partial \, A_\rho}{\partial \, \phi}
+\nonumber \\
+%
+\left( \tilde{\nabla}^2\,\tilde{A} \right)_\rho  & = &  \nabla_s^2 A_z \, .
+\label{nabla2:cyl}
+%
+\eea
+%
+\pause
+\alert{It is important to note  the differences between the scalar Laplacian (\ref{laplacianscyl}) and the vector Laplacian (\ref{vectorLaplacian})}.
+
+In conventional vector algebra the vector Laplacian is expressed as
+\be 
+  \nabla^2 \BA = \nabla \nabla \cdot  \BA - \nabla \times \nabla \times \BA \, .
+\label{vectorLaplacian:conv}
+\ee
+\end{frame}
+
+\begin{frame}[shrink=00]{Code for Nabla operations and grade retrieval in cylindrical coordinates}
+A  code illustrating the nabla operation and  the grade extraction is shown next.
+
+The block Nablacyl performs the nabla operation on a Pauli matrix.
+
+The block Gradecyl perform the grade extraction on a Pauli matrix in cylindrical coordinates.
+
+Optionally these operations are used to find the gradient of a line charge distribution and the magnetic field on an infinite current line.
+\end{frame}
+
+
+\begin{frame}[shrink=00]{}
+\clearpage
+\small
+\lstinputlisting{wxMaxima/2Nabla_cyl_4_blocks.wxm}
+\normalsize
+\end{frame}
+
+
+
+\begin{frame}[shrink=00]{Code}
+In the following code the relevant quantities are computed first in terms of conventional operators. 
+
+Then they are computed in terms of Pauli matrices.
+
+When feasible a test has been introduced showing that the results are coincident.
+
+%\small
+%\begin{verbatim}
+%wxMaxima/Pnabla_cyl.wxm
+%\end{verbatim}
+%\normalsize
+%
+%
+It is noted that so far we have considered all the components with all the spatial dependencies. 
+
+In several cases noticeable simplifications can occur. 
+
+Consider e.g. the case of infinite filament of constant current, placed in the $z$ direction. 
+
+The potential $A$ will be of the form $A_z(\rho)$ and therefore the problem is considerably simpler.
+
+%\begin{comment}
+
+%\end{comment}
+
+\end{frame}
+\begin{frame}[shrink=00]{}
+\clearpage
+\small
+\lstinputlisting{wxMaxima/2Pnabla_cyl.wxm}
+\normalsize
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Nabla operator in spherical coordinates using Pauli matrices}
+\begin{frame}[shrink=20]{Nabla operator in spherical coordinates using Pauli matrices}
+
+The gradient operator of a scalar function $w$ in spherical coordinates has the following form:
+%
+\be \label{gradcyl}
+\nabla w = \Bu_r \, \frac{\partial\,w}{\partial\,r} 
++ \Bu_\theta \,\frac{ 1 }{r} \frac{\partial\,w}{\partial\,\theta}  + \frac{1}{r \, \sin{\theta}}\Bu_\phi\frac{\partial\,w}{\partial\,\phi} \, ,
+\ee
+%
+from which we can infer the Pauli matrix representation of the nabla operator $\tilde{\nabla}$ in spherical coordinates.
+
+
+\pause
+By substituting the unit versors with the matrices in Table \ref{sigmai_table}, and using the abbreviated  notation e.g. $\partial_r = \partial / \partial r$, we obtain
+%
+\bea
+\tilde{\nabla} & = & \sigma_r \, \partial_r + \frac{ 1 }{r}\sigma_\theta \, \partial_\theta + \frac{1}{r \, \sin{\theta}} \sigma_\phi \, \partial_\phi \nonumber \\
+& = & 
+\begin{pmatrix}  \cos \theta \, {\partial}_{r} -\sin \theta \, {\partial}_{\theta}\,  & 
+{e}^{-i\,\phi}\,\left( \sin \theta\, {\partial}_{r} \,+\cos \theta \,{\partial}_{\theta}\,  -i \,{\partial}_{\phi}\right) \cr 
+{e}^{ i\,\phi}\,\left( \sin \theta\, {\partial}_{r} \,+\cos \theta \,{\partial}_{\theta}\,  +i \,{\partial}_{\phi}\right)& 
+-\left(\cos \theta \, {\partial}_{r} -\sin \theta \, {\partial}_{\theta}\,\right)
+\end{pmatrix} 
+\label{nablaPsph}
+\eea
+
+\end{frame}
+
+\begin{frame}[shrink=20]{vector $\BA$}
+Let us now consider a vector $\BA$ expressed in terms of spherical Pauli matrices as:
+\be \label{Asph}
+\tilde{A} = 
+\begin{pmatrix} {A}_{r}\, \cos \theta-{A}_{\theta}\,\sin \theta  & 
+{e}^{-i\,\phi}\,\left({A}_{r}\, \sin \theta \,-i \,{A}_{\phi}+{A}_{\theta}\,\cos \theta\right) \cr 
+{e}^{i\,\phi}\,\left({A}_{r}\, \sin \theta \,+i \,{A}_{\phi}+{A}_{\theta}\,\cos \theta\right) & 
+-{A}_{r}\, \cos \theta+{A}_{\theta}\,\sin \theta
+\end{pmatrix} 
+\ee
+
+and let us recall that, due to the fundamental identity of geometric algebra, we also have:
+
+%
+\be
+\nabla \BA = \nabla \cdot \BA + \nabla \wedge \BA \, .
+\ee
+%
+
+By performing the matrix multiplication of (\ref{nablaPsph}) with (\ref{Asph}), we obtain
+%
+\be
+\tilde{\nabla} \, \tilde{A}  = \nabla \cdot \BA \, \sigma_0 + n_r  \,\sigma_r + n_\theta \, \sigma_\theta + n_\phi \,  \sigma_\phi \, ,
+\ee
+%
+where the following symbols have been used:
+\end{frame}
+
+\begin{frame}[shrink=20]{$\tilde{\nabla} \, \tilde{A} $}
+
+\bea
+\nabla \cdot \BA & = & \partial_r \, A_r + \frac{2 \, A_r}{r} + \frac{\partial_\theta A_\theta}{r} + \frac{\cos \theta \, A_\theta}{r \, \sin \theta} + \frac{\partial_\phi A_\phi}{r\, \sin \theta}
+\nonumber \\
+%
+n_r & = &  \frac{i}{r\, \sin \theta} \left(  - \partial_\phi A_\theta + \sin \theta \,  \partial_\theta A_\phi  + \cos \theta \, A_\phi \right)
+ \nonumber \\
+%
+n_\theta & = & i \left(   \frac{\partial_\phi \, A_r}{r\, \sin \theta} -  \frac{A_\phi}{r} - \partial_r \, A_\phi \right)
+\nonumber \\
+%
+n_\phi & = &  i \left( \frac{\partial_\theta A_r}{r} - \frac{ A_\theta}{r}  + \partial_r A_\theta     \right)  \, .
+\label{nablaAsphcomp}
+\eea
+%
+In (\ref{nablaAsphcomp}) the term $\nabla \cdot \BA$ is the conventional divergence. 
+
+Since $\nabla \wedge \BA = i \nabla \times \BA$ the other terms $n_r, n_\theta, n_\phi$ are simply the components along $r, \theta$ and $\phi$ of the curl operator multiplied by $i$.
+
+\alert{It is noted that while in conventional algebra there is no single operator providing both the divergence and the curl, by using Pauli matrices a single operator (\ref{nablaPsph}) exists for the nabla representation.}
+
+\end{frame}
+
+\begin{frame}[shrink=00]{Second order operators}
+
+%\subsubsection{Second order operators}
+Further application of the nabla operator allows to obtain
+\be 
+\tilde{\nabla}\, \tilde{\nabla}\,\tilde{A} = \tilde{\nabla}^2\,\tilde{A} 
+\ee
+which, in terms of Pauli matrices, can be be computed by matrix multiplication. 
+
+In vector terms the second order operator gives the vector Laplacian 
+$\nabla^2 \BA$:
+\be 
+\nabla\left( \nabla \BA\right) =  \nabla^2 \BA = \nabla \cdot \nabla \wedge \BA + \nabla \wedge \nabla \cdot \BA
+\label{vectorLaplacian2}
+\ee
+which shows that the final result is a vector.
+
+\pause
+It is convenient to introduce the scalar Laplacian operator for spherical coordinates $\nabla_s^2 $ defined as:
+%
+\be \label{laplaciansph}
+ \nabla_s^2 w  = \frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2  \frac{\partial w}{\partial r}\right)  +   
+ \frac{1}{r^2 \sin \theta}   \frac{\partial}{\partial \theta}  \left(  \sin \theta\frac{\partial w}{\partial \theta} \right) 
++  \frac{1}{r^2 \sin^2 \theta}\frac{\partial^2 w}{\partial \phi^2}  
+\ee
+%
+
+
+
+\end{frame}
+
+\begin{frame}[shrink=00]{ Vector Laplacian}
+
+and the coefficients:
+
+\bea
+%
+N_r & = & \nabla_s^2 A_r - \frac{2}{r^2 \, \sin \theta}
+\left( A_r \, \sin \theta + A_\theta \, \cos \theta + \sin \theta \partial_\theta A_\theta + \partial_\phi A_\phi   \right)
+ \nonumber \\
+%
+N_\theta & = & \nabla_s^2 A_\theta + \frac{1}{r^2 \, \sin^2 \theta}
+ \left( {2\, \sin^2 \theta \, \partial_\theta \,A_r - A_\theta - 2\, \cos \theta \partial_\phi \, A_\phi}   \right)
+\nonumber \\
+%
+N_\phi & = &  \nabla_s^2 A_\theta + \frac{1}{r^2 \, \sin^2 \theta}
+ \left( {2\, \partial_\phi \,A_r + 2\, \cos \theta \partial_\phi \, A_\theta - A_\phi }   \right)  \, .
+\label{nablanablaAsphcomp}
+\eea
+%
+The second order nabla operator can finally be expressed as:
+%
+\be
+\tilde{\nabla}^2 \, \tilde{A}  =  N_r  \,\sigma_r + N_\theta \, \sigma_\theta + N_\phi \,  \sigma_\phi \, ,
+\ee
+%
+\end{frame}
+
+
+
+
+
+\begin{frame}[shrink=00]{Differences between the scalar Laplacian (\ref{laplacianscyl}) and the vector Laplacian (\ref{vectorLaplacian2})}
+
+It is important to note  the differences between the scalar Laplacian (\ref{laplacianscyl}) and the vector Laplacian (\ref{vectorLaplacian2}).
+In conventional vector algebra the vector Laplacian is expressed as
+\be 
+  \nabla^2 \BA = \nabla \nabla \cdot  \BA - \nabla \times \nabla \times \BA \, .
+\label{vectorLaplacian:conv}
+\ee
+
+In the following code the relevant quantities are computed first in terms of conventional operators. Then they are computed in terms of Pauli matrices.
+When feasible a test has been introduced showing that the results are coincident.
+
+
+\end{frame}
+
+\begin{frame}[shrink=00]{}
+%\begin{comment}
+\clearpage
+\small
+\lstinputlisting{wxMaxima/3Pnabla_sph2.wxm}
+\normalsize
+\newpage
+%\end{comment}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Relating vector algebra to conventional vector analysis}
+\begin{frame}[shrink=00]{Triple products}
+
+We have previously shown that the following identities between vectors hold:
+%
+\bea 
+\Ba \wedge \Bb & = & i \, \Ba \times \Bb \label{eqextcurl} \\
+\Ba \cdot  \Bb \wedge \Bc & = & - \, \Ba \times \Bb  \times \Bc \label{eqdotext} \\
+\Ba \wedge \Bb \wedge \Bc& = & i \, \Ba \cdot ( \Bb \times \Bc) \label{eqextext} \, .
+\eea
+%
+\pause
+These equations allows to translate into conventional vector analysis (VA) the identities obtained in geometric algebra (GA) and viceversa.
+As an example, consider the triple geometric product $\Ba \, \Bb \, \Bc$ expressed as:
+\bea
+\Ba \, \Bb \, \Bc & = & \Ba \left( \Bb \cdot \Bc + \Bb \wedge \Bc      \right) \nonumber \\
+& = & \Ba \cdot \left( \Bb \cdot \Bc + \Bb \wedge \Bc  \right)    + \Ba \wedge \left( \Bb \cdot \Bc + \Bb \wedge \Bc      \right) \nonumber \\
+& = & \Ba \cdot  \Bb \cdot \Bc +  \Ba \cdot (\Bb \wedge \Bc)      + \Ba \wedge  (\Bb \cdot \Bc)   + \Ba \wedge \Bb \wedge \Bc       \nonumber \\
+& = & - \, \Ba \times \Bb  \times \Bc + \Ba (\Bb \cdot \Bc) + i \, \Ba \cdot ( \Bb \times \Bc) \label{tripleabc}
+\eea
+where the term $\Ba \cdot  \Bb \cdot \Bc $ evidently is equal to zero.
+
+\end{frame}
+
+\begin{frame}[shrink=00]{Triple products: grade interpretation}
+
+Computationally, by using the Pauli matrices ($\ta, \tb, \tc$) the triple product is trivial and is simply a matrix product. 
+
+However, from direct interpretation of the result in (\ref{tripleabc}) one may also recognize:
+\begin{itemize}
+\item the term $\Ba \cdot (\Bb \wedge \Bc) = - \, \Ba \times \Bb  \times \Bc $ is the dot product of a vector and a bivector giving as a result a vector;
+\item the term $\Ba \wedge  (\Bb \cdot \Bc)= \Ba (\Bb \cdot \Bc)$ corresponds also to a vector;
+\item the last term $\Ba \wedge \Bb \wedge \Bc  = i \, \Ba \cdot ( \Bb \times \Bc)$ is a trivector (or pseudoscalar).
+\end{itemize}
+
+The above identities are also useful in order to find some relationships concerning the nabla operator.
+
+\end{frame}
+
+\begin{frame}[shrink=10]{The nabla operator in geometric algebra}
+
+%\subsubsection{The nabla operator in geometric algebra}
+It is instructive to start from (\ref{eqextcurl})--(\ref{eqextext}) and to formally substitute $\Ba$ with the nabla operator $\nabla$, thus obtaining:
+%
+\bea 
+\nabla \wedge \Bb & = & i \, \nabla \times \Bb \label{neqextcurl} \\
+\nabla \cdot  (\Bb \wedge \Bc) & = & - \, \nabla \times (\Bb  \times \Bc) \label{neqdotext} \\
+\nabla \wedge (\Bb \wedge \Bc)& = & i \, \nabla \cdot ( \Bb \times \Bc) \label{neqextext} \, .
+\eea
+%
+Equation (\ref{neqextcurl}) simply relates  the external product of $\nabla$ with a vector $\Bb$ with the curl operation. 
+\pause
+
+The other two equations (\ref{neqdotext}), (\ref{neqextext}) are interesting, since they refer to the divergence and the external product of a \emph{bivector}.
+\pause
+
+Equation (\ref{neqdotext}) states that the divergence of a bivector $\Bb\wedge\Bc$ is equal to minus the curl of $\Bb \times \Bc$., i.e. to a vector.
+
+\pause
+Equation (\ref{neqextext}) tells us that the external product of $\nabla$ with a bivector $\Bb\wedge\Bc$ is equal to the divergence of $\Bb \times \Bc$ multiplied by $i$.
+
+
+\end{frame}
+
+\begin{frame}[shrink=10]{Proof of $\nabla \cdot  (\Bb \wedge \Bc)  =  - \, \nabla \times (\Bb  \times \Bc)$}
+
+An alternative way to prove (\ref{neqdotext}) is the following.
+Let us assume
+\be
+\nabla = \Be_1 \partial_1 + \Be_2 \partial_2 + \Be_3 \partial_3
+\ee
+and consider a bivector ${\hat \BB}$ given by
+\be
+{\hat \BB} = i \BB = i\left( \Be_1 B_1 +  \Be_2 B_2+  \Be_3 B_3 \right) = \Be_{23} B_1 + \Be_{31} B_2 + \Be_{12} B_3 \, .
+\ee
+%
+Dot multiplication provides:
+%
+\bea
+\nabla \cdot  {\hat \BB} & = & \left( \Be_1 \partial_1 + \Be_2 \partial_2 + \Be_3 \partial_3 \right) \cdot \left( \Be_{23} B_1 + \Be_{31} B_2 + \Be_{12} B_3 \right) \nonumber \\
+& = & - \Be_3 \partial_1 B_2 + \Be_2 \partial_1 B_3
++  \Be_3 \partial_2 B_1 - \Be_1 \partial_2 B_3
+-  \Be_2 \partial_3 B_1 + \Be_1 \partial_3 B_2 
+\nonumber \\
+& = & - \left[ 
+\Be_1 \left( \partial_2 B_3 -  \partial_3 B_2 \right)  + 
+\Be_2 \left( \partial_3 B_1 -  \partial_1 B_3 \right)  + 
+\Be_3 \left( \partial_1 B_2 -  \partial_2 B_1 \right)  
+\right] \nonumber \\
+& = & - \nabla \times \BB
+\eea
+which proves the relation (\ref{neqextcurl}).
+
+We also have
+\alert{$\nabla \cdot  (\nabla \wedge \Bc)  =  - \, \nabla \times (\nabla  \times \Bc)$}
+
+\end{frame}
+
+\begin{frame}[shrink=10]{Proof of $\nabla \wedge (\Bb \wedge \Bc) =  i \, \nabla \cdot ( \Bb \times \Bc)$}
+
+Equation (\ref{neqextext}) can be verified by considering:
+\be
+\nabla = \Be_1 \partial_1 + \Be_2 \partial_2 + \Be_3 \partial_3
+\ee
+
+\be
+{\hat \BB} = i \BB = i\left( \Be_1 B_1 +  \Be_2 B_2+  \Be_3 B_3 \right) = \Be_{23} B_1 + \Be_{31} B_2 + \Be_{12} B_3 \, .
+\ee
+
+\bea
+\nabla \wedge {\hat \BB} & = & \left( \Be_1 \partial_1 + \Be_2 \partial_2 + \Be_3 \partial_3 \right) \wedge \left( \Be_{23} B_1 + \Be_{31} B_2 + \Be_{12} B_3 \right) \nonumber \\
+& = &  
+ \Be_{123}  \partial_1 B_1 +
+\Be_{231}  \partial_2 B_2 +
+\Be_{312}  \partial_3 B_3 
+\nonumber \\
+& = & i \nabla \cdot \BB
+\eea
+since
+\be
+i =  \Be_{123} =\Be_{231} = \Be_{312} \,.
+\ee
+
+We also have $\nabla \wedge (\nabla \wedge \Bc) =  i \, \nabla \cdot ( \nabla \times \Bc)=0$
+\end{frame}
+
+
+
+%\begin{frame}[shrink=00]{}
+%\end{frame}
+%\begin{frame}[shrink=00]{}
+%\end{frame}
+
+\begin{frame}[shrink=00]{Geometric product of $\nabla(\Bb\,\Bc)$}
+
+%\subsubsection{Geometric product of $\nabla(\Bb\,\Bc)$}
+By formally substituting $\Ba$ with $\nabla$ and considering the latter acting on $\Bb\, \Bc$ one derives from (\ref{tripleabc}):
+\bea
+\nabla \, (\Bb\, \Bc) & = & \nabla \cdot (\Bb \wedge \Bc)      + \nabla \wedge  (\Bb \cdot \Bc)   + \nabla \wedge (\Bb \wedge \Bc)       \nonumber \\
+& = & - \, \nabla \times (\Bb  \times \Bc) + \nabla (\Bb \cdot \Bc) + i \, \nabla \cdot ( \Bb \times \Bc) \, . \label{nablabc}
+\eea
+Naturally $\Bb \, \Bc$ is a product of two vectors and, as such, is a scalar plus a bivector. 
+\pause
+
+The operation $\nabla \wedge (\Bb \wedge \Bc)$  provides a trivector, while the other two operations, $\nabla \cdot (\Bb \wedge \Bc)$ and $\nabla \wedge  (\Bb \cdot \Bc)$, return a vector. 
+\pause
+
+Note that we have made use of the fact (cite Jancewicz) that, for a scalar function $\phi$, we may interpret $\nabla \phi = \nabla \wedge \phi$ i.e. the gradient is obtained as an external product of a vector with a scalar.
+
+
+\end{frame}
+
+\begin{frame}[shrink=00]{Second order derivatives}
+
+Always referring to (\ref{tripleabc}) it is also possible to make the additional substitution of $\Bb$ with $ \nabla$. It is noted that in GA we have (the external part of a vector to itself is null)
+\be \label{ww0}
+\nabla \wedge \nabla \wedge \Bc = 0 \, ,
+\ee
+\pause
+and therefore we get the identity:
+\bea
+\nabla \, \nabla\, \Bc & = & \nabla \cdot (\nabla \wedge \Bc)      + \nabla \wedge  (\nabla \cdot \Bc)        \\
+& = & \nabla^2 \Bc = \Delta \Bc
+\eea
+where $\Delta $ is the \emph{Laplacian}. 
+
+It is straightforward to prove that the above identity also holds for multivectors. 
+
+\end{frame}
+
+\begin{frame}[shrink=00]{Noticeable cases}
+%\subsubsection{Noticeable cases}
+From (\ref{ww0}) applied to a scalar function function $\phi$ and taking into account (\ref{eqextcurl}) one gets
+\be \label{wwphi0}
+\nabla \wedge \nabla \wedge \phi = 0 = i \, \left[ \nabla \times (\nabla \phi)\right] \, ,
+\ee
+i.e. the classical curl(grad $\phi = 0$). 
+
+\pause
+Moreover, from (\ref{ww0}) and (\ref{eqextext}) we get:
+\be \label{wwc0}
+\nabla \wedge \nabla \wedge \Bc = 0 = i \, \left[ \nabla \cdot (\nabla \times \Bc)\right] \, ,
+\ee
+i.e. div (curl $\Bc = 0$).
+
+
+
+\end{frame}
+
+\begin{frame}[shrink=00]{Consequences}
+The above identities suggest that if we have e.g. a vector field $\BE$, which has to satisfy $\nabla \wedge \BE = 0$, such a field can be expressed as $\BE = \nabla \phi$ and (\ref{wwphi0}) will be automatically satisfied. 
+\pause
+
+Similarly, if we have a bivector field $\hat{\BH}=i \, \BH$, which has to satisfy 
+
+$\nabla \wedge \hat{\BH} =   \nabla \cdot ( i \, \BH)=0$, 
+
+the bivector field $\hat{\BH}$ can be expressed as $\hat{\BH} = \nabla \wedge \BA$, with (\ref{wwc0}) satisfied. 
+
+\pause
+Note that in (\ref{wwc0}) we can also give another interpretation by looking at the r.h.s.. In fact, we can say that if a vector $\BH$ has to have zero divergence than it can be expressed as the curl of a vector $\BA$. 
+
+\end{frame}
+
+
+\begin{frame}[shrink=30]{Summary of Pauli matrices}
+% Table summarizing the basis with Pauli matrices
+\begin{table}[]
+\centering
+\caption{Basis vector in rectangular, cylindrical and spherical coordinate systems. 
+%
+The $\Be_i$ are a Clifford basis and correspond to the appropriate Pauli matrices.}
+%\hspace*{2.0cm}
+\label{sigmai_table2}
+%\begin{tabular}{l c l c  l  l  l }
+\begin{tabular}{| c | c | c | c | }
+\hline
+ & $\Be_1$ & $\Be_2$  & $\Be_3$  \\
+\hline
+ & & & \\
+rectangular 
+& $\sigma_1 = \begin{pmatrix}0 & 1\cr 1 & 0\end{pmatrix}$ 
+& $\sigma_2 = \begin{pmatrix}0 & -i\cr i & 0\end{pmatrix}$  
+& $\sigma_3 = \begin{pmatrix}1 & 0\cr 0 & -1\end{pmatrix} $ \\ 
+ & & & \\
+ \hline
+ & & & \\
+cylindrical 
+&  $\sigma_\rho =  \begin{pmatrix}0 & {e}^{-i\,\phi}\cr {e}^{i\,\phi} & 0\end{pmatrix}$ 
+&  $\sigma_\phi = \begin{pmatrix}0 & -i\,{e}^{-i\,\phi}\cr i\,{e}^{i\,\phi} & 0\end{pmatrix} $  
+&  $\sigma_3 = \begin{pmatrix}1 & 0\cr 0 & -1\end{pmatrix}$    \\
+ & & & \\
+ \hline
+ & & & \\
+spherical 
+&  $\sigma_r =  \begin{pmatrix}\cos \theta  & {e}^{-i\,\phi}\, \sin \theta \cr {e}^{i\,\phi}  \, \sin \theta & -\cos \theta \end{pmatrix}$ 
+&  $\sigma_\theta = \begin{pmatrix}-\sin\theta & {e}^{-i\,\phi}\, \cos \theta \cr {e}^{i\,\phi}  \, \cos \theta& \sin \theta \end{pmatrix}$  
+&  $\sigma_\phi  =  \begin{pmatrix}0 & -i\,{e}^{-i\,\phi}\cr i\,{e}^{i\,\phi} & 0\end{pmatrix}$  \\ 
+ & & & \\
+ \hline
+ \end{tabular}
+\end{table}
+\end{frame}
+
+
+
+%
+\begin{frame}[shrink=10]{Summary of vector expressions}
+\begin{eqnarray}
+ \tA  & = &  \sigma_1 A_x + \sigma_2 A_y  + \sigma_3 A_z \nonumber \\
+       & = &  \begin{pmatrix}{A}_{z} & {A}_{x}-i\,{A}_{y}\cr i\,{A}_{y}+{A}_{x} & -{A}_{z}\end{pmatrix}  \nonumber
+% H  & = &    \begin{pmatrix}{H}_{z} & {H}_{x}-j\,{H}_{y}\cr j\,{H}_{y}+{H}_{x} & -{H}_{z}\end{pmatrix} 
+\end{eqnarray}
+
+\bea 
+\tilde{A} & = &  \sigma_\rho A_\rho + \sigma_\phi A_\phi  + \sigma_3 A_z \nonumber \\
+& = & \begin{pmatrix}A_z & {e}^{-i\,\phi} \, \left( A_\rho-i\,A_\phi\right) \cr {e}^{i\,\phi} \, \left( A_\rho+i\,A_\phi\right)  & -A_z\end{pmatrix}
+\nonumber
+\eea
+
+\bea 
+\tilde{A} 
+& = &   \sigma_r A_r  + \sigma_\theta A_\theta +\sigma_\phi A_\phi   \nonumber \\
+& = &\begin{pmatrix} {A}_{r}\, \cos \theta-{A}_{\theta}\,\sin \theta  & 
+{e}^{-i\,\phi}\,\left({A}_{r}\, \sin \theta \,-i \,{A}_{\phi}+{A}_{\theta}\,\cos \theta\right) \cr 
+{e}^{i\,\phi}\,\left({A}_{r}\, \sin \theta \,+i \,{A}_{\phi}+{A}_{\theta}\,\cos \theta\right) & 
+-{A}_{r}\, \cos \theta+{A}_{\theta}\,\sin \theta
+\end{pmatrix} \nonumber
+\eea%
+\end{frame}
+%
+
+%
+\begin{frame}[shrink=10]{Summary of Nabla expressions}
+%
+%Fundamental identity (the geometric product):
+%%
+%\begin{eqnarray}
+% \nabla \, {\bf F}  & = &   \nabla \cdot \BF + \nabla \wedge \BF   \, .
+%\end{eqnarray}
+%
+Rectangular:
+\begin{eqnarray}
+\tnabla  & = &  
+ \sigma_1 \partial_x + \sigma_2 \partial_y  + \sigma_3 \partial_z \nonumber \\
+  & = &  
+ \begin{pmatrix}{\partial}_{z} & {\partial}_{x}-i\,{\partial}_{y}\cr i\,{\partial}_{y}+{\partial}_{x} & -{\partial}_{z}\end{pmatrix} \, \nonumber.
+  %
+\end{eqnarray}
+
+Cylindrical:
+%
+\bea
+\tilde{\nabla} & = & \sigma_\rho \, \partial_\rho + \frac{ 1 }{\rho}\sigma_\phi \, \partial_\phi + \sigma_z \, \partial_z \nonumber \\
+& = & \begin{pmatrix} \partial_z & 
+\frac{{e}^{-i\,\phi}}{\rho}\,\left(\rho\,{\partial}_{\rho} - i\,{\partial}_{\phi}\right) \cr 
+\frac{{e}^{i\,\phi}}{\rho}\,\left(\rho\,{\partial}_{\rho} + i\,{\partial}_{\phi}\right)  & -\partial_z \end{pmatrix} \nonumber 
+ \label{nablaPcyl2}
+\eea
+
+Spherical:
+\bea
+\tilde{\nabla} & = & \sigma_r \, \partial_r + \frac{ 1 }{r}\sigma_\theta \, \partial_\theta + \frac{1}{r \, \sin{\theta}} \sigma_\phi \, \partial_\phi \nonumber \\
+& = & 
+\begin{pmatrix}  \cos \theta \, {\partial}_{r} -\sin \theta \, {\partial}_{\theta}\,  & 
+{e}^{-i\,\phi}\,\left( \sin \theta\, {\partial}_{r} \,+\cos \theta \,{\partial}_{\theta}\,  -i \,{\partial}_{\phi}\right) \cr 
+{e}^{ i\,\phi}\,\left( \sin \theta\, {\partial}_{r} \,+\cos \theta \,{\partial}_{\theta}\,  +i \,{\partial}_{\phi}\right)& 
+-\left(\cos \theta \, {\partial}_{r} -\sin \theta \, {\partial}_{\theta}\,\right) \nonumber
+\end{pmatrix} 
+\label{nablaPsph2}
+\eea
+
+\end{frame}
+
+%\begin{frame}[shrink=00]{}
+%\end{frame}
+%
+%\begin{frame}[shrink=00]{}
+%\end{frame}
+%
+%
+
+%\begin{frame}[shrink=20]{Coordinate systems}
+%\end{frame}
+%\begin{frame}[shrink=20]{Coordinate systems}
+%\end{frame}
+%
+%\begin{frame}[shrink=20]{Coordinate systems}
+%\end{frame}
+%
+%\begin{frame}[shrink=20]{Coordinate systems}
+%\end{frame}
+%
+%\begin{frame}[shrink=20]{Coordinate systems}
+%\end{frame}
+%
+%\begin{frame}[shrink=20]{Coordinate systems}
+%\end{frame}
+%
+%\begin{frame}[shrink=20]{Coordinate systems}
+%\end{frame}
+%
+%\begin{frame}[shrink=20]{Coordinate systems}
+%\end{frame}
+%
+%\begin{frame}[shrink=20]{Coordinate systems}
+%\end{frame}
+%
+%\begin{frame}[shrink=20]{Coordinate systems}
+%\end{frame}
+%
+%\begin{frame}[shrink=20]{Coordinate systems}
+%\end{frame}
+%
+%\begin{frame}[shrink=20]{Coordinate systems}
+%\end{frame}
+
+
+
+\end{document}

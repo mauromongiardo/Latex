@@ -1,0 +1,73 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+
+print("Introduce functional dependence")$
+depends([a11,a12,a21,a22],[x,y,z]);
+
+/* specific values */
+/* in this case we are considering a scalar function f */
+print("This is the scalar function considered")$
+/* f : 1/sqrt(x^2+y^2+z^2); */
+/* f : 1/sqrt(x^2+y^2); */
+f : 24 * V[0] * sin(2*%pi* z/3) * cos(%pi * y /3);
+
+a11 : f$
+a12:  0$
+a21:  0$
+a22:  a11$
+
+print("Pauli matrix corresponding to a scalar function")$
+Ap : matrix([a11,a12],[a21,a22]); 
+
+/*_________________________________________________*/
+/* This part is the function that compute the nabla
+of a Pauli matrix in rectangular coordinates */
+
+Nablarect(Ap) := 
+block([],
+
+print("Nabla is"),
+
+NAp11 : diff(Ap[1,1],z)+diff(Ap[2,1],x)-%i*diff(Ap[2,1],y),
+NAp12 : diff(Ap[1,2],z)+diff(Ap[2,2],x)-%i*diff(Ap[2,2],y),
+NAp21 :-diff(Ap[2,1],z)+diff(Ap[1,1],x)+%i*diff(Ap[1,1],y),
+NAp22 :-diff(Ap[2,2],z)+diff(Ap[1,2],x)+%i*diff(Ap[1,2],y),
+
+NAp11 : factor(NAp11),
+NAp12 : factor(NAp12),
+NAp21 : factor(NAp21),
+NAp22 : factor(NAp22),
+
+NAp : (matrix([NAp11, NAp12],[NAp21, NAp22]))
+)$
+/*_________________________________________________*/
+
+NA  : Nablarect(Ap);
+
+NAx : 1/2*(NA[2,1]+NA[1,2])$
+NAy : 1/2*(NA[2,1]-NA[1,2])/%i$
+NAz : 1/2*(NA[1,1]-NA[2,2])$
+
+print('NAx," = ",NAx)$
+print('NAy," = ",NAy)$
+print('NAz," = ",NAz)$
+
+print("evaluate the gradient in (3,2,1)")$
+print("y component")$
+ev(NAy,x=3,y=2,z=1);
+print("z component")$
+ev(NAz,x=3,y=2,z=1);
+
+
+
+NNA : Nablarect(NA);/*
+print("The last result is to be expected since nabla ^ nabla ^f =0")$
+*/
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

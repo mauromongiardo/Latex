@@ -1,0 +1,79 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+
+T : 3;
+%lambda : 4;
+%psi : 0;
+A       : 1;
+
+max_x : 5;
+max_t : 4;
+
+%phi(x,t) := 2 * %pi * (t/T- x/%lambda) + %psi;
+
+y(x,t) := A * cos (%phi(x,t) + %psi);
+
+tp: 0;
+xp :0;
+
+yp(x) := y(x,tp);
+
+wxplot2d([yp(x)], [x,0,max_x])$
+
+tp: T/4;
+xp :0;
+
+yp(x) := y(x,tp);
+
+wxplot2d([yp(x)], [x,0,max_x])$
+
+tp: T/2;
+xp :0;
+
+yp(x) := y(x,tp);
+
+wxplot2d([yp(x)], [x,0,max_x])$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+
+T : 3;
+%lambda : 4;
+%psi : 0;
+A       : 1;
+
+max_x : 5;
+max_t : 4;
+
+%phi(x,t) := 2 * %pi * (t/T- x/%lambda) + %psi;
+
+y(x,t) := A * cos (%phi(x,t) + %psi);
+
+tp: 0;
+xp :0;
+
+yp(x) := y(x,tp);
+
+wxplot2d([yp(x)], [x,0,max_x])$
+
+tp: T/4;
+xp :0;
+
+yp(x) := y(x,tp);
+
+wxplot2d([yp(x)], [x,0,max_x])$
+
+tp: T/2;
+xp :0;
+
+yp(x) := y(x,tp);
+
+wxplot2d([yp(x)], [x,0,max_x])$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

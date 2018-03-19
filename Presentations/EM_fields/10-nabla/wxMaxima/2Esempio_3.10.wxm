@@ -1,0 +1,137 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+
+/* Nabla_cyl */
+print("Introduce functional dependence")$
+depends([a11,a12,a21,a22],[%rho,phi,z]);
+
+Ap : matrix([a11,a12],[a21,a22]); 
+
+/*_________________________________________________*/
+/* This part is the function that compute the nabla
+of a Pauli matrix in cylindrical coordinates */
+
+Nablacyl(Ap) := 
+block([],
+
+print("performing Nabla"),
+emp : %e^(- %i * phi),
+epp : %e^( %i * phi),
+
+NAp11 : diff(Ap[1,1],z)+emp*diff(Ap[2,1],%rho)-%i*emp/%rho*diff(Ap[2,1],phi),
+NAp12 : diff(Ap[1,2],z)+emp*diff(Ap[2,2],%rho)-%i*emp/%rho*diff(Ap[2,2],phi),
+NAp21 :-diff(Ap[2,1],z)+epp*diff(Ap[1,1],%rho)+%i*epp/%rho*diff(Ap[1,1],phi),
+NAp22 :-diff(Ap[2,2],z)+epp*diff(Ap[1,2],%rho)+%i*epp/%rho*diff(Ap[1,2],phi),
+
+NAp11 : factor(NAp11),
+NAp12 : factor(NAp12),
+NAp21 : factor(NAp21),
+NAp22 : factor(NAp22),
+
+NAp : (matrix([NAp11, NAp12],[NAp21, NAp22]))
+)$
+/*_________________________________________________*/
+
+/* Pauli matrices: cylindrical */
+%sigma[%rho] : matrix([0,%e^(-%i * phi)],[%e^(%i * phi),0])$
+%sigma[phi] : matrix([0,-%i * %e^(-%i * phi)],[%i * %e^(%i * phi),0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+%sigma[0] : matrix([1,0],[0,1])$
+
+depends(w,[%rho,phi,z]);
+
+print("____________________________________________")$
+print("Example 3.10 of Ulaby")$
+print("____________________________________________")$
+w : V[0]*%e^(-2*%rho)*sin(3*phi);
+
+a11 : w$ 
+a22: a11$
+a12:0 $ 
+a21 : 0$
+Ap : matrix([a11,a12],[a21,a22]); 
+
+NCAp : Nablacyl(Ap);
+
+print("retrieving the components")$
+
+print("rho component")$
+NCr : (NCAp . %sigma[%rho])$
+NCrho : trigsimp(1/2 * (NCr[1,1]+NCr[2,2] ));
+
+print("phi component")$
+NCp : (NCAp . %sigma[phi])$
+NCphi : trigsimp(1/2 * (NCp[1,1]+NCp[2,2] ));
+
+ev(NCrho,%rho=1,phi=%pi/2);
+ev(NCphi,%rho=1,phi=%pi/2);
+
+print("____________________________________________")$
+print("Exercise 3.10 of Ulaby")$
+print("____________________________________________")$
+print("given the vector A")$
+Arho : %rho * cos(phi) ;
+Aphi : %rho * sin(phi) ;
+Az : 3*z;
+
+print("compute the divergence in (2,0,3)")$
+print("Write the vector in Pauli matrix form")$
+Arpz : Arho * %sigma[%rho] + Aphi * %sigma[phi] + Az * %sigma[3];
+
+print("apply the nabla operator")$
+NCAp : Nablacyl(Arpz);
+
+print("Find the divergence")$
+divA : trigsimp(1/2*(NCAp[1,1]+NCAp[2,2]));
+
+print("which evaluated in the point gives")$
+ev(divA,%rho=2,phi=0,z=3);
+
+
+print("____________________________________________")$
+print("Exercise 3.13 of Ulaby")$
+print("____________________________________________")$
+print("compute curl A in the same point as before")$
+print("the vector now is")$
+Arho : 10*%e^(-2*%rho)*cos(phi);
+Aphi : 0;
+Az : 10 *sin(phi);
+
+print("Solution: ")$
+print("Express vector A in Pauli form")$
+Arpz : Arho * %sigma[%rho] + Aphi * %sigma[phi] + Az * %sigma[3];
+
+print("apply the nabla operator")$
+NCAp : Nablacyl(Arpz);
+
+print("Find the divergence")$
+divA : trigsimp(1/2*(NCAp[1,1]+NCAp[2,2]));
+
+NWA : trigsimp(NCAp - divA*%sigma[0]);
+
+print("rho component")$
+NCr : (NWA . %sigma[%rho])$
+NCrho : trigsimp(1/2 * (NCr[1,1]+NCr[2,2] ));
+
+print("phi component")$
+NCp : (NWA . %sigma[phi])$
+NCphi : trigsimp(1/2 * (NCp[1,1]+NCp[2,2] ));
+
+print("z component")$
+NCp : (NWA . %sigma[3])$
+NCz : trigsimp(1/2 * (NCp[1,1]+NCp[2,2] ));
+
+print("which evaluated in the point gives")$
+ev(NCrho,%rho=2,phi=0,z=3);
+ev(NCphi,%rho=2,phi=0,z=3);
+ev(NCz,%rho=2,phi=0,z=3);
+
+print("remember that nabla wedge A = i nabla x A")$
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

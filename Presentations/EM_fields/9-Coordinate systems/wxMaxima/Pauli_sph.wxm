@@ -1,0 +1,125 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition")$
+print("_________________________________________________________")$
+
+%sigma[0] : matrix([1,0],[0,1])$
+%sigma[1] : matrix([0,1],[1,0])$
+%sigma[2] : matrix([0,-%i],[%i,0])$
+%sigma[3] : matrix([1,0],[0,-1])$
+
+print('%sigma[0]," = ",%sigma[0])$
+print('%sigma[1]," = ",%sigma[1])$
+print('%sigma[2]," = ",%sigma[2])$
+print('%sigma[3]," = ",%sigma[3])$
+
+print("_________________________________________________________")$
+print("Obtaining Pauli matrices in spherical coordinates")$
+print("_________________________________________________________")$
+
+print("Representation of the unit vector ur as")$
+print(sin(%theta) * cos(phi)* '%sigma[1] + sin(%theta) * sin(phi)* '%sigma[2] + cos(%theta) * '%sigma[3])$
+ur : sin(%theta) * cos(phi)* %sigma[1] + sin(%theta) * sin(phi)* %sigma[2] + cos(%theta) * %sigma[3]$
+ur : factor(ur);
+udst: ratsimp(exponentialize((ur[2,1])/sin(%theta)))$
+ur[2,1] : udst*sin(%theta)$
+udst: ratsimp(exponentialize((ur[1,2])/sin(%theta)))$
+ur[1,2] : udst*sin(%theta)$
+print("or")$
+ur;
+
+print("Representation of the unit vector utheta as")$
+print(sin(%theta) * cos(phi)* '%sigma[1] + sin(%theta) * sin(phi)* '%sigma[2] + cos(%theta) * '%sigma[3])$
+utheta : cos(%theta) * cos(phi)* %sigma[1] + cos(%theta) * sin(phi)* %sigma[2] - sin(%theta) * %sigma[3]$
+utheta : factor(utheta);
+udst: ratsimp(exponentialize((utheta[2,1])/cos(%theta)))$
+utheta[2,1] : udst*cos(%theta)$
+udst: ratsimp(exponentialize((utheta[1,2])/cos(%theta)))$
+utheta[1,2] : udst*cos(%theta)$
+print("or")$
+utheta;
+
+print("Representation of the unit vector \phi as")$
+print(- sin(phi)* '%sigma[1] + cos(phi)* '%sigma[2])$
+uphi : - sin(phi)* %sigma[1] + cos(phi)* %sigma[2]$
+uphi : ratsimp(exponentialize(uphi));
+
+print("_________________________________________________________")$
+print("Pauli Matrices Definition Spherical")$
+print("_________________________________________________________")$
+
+ct : cos(%theta)$
+st : sin(%theta)$
+
+%sigma[r] : matrix([ct,st * %e^(-%i * phi)],[st * %e^(%i * phi),-ct])$
+%sigma[%theta] : matrix([-st,ct  * %e^(-%i * phi)],[ct * %e^(%i * phi),st])$
+%sigma[phi] : matrix([0,-%i * %e^(-%i * phi)],[%i * %e^(%i * phi),0])$
+
+print('%sigma[r]," = ",%sigma[r])$
+print('%sigma[%theta]," = ",%sigma[%theta])$
+print('%sigma[phi]," = ",%sigma[phi])$
+
+print("vector in spherical coordinates")$
+Asph : ratsimp(factor(A[r]*%sigma[r]+A[%theta]*%sigma[%theta]+A[phi]*%sigma[phi]));
+
+print("Squared matrices")$
+trigsimp(%sigma[r] . %sigma[r]);
+trigsimp(%sigma[%theta] . %sigma[%theta]);
+%sigma[phi] . %sigma[phi];
+
+print("Alternating rules")$
+trigsimp(%sigma[r] . %sigma[%theta] - %i * %sigma[phi]);
+%sigma[%theta] . %sigma[phi] - %i * %sigma[r];
+%sigma[phi] . %sigma[r] - %i * %sigma[%theta];
+
+print("Determinants")$
+trigsimp(determinant(%sigma[r]));
+trigsimp(determinant(%sigma[%theta]));
+determinant(%sigma[phi]);
+
+print("Transformation matrices")$
+%sigma[r] . %sigma[1];
+%sigma[%theta]  . %sigma[2];
+%sigma[phi]  . %sigma[3];
+
+print("vector decompositions")$
+print("obtaining A vector components")$
+
+print("From rectangular to spherical")$
+
+print("Dot multiplication with %sigma[r] allows to retrieve the r component")$
+sr1 :A[x] * trigsimp(%sigma[r] . %sigma[1]) + A[y] * trigsimp(%sigma[r] . %sigma[2]) + A[z] * trigsimp(%sigma[r] . %sigma[3])  ;
+Ar : factor(realpart(1/2 * (sr1[1,1]+sr1[2,2])));
+
+print("Dot multiplication with %sigma[%theta] allows to retrieve the %theta component")$
+sr1 :A[x] * trigsimp(%sigma[%theta] . %sigma[1]) + A[y] * trigsimp(%sigma[%theta] . %sigma[2]) + A[z] * trigsimp(%sigma[%theta] . %sigma[3])  ;
+Atheta : ratsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))));
+
+print("Dot multiplication with %sigma[phi] allows to retrieve the phi component")$
+sr1 :A[x] * trigsimp(%sigma[phi] . %sigma[1]) + A[y] * trigsimp(%sigma[phi] . %sigma[2]) + A[z] * trigsimp(%sigma[phi] . %sigma[3])  ;
+Aphi : ratsimp(factor(realpart(1/2 * (sr1[1,1]+sr1[2,2]))));
+
+print("From spherical to rectangular")$
+
+print("Dot multiplication with %sigma[1] allows to retrieve the x component")$
+sr1 :A[r] * trigsimp(%sigma[r] . %sigma[1]) + A[%theta] * trigsimp(%sigma[%theta] . %sigma[1]) + A[phi] * trigsimp(%sigma[phi] . %sigma[1])  ;
+Ar : factor(realpart(1/2 * (sr1[1,1]+sr1[2,2])));
+
+print("Dot multiplication with %sigma[2] allows to retrieve the y component")$
+sr1 :A[r] * trigsimp(%sigma[r] . %sigma[2]) + A[%theta] * trigsimp(%sigma[%theta] . %sigma[2]) + A[phi] * trigsimp(%sigma[phi] . %sigma[2])  ;
+Ar : factor(realpart(1/2 * (sr1[1,1]+sr1[2,2])));
+
+print("Dot multiplication with %sigma[3] allows to retrieve the z component")$
+sr1 :A[r] * trigsimp(%sigma[r] . %sigma[3]) + A[%theta] * trigsimp(%sigma[%theta] . %sigma[3]) + A[phi] * trigsimp(%sigma[phi] . %sigma[3])  ;
+Ar : factor(realpart(1/2 * (sr1[1,1]+sr1[2,2])));
+
+print("end")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

@@ -1,0 +1,29 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+load(vect)$
+
+/* numerical 
+fpprintprec:5$
+ratprint : false$
+x :5.0 ;
+y :2.0 ;
+z :4.6 ;
+*/
+
+/* rectangular to cylindrical */
+%rho : sqrt(x^2+y^2)$
+phi : atan2(y,x)$
+z :z$
+print("rectangular to cylindrical")$
+print('%rho, " = ",%rho)$
+print('phi, " = ",phi)$
+print('z, " = ",z)$
+
+print("bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

@@ -1,0 +1,84 @@
+/*******************************
+Clifford algebra
+a lightweight package for performing Geometric Algebra calculations
+
+tests for version
+ v 20
+ 
+usage:
+file_search_maxima: append (file_search_maxima,["/path/to/clifford.mac"]);
+batch("rtest_clifford", test);
+
+@depends clifford.mac
+
+**********************************
+ * @license This library is free software; you can redistribute it and/or
+ *      modify it under the terms of the GNU Lesser General Public
+ *      License as published by the Free Software Foundation; either
+ *      version 2.1 of the License, or (at your option) any later version.
+ *
+ *      This library is distributed in the hope that it will be useful,
+ *      but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *       Lesser General Public License for more details.
+ *
+ *      You should have received a copy of the GNU Lesser General Public
+ *      License along with this library; if not, write to the Free Software
+ *      Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ (kill(all),
+  %start : absolute_real_time(),
+    %path:"C:/Dropbox/maxima/$$$.{mac,mc}",
+  file_search_maxima:append (file_search_maxima , [%path]),
+  load("clifford"),
+  'done);
+'done$
+get('clifford,'version);
+v20$
+/*a | b + a & b;
+a.b$*/
+(A1: a & b &c + b & c & a + c& a &b, 
+ratsimp(A1+(- a . b . c - a . c . 'cinvolve(b)+a . 'cinvolve(c) . 'cinvolve(b)+
+'cinvolve(a) . 'cinvolve(b) . 'cinvolve(c)- b . a . 'cinvolve(c)+b . 'cinvolve(a)
+ . 'cinvolve(c)- b . c . a+'cinvolve(b) . 'cinvolve(c) . 'cinvolve(a)- c . a . b - 
+c . b . 'cinvolve(a)+c . 'cinvolve(b) . 'cinvolve(a)+'cinvolve(c) . 'cinvolve(a)
+ . 'cinvolve(b))/4));
+ 0$
+clifford(e,3);
+[1,1,1]$
+celem(A,[t,x,y,z]);
+A[t]+e[1]*A[x]+e[2]*A[y]+e[3]*A[z]$
+scalarp(A);
+true$
+scalarp(z);
+true$
+(d:cvect([x1,y1,z1]),
+scalarp(z1));
+true$
+(v1:cvect(v,[x,y,z]),
+scalarp(v));
+true$
+(clifford(g,1,3),
+vectorp(g[1]));
+true$
+rr:cvect([t,x,y,z]);
+g[1]*t+g[2]*x+g[3]*y+g[4]*z$
+(
+declare(phi, scalar),
+R1: cos(phi/2)+ g[2].g[3]*sin(phi/2),
+R2: dotreverse(R1)
+);
+cos(phi/2)-(g[2] . g[3])*sin(phi/2)$
+rot:R1.rr.R2,cliffsimpall;
+(g[1]*cos(phi/2)^2+g[1]*sin(phi/2)^2)*t+(g[2]*cos(phi/2)^2+2*g[3]*cos(phi/2)*sin(phi/2)-g[2]*sin(phi/2)^2)*x+
+(g[3]*cos(phi/2)^2-2*g[2]*cos(phi/2)*sin(phi/2)-g[3]*sin(phi/2)^2)*y+(g[4]*cos(phi/2)^2+g[4]*sin(phi/2)^2)*z$
+trigreduce(rot);
+g[1]*t+g[2]*cos(phi)*x+g[3]*sin(phi)*x+g[3]*cos(phi)*y-g[2]*sin(phi)*y+g[4]*z$
+/*
+clidet([e[1] ,e[2],e[3] ,e[1]]);
+0$
+clidet([e[1] ,e[2],e[3] ,e[2]]);
+0$
+clidet([e[1] ,e[2],e[3] ,e[3]]);
+0$
+*/

@@ -1,0 +1,31 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+load(vect)$
+/* c2r.wxm */
+
+/* numerical
+fpprintprec:5$
+ratprint : false$
+%rho :5.0 ;
+phi : 3.14/4.0 ;
+z :4.6 ;
+ */
+
+/* cylindrical to rectangular */
+x : %rho * cos(phi)$
+y : %rho * sin(phi)$
+z : z$
+
+print("cylindrical to rectangular")$
+print('x, " = ",x)$
+print('y, " = ",y)$
+print('z, " = ",z)$
+
+print("bye")$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

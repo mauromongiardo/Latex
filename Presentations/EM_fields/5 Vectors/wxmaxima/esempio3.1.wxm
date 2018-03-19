@@ -1,0 +1,66 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 17.05.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+load(vect);
+fpprintprec:7$
+
+print("Vector A is the vector from the origin to point P1")$
+print("Point P1 has coordinates")$
+ P[1] : [2,3,3]; 
+/* P[1] : [1,2,3]; */
+
+
+print("vector B starts from P1 and ends in P2 which is")$
+ P[2] : [1,-2,2]; 
+/* P[2] : [3,-2,2];*/
+
+print("Find: vector A its modulus and versor a")$
+print("the angle of A with the y axes")$
+print("vector B")$
+
+print("=========================")$
+print("Solution")$
+print("vector A is ")$
+A : P[1];
+print("its modulus is")$
+modA : sqrt(A . (A));
+print("versor a")$
+a : A /modA;
+
+print("define the versors")$
+x[0] : [1,0,0];
+y[0] : [0,1,0];
+z[0] : [0,0,1];
+
+print("The angle between A and y axis: A . y[0] = abs(A) cos(%beta)")$
+float((A. y[0])/modA);
+%beta : float(acos((A. y[0])/modA));
+float(%beta *180/%pi);
+
+
+print("vector B is ")$
+B : P[2]-P[1];
+print("with modulus")$
+modB : float(sqrt(B . (B)));
+print("versor b")$
+b : B /modB;
+
+print("theta is the angle between A and B")$
+%theta : float(acos((A.B)/(modA * modB))) * float(180/%pi);
+
+print("distance is")$
+dist : float(modA * sin(%pi - %theta*%pi/180));
+/* */
+print("bye")$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+acos(.6396021);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$
